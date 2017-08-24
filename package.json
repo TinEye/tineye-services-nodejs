@@ -16,6 +16,7 @@
   "author": "Michael Clifford <cliff@onradpad.com>",
   "license": "MIT",
   "dependencies": {
+    "form-data": "^2.2.0",
     "got": "^6.3.0",
     "object-assign": "^4.1.0"
   },
