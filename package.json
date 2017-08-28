@@ -1,19 +1,19 @@
 {
   "name": "tineye-matchengine",
-  "version": "0.0.1",
-  "description": "TinEye MatchEngine API node.js library",
+  "version": "0.0.2",
+  "description": "TinEye Services API node.js library",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha ./test/testAdd.js"
+    "test": "mocha ./test/test*.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/RadPad/tineye-matchengine"
+    "url": "https://github.com/jgould22/tineye-services"
   },
-  "author": "Michael Clifford <cliff@onradpad.com>",
+  "author": "Jordan Gould <jgould22@uwo.ca>",
   "license": "MIT",
   "dependencies": {
     "form-data": "^2.2.0",

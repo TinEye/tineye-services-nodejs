@@ -3,10 +3,10 @@ var assert = chai.assert;
 var mocha = require('mocha');
 const { MatchEngine }= require('../../tineye-services');
 const fs = require('fs');
-const libxmljs = require('libxmljs')
+const libxmljs = require('libxmljs');
+var config = require('./testConfig.js');
 
-matchengine = new MatchEngine('', '', '', 'staging02.tc:5000/rest/');
-
+var matchengine = new MatchEngine('', '', '', config.host + ':' + config.port + '/rest/');
 
 describe('MatchEngine Add', function() {
 
