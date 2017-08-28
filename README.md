@@ -46,30 +46,12 @@ const { MatchEngine } = require('tineye-services')
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
 ### Methods
-Below are methods available for 
-#### Count
-```node
-/**
- * Counts Images in collection
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
- */
-matchengine.list({options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
-});
-```
+Below are methods available for MatchEngine
 #### Add URL
 ```node
 /**
  * Add an image to an image collection
- * @param params.url - Required URL of an image.
+ * @param params.rl - Required URL of an image.
  * @param params.filepath - Optional remote filepath for the image
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
@@ -100,6 +82,60 @@ matchengine.add(paramdd an Image to an image collections, options, function call
 	  "result": []
 	}
 })
+```
+#### Compare
+When comparing images you must have at least one url, image or filepath for each image being compared
+```node
+/**
+ * Compare two images in collection
+ * @param params.url1 
+ * @param params.image1 
+ * @param params.filepath1
+ * @param params.url2
+ * @param params.image2
+ * @param params.filepath2
+ * @param params.minScore
+ * @param params.check_horizontal_flip
+ * @param params.generate_overlay
+ * @param params.enhanced_score
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.compare({params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "compare",
+	    "result": [
+		{
+		    "target_overlap_percent": 99.22,
+		    "query_overlap_percent": 98.59,
+		    "filepath": "match.jpg",
+		    "listscore_enhanced": 68.2,
+		    "score": 65.9,
+		    "match_percent": 92.11
+		}
+	    ]
+	}
+});
+```
+#### Count
+```node
+/**
+ * Counts Images in collection
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.count({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "count",
+	  "result": [
+	    4
+	  ]
+	}
+});
 ```
 #### Delete 
 ```node
@@ -148,7 +184,7 @@ matchengine.list({params, options, function(err, data) {
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
-matchengine.list({options, function(err, data) {
+matchengine.ping({options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
