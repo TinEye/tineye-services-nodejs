@@ -8,7 +8,7 @@ Official API documentation available at https://services.tineye.com/docs
 
 # Table of Contents
 1. [Installation](#Installation)
-2. [Basic Usage](#Basic Usage)
+2. [Usage](#Usage)
 3. [Services](#Services)
 
 
@@ -16,7 +16,7 @@ Official API documentation available at https://services.tineye.com/docs
 ```shell
 npm install tineye-services
 ```
-# Basic Usage
+# Usage
 
 ```node
 const { MatchEngine } = require('tineye-services')
