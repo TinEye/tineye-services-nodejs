@@ -6,11 +6,17 @@ Learn more at www.tineye.com
 
 Official API documentation available at https://services.tineye.com/docs
 
-## Installation
+# Table of Contents
+1. [Installation](#Installation)
+2. [Basic Usage](#Basic Usage)
+3. [Services](#Services)
+
+
+# Installation
 ```shell
 npm install tineye-services
 ```
-## Basic Usage
+# Basic Usage
 
 ```node
 const { MatchEngine } = require('tineye-services')
@@ -30,7 +36,7 @@ matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
         console.log(err.message)
 })
 ```
-## Services
+# Services
 All of the below services accept the following optional common parameters object
 ```javascript
 options = {
@@ -40,8 +46,8 @@ options = {
 }
 ```
 
-### Match Engine
-Once TinEye Services is installed you can include and configure Match Engine 
+## Match Engine
+Once TinEye Services is installed you can include and configure MatchEngine 
 ```node
 const { MatchEngine } = require('tineye-services')
 
@@ -49,9 +55,9 @@ const { MatchEngine } = require('tineye-services')
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
 
-#### Methods
-Below are methods available for Match Engine
-##### Add URL
+### Methods
+Below are methods available for MatchEngine
+#### Add URL
 ```node
 /**
  * Add an image to an image collection
@@ -66,7 +72,7 @@ matchengine.add(params, options, function callback (err, data) {
     // ...
 })
 ```
-##### Add Image File
+#### Add Image File
 ```node
 /**
  * Add an image to an image collection
@@ -81,7 +87,7 @@ matchengine.add(paramdd an Image to an image collections, options, function call
     // ...
 })
 ```
-##### Delete 
+#### Delete 
 ```node
 /**
  * Delete an image from the collection
