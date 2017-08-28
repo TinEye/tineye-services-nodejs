@@ -14,17 +14,16 @@ npm install tineye-services
 
 ```node
 const { MatchEngine } = require('tineye-services')
-const fs = require('fs')
 
 //url is optional, if none is specified then defualt is https://matchengine.tineye.com/
-matchengine = new MatchEngine('userName', 'password', 'companyName', 'url')
+matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 
 //Sample Image URL
 url = 'http://tineye.com/images/meloncat.jpg'
 
 // Add an image to your index
 //Requires both url and file path
-matchengine.add({ url: url }, function (err, data) {
+matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
     if (!err)
         console.log(data)
     else
@@ -47,7 +46,7 @@ Once Tineye Services is installed you can include and configure Match Engine
 const { MatchEngine } = require('tineye-services')
 
 //url is optional, if none is specified then defualt is https://matchengine.tineye.com/
-matchengine = new MatchEngine('userName', 'password', 'companyName', 'url')
+matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
 
 #### Methods
@@ -56,10 +55,10 @@ Below are methods available for Match Engine
 ```node
 /**
  * Add an Image to an image collection
- * @param params - Obect containing required parameters for
- * @param params.url - The URL of an image.
+ * @param params - Object containing required parameters for
+ * @param params.url - Required URL of an image.
  * @param params.filepath - Optional remote filepath for the image
- * @param options - optional object containing common parameters
+ * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
 matchengine.add(params, options, function callback (err, data) {
@@ -70,11 +69,11 @@ matchengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an Image to an image collection
- * @param params - Obect containing required parameters for
- * @param params.image - Path to an image file 
+ * @param params - Object containing required parameters for
+ * @param params.image - Required path to an image file 
  * @param params.filepath - Required remote filepath for the image
- * @param options - optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional object containing common parameters
+ * @param callback - Callback function returing err or data
  */
 matchengine.add(params, options, function callback (err, data) {
     //...
@@ -84,9 +83,9 @@ matchengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an Image to an image collection
- * @param params - Obect containing required parameters for
+ * @param params - Object containing required parameters for
  * @param params.filepath - Required remote filepath for the image
- * @param options - optional object containing common parameters
+ * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
 matchengine.delete(params, options, function callback(err, data) {
