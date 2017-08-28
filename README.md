@@ -55,7 +55,14 @@ Below are methods available for
  * @param callback - callback function returing err or data
  */
 matchengine.list({options, function(err, data) {
-		// ...		
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "count",
+	  "result": [
+	    4
+	  ]
+	}
 });
 ```
 #### Add URL
@@ -68,7 +75,12 @@ matchengine.list({options, function(err, data) {
  * @param callback - callback function returing err or data
  */
 matchengine.add(params, options, function callback (err, data) {
-    // ...
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "add",
+	  "result": []
+	}
 })
 ```
 #### Add Image File
@@ -81,7 +93,12 @@ matchengine.add(params, options, function callback (err, data) {
  * @param callback - Callback function returing err or data
  */
 matchengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
-    // ...
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "add",
+	  "result": []
+	}
 })
 ```
 #### Delete 
@@ -93,7 +110,12 @@ matchengine.add(paramdd an Image to an image collections, options, function call
  * @param callback - callback function returing err or data
  */
 matchengine.delete(params, options, function callback(err, data) {
-    // ...
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "delete",
+	  "result": []
+	}
 })
 ```
 #### List
@@ -106,5 +128,31 @@ matchengine.delete(params, options, function callback(err, data) {
  * @param callback - callback function returing err or data
  */
 matchengine.list({params, options, function(err, data) {
-		// ...		
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "list",
+	  "result": [
+	    "melonCat",
+	    "limeCat.jpg",
+	    "meloncat.jpg",
+	    "image.jpg"
+	  ]
+	}
+});
+```
+#### Ping
+```node
+/**
+ * Pings Server
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.list({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "ping",
+	  "result": []
+	}
 });
