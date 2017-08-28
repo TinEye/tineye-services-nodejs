@@ -1,23 +1,14 @@
 # TinEye Services
-
 TinEye services is a module that is designed to work with TinEye products: MatchEngine, MobileEngine, MulticolorEngine and WineEngine. 
 
 Learn more at www.tineye.com
 
 Official API documentation available at https://services.tineye.com/docs
-
-# Table of Contents
-1. [Installation](#Installation)
-2. [Basic Usage](#Basic-Usage)
-3. [Services](#Services)
-
-
 # Installation
 ```shell
 npm install tineye-services
 ```
 # Basic Usage
-
 ```node
 const { MatchEngine } = require('tineye-services')
 
@@ -54,9 +45,19 @@ const { MatchEngine } = require('tineye-services')
 // url is optional, if none is specified then defualt is https://matchengine.tineye.com/
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
-
 ### Methods
-Below are methods available for MatchEngine
+Below are methods available for 
+#### Count
+```node
+/**
+ * Counts Images in collection
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.list({options, function(err, data) {
+		// ...		
+});
+```
 #### Add URL
 ```node
 /**
@@ -99,7 +100,7 @@ matchengine.delete(params, options, function callback(err, data) {
 ```node
 /**
  * List Images in collection
- * @param params.offset - Optional skips that many images in the collection, defaults to 0. 0 means to not skip any items.
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0.
  * @param params.limit - Optional limits the results to this many images, defaults to 20. 
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
@@ -107,4 +108,3 @@ matchengine.delete(params, options, function callback(err, data) {
 matchengine.list({params, options, function(err, data) {
 		// ...		
 });
-
