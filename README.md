@@ -8,7 +8,7 @@ Official API documentation available at https://services.tineye.com/docs
 
 # Table of Contents
 1. [Installation](#Installation)
-2. [Usage](#Usage)
+2. [Basic Usage](#Basic-Usage)
 3. [Services](#Services)
 
 
@@ -16,7 +16,7 @@ Official API documentation available at https://services.tineye.com/docs
 ```shell
 npm install tineye-services
 ```
-# Usage
+# Basic Usage
 
 ```node
 const { MatchEngine } = require('tineye-services')
@@ -61,13 +61,11 @@ Below are methods available for MatchEngine
 ```node
 /**
  * Add an image to an image collection
- * @param params - Object containing required parameters for
  * @param params.url - Required URL of an image.
  * @param params.filepath - Optional remote filepath for the image
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
- 
 matchengine.add(params, options, function callback (err, data) {
     // ...
 })
@@ -76,13 +74,11 @@ matchengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params - Object containing required parameters for
  * @param params.image - Required path to an image file 
  * @param params.filepath - Required remote filepath for the image
  * @param options - Optional object containing common parameters
  * @param callback - Callback function returing err or data
  */
- 
 matchengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
     // ...
 })
@@ -91,12 +87,24 @@ matchengine.add(paramdd an Image to an image collections, options, function call
 ```node
 /**
  * Delete an image from the collection
- * @param params - Object containing required parameters for
  * @param params.filepath - Required remote filepath for the image
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
- 
 matchengine.delete(params, options, function callback(err, data) {
     // ...
 })
+```
+#### List
+```node
+/**
+ * List Images in collection
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0. 0 means to not skip any items.
+ * @param params.limit - Optional limits the results to this many images, defaults to 20. 
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.list({params, options, function(err, data) {
+		// ...		
+});
+
