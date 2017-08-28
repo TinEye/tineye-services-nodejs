@@ -52,13 +52,13 @@ matchengine = new MatchEngine('userName', 'password', 'companyName', 'url')
 
 #### Methods
 Below are methods available for Match Engine
-##### Add
+##### Add URL
 ```node
 /**
  * Add an Image to an image collection
  * @param params - Obect containing required parameters for
  * @param params.url - The URL of an image.
- * @param params.filepath - The remote filepath for the image
+ * @param params.filepath - Optional remote filepath for the image
  * @param options - optional object containing common parameters
  * @param callback - callback function returing err or data
  */
@@ -66,3 +66,29 @@ matchengine.add(params, options, function callback (err, data) {
     //...
 })
 ```
+##### Add Image File
+```node
+/**
+ * Add an Image to an image collection
+ * @param params - Obect containing required parameters for
+ * @param params.image - Path to an image file 
+ * @param params.filepath - Required remote filepath for the image
+ * @param options - optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.add(params, options, function callback (err, data) {
+    //...
+})
+```
+##### Delete 
+```node
+/**
+ * Add an Image to an image collection
+ * @param params - Obect containing required parameters for
+ * @param params.filepath - Required remote filepath for the image
+ * @param options - optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.delete(params, options, function callback(err, data) {
+    //...
+})
