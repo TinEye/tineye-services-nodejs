@@ -2,7 +2,8 @@
 
 Tineye services is a module that is designed to work with tineye products: Match Engine, Mobile Engine, Multicolor Engine and Wine Engine. 
 
-Learn more at www.tineye.com
+Learn more at www.tineye.
+
 Official Documentation Available at https://services.tineye.com/docs
 
 ## Installation
@@ -51,6 +52,7 @@ matchengine = new MatchEngine('userName', 'password', 'companyName', 'url')
 
 #### Methods
 Below are methods available for Match Engine
+##### Add
 ```node
 /**
  * Add an Image to an image collection
