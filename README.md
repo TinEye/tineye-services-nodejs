@@ -46,30 +46,12 @@ const { MatchEngine } = require('tineye-services')
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
 ### Methods
-Below are methods available for 
-#### Count
-```node
-/**
- * Counts Images in collection
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
- */
-matchengine.list({options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
-});
-```
+Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/
 #### Add URL
 ```node
 /**
  * Add an image to an image collection
- * @param params.url - Required URL of an image.
+ * @param params.rl - Required URL of an image.
  * @param params.filepath - Optional remote filepath for the image
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
@@ -101,6 +83,60 @@ matchengine.add(paramdd an Image to an image collections, options, function call
 	}
 })
 ```
+#### Compare
+When comparing images you must have at least one url, image or filepath for each image being compared
+```node
+/**
+ * Compare two images in collection
+ * @param params.url1 
+ * @param params.image1 
+ * @param params.filepath1
+ * @param params.url2
+ * @param params.image2
+ * @param params.filepath2
+ * @param params.minScore
+ * @param params.check_horizontal_flip
+ * @param params.generate_overlay
+ * @param params.enhanced_score
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.compare({params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "compare",
+	    "result": [
+		{
+		    "target_overlap_percent": 99.22,
+		    "query_overlap_percent": 98.59,
+		    "filepath": "match.jpg",
+		    "listscore_enhanced": 68.2,
+		    "score": 65.9,
+		    "match_percent": 92.11
+		}
+	    ]
+	}
+});
+```
+#### Count
+```node
+/**
+ * Counts images in collection
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.count({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "count",
+	  "result": [
+	    4
+	  ]
+	}
+});
+```
 #### Delete 
 ```node
 /**
@@ -121,7 +157,7 @@ matchengine.delete(params, options, function callback(err, data) {
 #### List
 ```node
 /**
- * List Images in collection
+ * List images in collection
  * @param params.offset - Optional skips that many images in the collection, defaults to 0.
  * @param params.limit - Optional limits the results to this many images, defaults to 20. 
  * @param options - Optional object containing common parameters
@@ -141,6 +177,46 @@ matchengine.list({params, options, function(err, data) {
 	}
 });
 ```
+#### Search
+```node
+/**
+ * Search images in collection
+ * @param params.url1 
+ * @param params.image1 
+ * @param params.filepath1
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0.
+ * @param params.limit - Optional limits the results to this many images, defaults to 20. 
+ * @param params.minScore
+ * @param params.check_horizontal_flip
+ * @param params.generate_overlay
+ * @param params.enhanced_score
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.search({params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "search",
+	    "result": [
+		{
+		    "match_percent": 89.52,
+		    "score": 97.2,
+		    "target_overlap_percent": 95.62,
+		    "query_overlap_percent": 72.37,
+		    "filepath": "path/folder/match1.png"
+		},
+		{
+		    "match_percent": 82.83,
+		    "score": 94.5,
+		    "target_overlap_percent": 87.13,
+		    "query_overlap_percent": 97.17,
+		    "filepath": "path/folder/match2.png"
+		}
+	    ]
+	}
+});
+```
 #### Ping
 ```node
 /**
@@ -148,7 +224,7 @@ matchengine.list({params, options, function(err, data) {
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
-matchengine.list({options, function(err, data) {
+matchengine.ping({options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
