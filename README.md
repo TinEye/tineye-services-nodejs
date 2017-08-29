@@ -37,7 +37,7 @@ options = {
 }
 ```
 
-## Match Engine
+## MatchEngine
 Once TinEye Services is installed you can include and configure MatchEngine 
 ```node
 const { MatchEngine } = require('tineye-services')
@@ -46,7 +46,7 @@ const { MatchEngine } = require('tineye-services')
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
 ### Methods
-Below are methods available for 
+Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/
 #### Count
 ```node
 /**
@@ -363,7 +363,7 @@ const { WineEngine } = require('tineye-services')
 wineengine = new WineEngine('user_name', 'password', 'company_name', 'url')
 ```
 ### Methods
-Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/mobileengine/
+Below are methods available for WineEngine, for more information on parameters and responses go to https://services.tineye.com/developers/wineengine/
 #### Add URL
 ```node
 /**
@@ -447,13 +447,11 @@ wineengine.delete(params, options, function callback(err, data) {
 wineengine.list({params, options, function(err, data) {
 	data = {
 	  "status": "ok",
-	  "error": [],
 	  "method": "list",
+	  "error": [],
 	  "result": [
-	    "melonCat",
-	    "limeCat.jpg",
-	    "meloncat.jpg",
-	    "image.jpg"
+	    "path/folder/2.jpg",
+	    "path/folder/3.jpg"
 	  ]
 	}
 });
@@ -462,39 +460,65 @@ wineengine.list({params, options, function(err, data) {
 ```node
 /**
  * Search images in collection
- * @param params.url1 
- * @param params.image1 
- * @param params.filepath1
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
+ * @param params.url
+ * @param params.image
+ * @param params.filepath
  * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param params.minScore
- * @param params.check_horizontal_flip
  * @param params.generate_overlay
- * @param params.enhanced_score
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
 wineengine.search({params, options, function(err, data) {
 	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "search",
-	    "result": [
-		{
-		    "match_percent": 89.52,
-		    "score": 97.2,
-		    "target_overlap_percent": 95.62,
-		    "query_overlap_percent": 72.37,
-		    "filepath": "path/folder/match1.png"
+	  "status": "ok",
+	  "method": "search",
+	  "error": [],
+	  "query_image": {
+	    "filepath": "query_image.jpg",
+	    "metadata": {
+	      "vintage_year": 2013,
+	      "vintage_rect": {
+		"top": 364,
+		"right": 277,
+		"bottom": 391,
+		"left": 237
+	      },
+	      "label_rect": {
+		"top": 256,
+		"right": 384,
+		"bottom": 704,
+		"left": 48
+	      }
+	    }
+	  },
+	  "result": [
+	    {
+	      "filepath": "h&b_label.jpg",
+	      "score": 34,
+	      "match_percent": 49.15,
+	      "query_overlap_percent": 49.35,
+	      "target_overlap_percent": 80.82,
+	      "overlay": "overlay/?query=query_image.jpg&target=h%26b_label.jpg&sc_2=0.625942&\
+	      tr_2_x=162.408&tr_2_y=534.414&  fd_2_z=1262.32&fd_2_x=299.411&fd_2_y=342.536&\
+	      rot_1_y=-0.349066&rot_1_x=-0.523599&rot_1_z=0.0&rot_2_z=0.163794&rot_2_x=-0.599223&\
+	      rot_2_y=-0.282812&fd_1_y=480.25&fd_1_x=216.0&fd_1_z=784.5",
+	      "metadata": {
+		"vintage_year": "2013",
+		"vintage_rect": {
+		  "top": 151,
+		  "right": 354,
+		  "bottom": 192,
+		  "left": 288
 		},
-		{
-		    "match_percent": 82.83,
-		    "score": 94.5,
-		    "target_overlap_percent": 87.13,
-		    "query_overlap_percent": 97.17,
-		    "filepath": "path/folder/match2.png"
+		"label_rect": {
+		  "top": 0,
+		  "right": 552,
+		  "bottom": 685,
+		  "left": 0
 		}
-	    ]
+	      }
+	    }
+	  ]
 	}
 });
 ```
