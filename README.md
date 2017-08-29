@@ -354,3 +354,163 @@ mobileengine.ping({options, function(err, data) {
 	}
 });
 ```
+## WineEngine
+Once TinEye Services is installed you can include and configure WineEngine 
+```node
+const { WineEngine } = require('tineye-services')
+
+// url is optional, if none is specified then defualt is https://wineengine.tineye.com/
+wineengine = new WineEngine('user_name', 'password', 'company_name', 'url')
+```
+### Methods
+Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/mobileengine/
+#### Add URL
+```node
+/**
+ * Add an image to an image collection
+ * @param params.rl - Required URL of an image.
+ * @param params.filepath - Optional remote filepath for the image
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+wineengine.add(params, options, function callback (err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "add",
+	  "result": []
+	}
+})
+```
+#### Add Image File
+```node
+/**
+ * Add an image to an image collection
+ * @param params.image - Required path to an image file 
+ * @param params.filepath - Required remote filepath for the image
+ * @param options - Optional object containing common parameters
+ * @param callback - Callback function returing err or data
+ */
+wineengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "add",
+	  "result": []
+	}
+})
+```
+#### Count
+```node
+/**
+ * Counts images in collection
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+wineengine.count({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "count",
+	  "result": [
+	    4
+	  ]
+	}
+});
+```
+#### Delete 
+```node
+/**
+ * Delete an image from the collection
+ * @param params.filepath - Required remote filepath for the image
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+wineengine.delete(params, options, function callback(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "delete",
+	  "result": []
+	}
+})
+```
+#### List
+```node
+/**
+ * List images in collection
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0.
+ * @param params.limit - Optional limits the results to this many images, defaults to 20. 
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+wineengine.list({params, options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "list",
+	  "result": [
+	    "melonCat",
+	    "limeCat.jpg",
+	    "meloncat.jpg",
+	    "image.jpg"
+	  ]
+	}
+});
+```
+#### Search
+```node
+/**
+ * Search images in collection
+ * @param params.url1 
+ * @param params.image1 
+ * @param params.filepath1
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0.
+ * @param params.limit - Optional limits the results to this many images, defaults to 20. 
+ * @param params.minScore
+ * @param params.check_horizontal_flip
+ * @param params.generate_overlay
+ * @param params.enhanced_score
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+wineengine.search({params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "search",
+	    "result": [
+		{
+		    "match_percent": 89.52,
+		    "score": 97.2,
+		    "target_overlap_percent": 95.62,
+		    "query_overlap_percent": 72.37,
+		    "filepath": "path/folder/match1.png"
+		},
+		{
+		    "match_percent": 82.83,
+		    "score": 94.5,
+		    "target_overlap_percent": 87.13,
+		    "query_overlap_percent": 97.17,
+		    "filepath": "path/folder/match2.png"
+		}
+	    ]
+	}
+});
+```
+#### Ping
+```node
+/**
+ * Pings Server
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+wineengine.ping({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "ping",
+	  "result": []
+	}
+});
+```
