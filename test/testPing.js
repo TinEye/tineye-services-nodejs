@@ -13,7 +13,7 @@ describe('MatchEngine Ping', function() {
 
 	describe('Check Server Ping', function() {
 		it('Should return a call with status "ok"', function(done) {
-			matchengine.list({filepath: "image.jpg"}, function(err, data) {
+			matchengine.ping(function(err, data) {
 				
 				if(err)
 					done();
