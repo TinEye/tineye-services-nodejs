@@ -9,6 +9,9 @@ var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 
 describe('MatchEngine Ping', function() {
 
+	//Set timeout to 5s
+	this.timeout(5000);
+
 	describe('Check Server Ping', function() {
 		it('Should return a call with status "ok"', function(done) {
 			matchengine.ping(function(err, data) {

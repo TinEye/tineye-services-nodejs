@@ -9,6 +9,9 @@ var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
 
 describe('MobileEngine List:', function() {
 
+	//Set timeout to 5s
+	this.timeout(5000);
+
 	//post an image to the collection 
 	before(function(done) {
 	

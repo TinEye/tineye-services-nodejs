@@ -9,6 +9,9 @@ var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 
 describe('MatchEngine Delete:', function() {
 
+	//Set timeout to 5s
+	this.timeout(5000);
+
 	//post an image to the collection for deletion
 	before(function(done) {
 	

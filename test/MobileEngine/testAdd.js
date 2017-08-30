@@ -10,6 +10,9 @@ var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
 
 describe('MobileEngine Add', function() {
 
+	//Set timeout to 5s
+	this.timeout(5000);
+
 	//make call to delete image after each add
 	after(function(done){
 				
