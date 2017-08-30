@@ -545,11 +545,20 @@ To run the tests first install the dependencies
 ```shell
 npm install
 ```
+Add test servers to the /test/testConfig.js file
+```
+module.exports = {
+	MatchEngine:'<user>:<pass>@<host>/rest/',
+	MobileEngine:'joe:smith@host.com/rest/'
+	//...
+};
+```
 Then run the tests using 
 ```shell
 npm test
 ```
 # Todo
 * Add asserts to tests
+* Add more comprehensive tests
 * Refactor compare to remove duplicate code
 
