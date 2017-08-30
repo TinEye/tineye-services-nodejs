@@ -2,13 +2,13 @@ const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
 const got = require('got');
-const { MobileEngine }= require('../../../tineye-services');
+const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
-var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
+var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 
-describe('MobileEngine Add', function() {
+describe('MatchEngine Add:', function() {
 
 	//Set timeout to 5s
 	this.timeout(5000);
@@ -16,9 +16,9 @@ describe('MobileEngine Add', function() {
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.MobileEngine + 'delete', {
+	    got.delete(config.MatchEngine+'delete', {
 	      json: true,
-	      query: {filepath:'mobileEngineAdd.jpg'}
+	      query: {filepath:'matchEngineAdd.jpg'}
 	    })
 	    .then((response) => {
    			if(response.body.status === 'ok')
@@ -37,7 +37,7 @@ describe('MobileEngine Add', function() {
 		    	// Search your index for an image
 		    	var url = 'http://tineye.com/images/meloncat.jpg';
 
-		    	mobileengine.add({url: url, filepath: 'mobileEngineAdd.jpg'}, function(err, data) {
+		    	matchengine.add({url: url, filepath: 'matchEngineAdd.jpg'}, function(err, data) {
 
 		    		if(err)
 		    			done(err);
@@ -55,7 +55,7 @@ describe('MobileEngine Add', function() {
 		    	// Search your index for an image
 		    	var url = 'http://tineye.com/images/meloncat.jpg';
 
-		    	mobileengine.add({url: url},  function(err, data) {
+		    	matchengine.add({url: url},  function(err, data) {
 
 		    		if(err.status === 'fail'&&err.message[0] === 'Missing matching filepath')
 		    			done();
@@ -71,7 +71,7 @@ describe('MobileEngine Add', function() {
 	describe('Add Image by File with no optional params', function() {
 		it('Should return a call with status "ok"', function(done) {
 
-			mobileengine.add({ image: __dirname + '/../image2.jpg', filepath: 'mobileEngineAdd.jpg'}, function (err, data) {
+			matchengine.add({ image: __dirname + '/../image2.jpg', filepath: 'matchEngineAdd.jpg'}, function (err, data) {
 				if(err)
 					done(err);
 				else
@@ -85,7 +85,7 @@ describe('MobileEngine Add', function() {
 	describe('Add Image by File with optional param format:xml', function() {
 		it('Return a string of xml that cam successfully be parsed ', function(done) {
 
-			mobileengine.add({ image: __dirname + '/../image.jpg', filepath: 'mobileEngineAdd.jpg' },{format:'xml'}, function (err, data) {
+			matchengine.add({ image: __dirname + '/../image.jpg', filepath: 'matchEngineAdd.jpg' },{format:'xml'}, function (err, data) {
 				if(err)
 					done(new Error(err.message));
 				else
@@ -104,7 +104,7 @@ describe('MobileEngine Add', function() {
 	describe('Add Image by File with optional param callback', function() {
 		it('Return a string of json wrapped in JSON.parse function', function(done) {
 
-			mobileengine.add({ image: __dirname + '/../image.jpg', filepath: 'mobileEngineAdd.jpg' },{callback:'JSON.parse'}, function (err, data) {
+			matchengine.add({ image: __dirname + '/../image.jpg', filepath: 'matchEngineAdd.jpg' },{callback:'JSON.parse'}, function (err, data) {
 				if(err)
 					done(new Error(err.message));
 				else
@@ -118,7 +118,7 @@ describe('MobileEngine Add', function() {
 	describe('Add Image by File with optional param timeout', function() {
 		it('Return a status of "ok"', function(done) {
 
-			mobileengine.add({ image: __dirname + '/../image.jpg', filepath: 'mobileEngineAdd.jpg' },{timeout:100}, function (err, data) {
+			matchengine.add({ image: __dirname + '/../image.jpg', filepath: 'matchEngineAdd.jpg' },{timeout:100}, function (err, data) {
 				if(err)
 					done(new Error(err.message));
 				else

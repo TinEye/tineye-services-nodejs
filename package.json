@@ -13,14 +13,13 @@
     "type": "git",
     "url": "https://github.com/jgould22/tineye-services"
   },
-  "author": "Jordan Gould <jgould22@uwo.ca>",
+  "author": "Jordan Gould <jordan@tineye.com>",
   "license": "MIT",
   "dependencies": {
     "form-data": "^2.2.0",
     "got": "^6.3.0"
   },
   "devDependencies": {
-    "chai": "^4.1.1",
     "libxmljs": "^0.18.7",
     "mocha": "^3.5.0"
   }

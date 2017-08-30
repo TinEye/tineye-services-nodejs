@@ -7,7 +7,7 @@ var mocha = require('mocha');
 
 var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 
-describe('MatchEngine Ping', function() {
+describe('MatchEngine Ping:', function() {
 
 	//Set timeout to 5s
 	this.timeout(5000);

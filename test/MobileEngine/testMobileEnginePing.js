@@ -7,8 +7,7 @@ var config = require('../testConfig.js');
 
 var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
 
-
-describe('MatchEngine Ping', function() {
+describe('MobileEngine Ping:', function() {
 
 	//Set timeout to 5s
 	this.timeout(5000);

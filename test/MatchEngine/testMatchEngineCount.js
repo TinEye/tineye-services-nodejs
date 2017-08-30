@@ -7,7 +7,7 @@ var mocha = require('mocha');
 
 var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 
-describe('MatchEngine Count', function() {
+describe('MatchEngine Count:', function() {
 
 	//Set timeout to 5s
 	this.timeout(5000);

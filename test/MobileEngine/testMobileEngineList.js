@@ -22,32 +22,28 @@ describe('MobileEngine List:', function() {
 
 	   	got.post(config.MobileEngine + 'add', {
 		   body: form
-		   })
-		  	.then(response => {
-				done(); 
-			})
-			.catch(error => {
-				done(error);
-			});
+		}).then(response => {
+			done(); 
+		}).catch(error => {
+			done(error);
+		});
 
 	});
 
 	//delete manually
 	after(function(done) {
 	
-		    got.delete(config.MobileEngine+'delete', {
-		      json: true,
-		      query: {filepath:'mobileEngineListTest.jpg'}
-		    })
-		    .then((response) => {
-	   			if(response.body.status === 'ok')
-	   				done();
-	   			else
-					done(new Error('After hook failed to delete image')); 
-		    })
-		    .catch((err) => {
-				done();
-		    });
+	    got.delete(config.MobileEngine+'delete', {
+	      json: true,
+	      query: {filepath:'mobileEngineListTest.jpg'}
+	    }).then((response) => {
+   			if(response.body.status === 'ok')
+   				done();
+   			else
+				done(new Error('After hook failed to delete image')); 
+	    }).catch((err) => {
+			done();
+	    });
 
 	});
 
