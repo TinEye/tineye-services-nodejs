@@ -101,6 +101,43 @@ matchengine.add(paramdd an Image to an image collections, options, function call
 	}
 })
 ```
+#### Compare
+When comparing images you must have at least one url, image or filepath for each image being compared
+```node
+/**
+ * Compare two images in collection
+ * @param params.url1 
+ * @param params.image1 
+ * @param params.filepath1
+ * @param params.url2
+ * @param params.image2
+ * @param params.filepath2
+ * @param params.minScore
+ * @param params.check_horizontal_flip
+ * @param params.generate_overlay
+ * @param params.enhanced_score
+ * @param params.color_compare
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.compare({params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "compare",
+	    "result": [
+		{
+		    "target_overlap_percent": 99.22,
+		    "query_overlap_percent": 98.59,
+		    "filepath": "match.jpg",
+		    "listscore_enhanced": 68.2,
+		    "score": 65.9,
+		    "match_percent": 92.11
+		}
+	    ]
+	}
+});
+```
 #### Delete 
 ```node
 /**
@@ -138,6 +175,46 @@ matchengine.list({params, options, function(err, data) {
 	    "meloncat.jpg",
 	    "image.jpg"
 	  ]
+	}
+});
+```
+#### Search
+```node
+/**
+ * Search images in collection
+ * @param params.url
+ * @param params.image
+ * @param params.filepath
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0.
+ * @param params.limit - Optional limits the results to this many images, defaults to 20. 
+ * @param params.minScore
+ * @param params.check_horizontal_flip
+ * @param params.generate_overlay
+ * @param params.enhanced_score
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+matchengine.search({params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "search",
+	    "result": [
+		{
+		    "match_percent": 89.52,
+		    "score": 97.2,
+		    "target_overlap_percent": 95.62,
+		    "query_overlap_percent": 72.37,
+		    "filepath": "path/folder/match1.png"
+		},
+		{
+		    "match_percent": 82.83,
+		    "score": 94.5,
+		    "target_overlap_percent": 87.13,
+		    "query_overlap_percent": 97.17,
+		    "filepath": "path/folder/match2.png"
+		}
+	    ]
 	}
 });
 ```
@@ -302,9 +379,9 @@ mobileengine.list({params, options, function(err, data) {
 ```node
 /**
  * Search images in collection
- * @param params.url1 
- * @param params.image1 
- * @param params.filepath1
+ * @param params.url
+ * @param params.image
+ * @param params.filepath
  * @param params.offset - Optional skips that many images in the collection, defaults to 0.
  * @param params.limit - Optional limits the results to this many images, defaults to 20. 
  * @param params.minScore
@@ -354,6 +431,176 @@ mobileengine.ping({options, function(err, data) {
 	}
 });
 ```
+## MulticolorEngine
+Once TinEye Services is installed you can include and configure MulticolorEngine 
+```node
+const { MulticolorEngine } = require('tineye-services')
+
+// url is optional, if none is specified then defualt is https://multicolorengine.tineye.com/
+multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name', 'url')
+```
+### Methods
+Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/multicolorengine/
+
+#### Add URL
+```node
+/**
+ * Add an image to an image collection
+ * @param params.rl - Required URL of an image.
+ * @param params.filepath - Optional remote filepath for the image
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+multicolorengine.add(params, options, function callback (err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "add",
+	  "result": []
+	}
+})
+```
+#### Add Image File
+```node
+/**
+ * Add an image to an image collection
+ * @param params.image - Required path to an image file 
+ * @param params.filepath - Required remote filepath for the image
+ * @param options - Optional object containing common parameters
+ * @param callback - Callback function returing err or data
+ */
+multicolorengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "add",
+	  "result": []
+	}
+})
+```
+#### Count
+```node
+/**
+ * Counts images in collection
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+multicolorengine.count({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "count",
+	  "result": [
+	    4
+	  ]
+	}
+});
+```
+#### Delete 
+```node
+/**
+ * Delete an image from the collection
+ * @param params.filepath - Required remote filepath for the image
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+multicolorengine.delete(params, options, function callback(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "delete",
+	  "result": []
+	}
+})
+```
+#### List
+```node
+/**
+ * List images in collection
+ * @param params.offset - Optional skips that many images in the collection, defaults to 0.
+ * @param params.limit - Optional limits the results to this many images, defaults to 20. 
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+multicolorengine.list({params, options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "list",
+	  "result": [
+	    "melonCat",
+	    "limeCat.jpg",
+	    "meloncat.jpg",
+	    "image.jpg"
+	  ]
+	}
+});
+```
+#### Search
+```node
+/**
+ * Search images in collection
+ * @param params.url 
+ * @param params.image
+ * @param params.filepath
+ * @param params.ignore_background
+ * @param params.ignore_interior_background
+ * @param params.metadata
+ * @param params.return_metadata
+ * @param params.sort_metadata
+ * @param params.colors[0]	
+ * @param params.colors[n] 
+ * @param params.weights[0]
+ * @param params.weights[n]
+ * @param params.limit
+ * @param params.min_score
+ * @param params.offset
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+multicolorengine.search({params, options, function(err, data) {
+	data = {
+	    "count": "2",
+	    "status": "ok",
+	    "error": [],
+	    "method": "color_search",
+	    "result": [
+		{
+		    "metadata-score": 3.0,
+		    "metadata": {
+			"id": "67890"
+		    },
+		    "filepath": "path/folder/2.jpg"
+		},
+		{
+		    "metadata-score": 3.0,
+		    "metadata": {
+			"id": "12345"
+		    },
+		    "filepath": "path/folder/1.jpg"
+		}
+	    ]
+	}
+});
+```
+#### Ping
+```node
+/**
+ * Pings Server
+ * @param options - Optional object containing common parameters
+ * @param callback - callback function returing err or data
+ */
+multicolorengine.ping({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "ping",
+	  "result": []
+	}
+});
+```
+
+
 ## WineEngine
 Once TinEye Services is installed you can include and configure WineEngine 
 ```node
