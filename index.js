@@ -1,5 +1,7 @@
 module.exports = {
   MatchEngine:require('./lib/matchengine'),
   MobileEngine:require('./lib/mobileengine'),
-  WineEngine:require('./lib/wineengine'),  
+  MulticolorEngine:require('./lib/multicolorengine'),
+  WineEngine:require('./lib/wineengine')
 };
+
