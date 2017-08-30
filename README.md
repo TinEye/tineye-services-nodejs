@@ -538,3 +538,18 @@ wineengine.ping({options, function(err, data) {
 	}
 });
 ```
+# Testing
+Tests are written with mocha and stored in the tests folder
+
+To run the tests first install the dependencies 
+```shell
+npm install
+```
+Then run the tests using 
+```shell
+npm test
+```
+# Todo
+* Add asserts to tests
+* Refactor compare to remove duplicate code
+
