@@ -458,7 +458,10 @@ Below are methods available for MobileEngine, for more information on parameters
 /**
  * Add an image to an image collection
  * @param params.rl - Required URL of an image.
- * @param params.filepath - Optional remote filepath for the image
+ * @param params.filepath - Optional remote filepath for the 
+ * @param params.ignore_background - Optional 
+ * @param params.ignore_interior_background - Optional
+ * @param params.metadata - Optional
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
@@ -475,10 +478,13 @@ multicolorengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.image - Required path to an image file 
- * @param params.filepath - Required remote filepath for the image
+ * @param params.rl - Required URL of an image.
+ * @param params.filepath - Optional remote filepath for the 
+ * @param params.ignore_background - Optional 
+ * @param params.ignore_interior_background - Optional
+ * @param params.metadata - Optional
  * @param options - Optional object containing common parameters
- * @param callback - Callback function returing err or data
+ * @param callback - callback function returing err or data
  */
 multicolorengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
 	data = {
@@ -559,10 +565,8 @@ multicolorengine.list({params, options, function(err, data) {
  * @param params.metadata
  * @param params.return_metadata
  * @param params.sort_metadata
- * @param params.colors[0]	
- * @param params.colors[n] 
- * @param params.weights[0]
- * @param params.weights[n]
+ * @param params.colors[] - Array of colors
+ * @param params.weights[] - Array of weights 
  * @param params.limit
  * @param params.min_score
  * @param params.offset
@@ -729,7 +733,9 @@ wineengine.list({params, options, function(err, data) {
 wineengine.search({params, options, function(err, data) {
 	data = {
 	  "status": "ok",
-	  "method": "search",
+	  "method": "search",        -- [ Add URL ](#add-url)
+14
+
 	  "error": [],
 	  "query_image": {
 	    "filepath": "query_image.jpg",
