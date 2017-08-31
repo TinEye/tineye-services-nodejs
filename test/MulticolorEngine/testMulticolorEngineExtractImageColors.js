@@ -8,7 +8,7 @@ const libxmljs = require('libxmljs');
 
 var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
 
-describe('MulticolorEngine Search:', function() {
+describe('MulticolorEngine ExtractImageColors:', function() {
 
 	//Set timeout to 5s
 	this.timeout(10000);
@@ -114,112 +114,16 @@ describe('MulticolorEngine Search:', function() {
 	});
 
 
-	//serach with weights
-	describe('Search with a single color green(#1abc9c)', function() {
-		
-		it('Should return a call with status "ok" and a result', function(done) {
-
-			params = {
-				colors:['#1abc9c'
-				]
-			};
-
-			multicolorengine.search(params, function(err, data) {
-				
-	    		if(err)
-	    			done(new Error(err));
-	    		else if (data.result.length == 2)
-	    			done();
-	    		else
-	    			done(new Error('No Result was returned'));
-
-			});
-
-		});
-
-	});
-
-
-	//serach with weights
-	describe('Search with a more than one color (#f1c40f and #e74c3c)', function() {
-		
-		it('Should return a call with status "ok" and a single result', function(done) {
-
-			params = {
-				colors:['#f1c40f','#e74c3c']
-			};
-
-			multicolorengine.search(params, function(err, data) {
-				
-	    		if(err)
-	    			done(new Error(err));
-	    		else if (data.result.length == 1)
-	    			done();
-	    		else
-	    			done(new Error('No Result was returned'));
-
-			});
-
-		});
-
-	});
-
-	//serach with weights
-	describe('Search with a more than one color (#f1c40f and #e74c3c) and weights(30 and 70', function() {
-		
-		it('Should return a call with status "ok" and a result', function(done) {
-
-			params = {
-				colors:['#f1c40f','#e74c3c'],
-				weights:[30,70]
-			};
-
-			multicolorengine.search(params, function(err, data) {
-
-				if(err)
-					done(new Error(err));
-				else if (data.result.length === 1)
-					done();
-				else
-					done(new Error('No Result was returned'));
-
-			});
-
-		});
-
-	});
-
-
 	// //serach with file
-	describe('Search by image file', function() {
+	describe('Extract colors by image file', function() {
 		
-		it('Should return a call with status "ok" and a result', function(done) {
+		it('Should return a call with status "ok" and 9 colors', function(done) {
 
-			multicolorengine.search({image:bluePath}, function(err, data) {
+			multicolorengine.extractImageColors({images:[colorsPath]}, function(err, data) {
 				
 	    		if(err)
 	    			done(new Error(err));
-				else if (data.result.length === 2){
-	    			done();
-				}else
-	    			done(new Error('Incorrect Result was returned'));
-
-			});
-
-		});
-
-	});
-
-	// //serach with file
-	describe('Search by collection image filepath', function() {
-		
-		it('Should return a call with status "ok" and a result', function(done) {
-
-			multicolorengine.search({filepath:'multicolorEngineSearchGreens.jpg'}, function(err, data) {
-
-	    		if(err)
-	    			done(new Error(err));
-				else if (data.result.length === 2){
+				else if (data.result.length === 9){
 	    			done();
 				}else
 	    			done(new Error('Incorrect Result was returned'));
