@@ -10,6 +10,14 @@ Official API documentation available at https://services.tineye.com/docs
 - [ Basic Usage ](#basic-usage)
 - [ Services ](#services)
 	- [ MatchEngine ](#matchengine)
+		- [ Count ](#count)
+		- [ Add URL ](#add-url)
+		- [ Add Image File ](#add-image-file)
+		- [ Compare ](#compare)
+		- [ Delete ](#delete)
+		- [ List ](#list)
+		- [ Search ](#search)
+		- [ Ping ](#ping)
 	- [ MobileEngine ](#mobileengine)
 	- [ MulticolorEngine ](#multicolorengine)
 	- [ WineEngine ](#wineengine)
@@ -62,8 +70,8 @@ Below are methods available for MatchEngine, for more information on parameters 
 ```node
 /**
  * Counts Images in collection
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 matchengine.list({options, function(err, data) {
 	data = {
@@ -80,10 +88,10 @@ matchengine.list({options, function(err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.url - Required URL of an image.
- * @param params.filepath - Optional remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.url - Required
+ * @param params.filepath - Optional
+ * @param options - Optional
+ * @param callback
  */
 matchengine.add(params, options, function callback (err, data) {
 	data = {
@@ -98,10 +106,10 @@ matchengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.image - Required path to an image file 
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - Callback function returing err or data
+ * @param params.image - Required 
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 matchengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
 	data = {
@@ -117,19 +125,20 @@ When comparing images you must have at least one url, image or filepath for each
 ```node
 /**
  * Compare two images in collection
- * @param params.url1 
- * @param params.image1 
- * @param params.filepath1
- * @param params.url2
- * @param params.image2
- * @param params.filepath2
- * @param params.minScore
- * @param params.check_horizontal_flip
- * @param params.generate_overlay
- * @param params.enhanced_score
- * @param params.color_compare
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ *
+ * @param params.url1 - Required (if no image1 or filepath1 included)
+ * @param params.image1 - Required (if no url1 or filepath1 included)
+ * @param params.filepath1 - Required (if no image1 or url1 included)
+ * @param params.url2 - Required (if no image2 or filepath2 included)
+ * @param params.image2 - Required (if no url2 or filepath2 included)
+ * @param params.filepath2 - Required (if no image2 or url2 included)
+ * @param params.minScore - Optional
+ * @param params.check_horizontal_flip - Optional
+ * @param params.generate_overlay - Optional
+ * @param params.enhanced_score - Optional
+ * @param params.color_compare - Optional
+ * @param options - Optional
+ * @param callback
  */
 matchengine.compare({params, options, function(err, data) {
 	data = {
@@ -153,9 +162,9 @@ matchengine.compare({params, options, function(err, data) {
 ```node
 /**
  * Delete an image from the collection
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 matchengine.delete(params, options, function callback(err, data) {
 	data = {
@@ -170,10 +179,10 @@ matchengine.delete(params, options, function callback(err, data) {
 ```node
 /**
  * List Images in collection
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.offset - Optional
+ * @param params.limit - Optional
+ * @param options - Optional
+ * @param callback
  */
 matchengine.list({params, options, function(err, data) {
 	data = {
@@ -193,17 +202,17 @@ matchengine.list({params, options, function(err, data) {
 ```node
 /**
  * Search images in collection
- * @param params.url
- * @param params.image
- * @param params.filepath
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param params.minScore
- * @param params.check_horizontal_flip
- * @param params.generate_overlay
- * @param params.enhanced_score
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.url - Required (if no image or filepath included)
+ * @param params.image - Required (if no url or filepath included)
+ * @param params.filepath - Required (if no image or url included)
+ * @param params.offset - Optional
+ * @param params.limit - Optional
+ * @param params.minScore - Optional
+ * @param params.check_horizontal_flip - Optional
+ * @param params.generate_overlay - Optional
+ * @param params.enhanced_score - Optional
+ * @param options - Optional
+ * @param callback - callback
  */
 matchengine.search({params, options, function(err, data) {
 	data = {
@@ -233,8 +242,8 @@ matchengine.search({params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 matchengine.list({options, function(err, data) {
 	data = {
