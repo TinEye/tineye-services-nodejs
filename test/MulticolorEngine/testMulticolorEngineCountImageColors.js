@@ -8,7 +8,7 @@ const libxmljs = require('libxmljs');
 
 var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
 
-describe('MulticolorEngine ExtractImageColors:', function() {
+describe('MulticolorEngine CountImageColors:', function() {
 
 	//Set timeout to 5s
 	this.timeout(10000);
@@ -19,22 +19,22 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 	var greensPath = __dirname + '/../greens.png';
 	var url = 'http://tineye.com/images/meloncat.jpg';
 	var url2 = 'https://services.tineye.com/developers/matchengine/_images/364069_a1.jpg';
-	   
+
 	var form = new FormData();
 	form.append('image', fs.createReadStream(greensPath));
-	form.append('filepath', 'multicolorEngineExtractGreens.jpg');
+	form.append('filepath', 'multicolorEngineCountImageGreens.jpg');
 
 	var form2 = new FormData();
 	form2.append('image', fs.createReadStream(purplePath));
-	form2.append('filepath', 'multicolorEngineExtractPurple.jpg');
+	form2.append('filepath', 'multicolorEngineCountImagePurple.jpg');
 
 	var form3 = new FormData();
 	form3.append('image', fs.createReadStream(bluePath));
-	form3.append('filepath', 'multicolorEngineExtractBlue.jpg');
+	form3.append('filepath', 'multicolorEngineCountImageBlue.jpg');
 
 	var form4 = new FormData();
 	form4.append('image', fs.createReadStream(colorsPath));
-	form4.append('filepath', 'multicolorEngineExtractColors.jpg');
+	form4.append('filepath', 'multicolorEngineCountImageColors.jpg');
 
 	//post an image to the collection manually
 	before(function(done) {
@@ -67,7 +67,7 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 		.then(function(response){
 			done();
 		})
-		.catch(function(error){Collection
+		.catch(function(error){
 			done(error);
 		});
 
@@ -79,22 +79,22 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 				
 	    var deleteColor1 = got.delete(config.MulticolorEngine+'delete', {
 	      json: true,
-	      query: {filepath:'multicolorEngineExtractGreens.jpg'}
+	      query: {filepath:'multicolorEngineCountImageGreens.jpg'}
 		});
 
 		var deleteColor2 = got.delete(config.MulticolorEngine+'delete', {
 			json: true,
-			query: {filepath:'multicolorEngineExtractPurple.jpg'}
+			query: {filepath:'multicolorEngineCountImagePurple.jpg'}
 		});
 		
 		var deleteColor3 = got.delete(config.MulticolorEngine+'delete', {
 			json: true,
-			query: {filepath:'multicolorEngineExtractBlue.jpg'}
+			query: {filepath:'multicolorEngineCountImageBlue.jpg'}
 		});
 
 		var deleteColors = got.delete(config.MulticolorEngine+'delete', {
 			json: true,
-			query: {filepath:'multicolorEngineExtractColors.jpg'}
+			query: {filepath:'multicolorEngineCountImageColors.jpg'}
 		});
 
 		deleteColor1.then(function(response){
@@ -117,17 +117,21 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 
 
 	// //serach with file
-	describe('Extract colors by image file', function() {
-		
-		it('Should return a call with status "ok" and 9 colors', function(done) {
+	describe('Count colors by image file', function() {
+		it('Should return a call with status "ok" and 2 results', function(done) {
 
-			multicolorengine.extractImageColors({images:[colorsPath]}, function(err, data) {
+			var params = {
+				images:[colorsPath,bluePath],
+				count_colors:['#f1c40f','#e74c3c']
+			};
+
+			multicolorengine.countImageColors(params, function(err, data) {
 	    		if(err)
-	    			done(new Error(JSON.stringify(err,null, 4)));
-				else if (data.result.length === 9){
+	    			done(new Error(JSON.stringify(data.err,null, 4)));
+				else if (data.result.length === 2){
 	    			done();
 				}else
-	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
@@ -135,58 +139,24 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 
 	});
 
-
-	// //serach with file
-	describe('Extract colors by image files', function() {
+		// //serach with url
+	describe('Count colors by image url', function() {
 		
-		it('Should return a call with status "ok" and 11 colors', function(done) {
+		it('Should return a call with status "ok" and 2 results', function(done) {
 
-			multicolorengine.extractImageColors({images:[colorsPath,bluePath]}, function(err, data) {
+			var params = {
+				urls:[url],
+				count_colors:['#f1c40f','#e74c3c']
+			};
+
+			multicolorengine.countImageColors(params, function(err, data) {
 	    		if(err)
-	    			done(new Error(JSON.stringify(err,null, 4)));
-				else if (data.result.length === 11){
-	    			done();
-				}else
-	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
-
-			});
-
-		});
-
-	});
-
-		// //serach with file
-	describe('Extract colors by url', function() {
-		
-		it('Should return a call with status "ok" and 10 colors', function(done) {
-
-			multicolorengine.extractImageColors({urls:[url]}, function(err, data) {
-	    		if(err)
-	    			done(new Error(JSON.stringify(err,null, 4)));
-				else if (data.result.length === 10){
-	    			done();
-				}else
-	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
-
-			});
-
-		});
-
-	});
-
-			// //serach with file
-	describe('Extract colors by urls', function() {
-		
-		it('Should return a call with status "ok" and 18 colors', function(done) {
-
-			multicolorengine.extractImageColors({urls:[url,url2]}, function(err, data) {
-	    		if(err)
-	    			done(new Error(JSON.stringify(err,null, 4)));
-				else if (data.result.length === 18){
+	    			done(new Error(JSON.stringify(data.err,null, 4)));
+				else if (data.result.length === 2){
 	    			done();
 				
 				}else
-	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
@@ -194,4 +164,27 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 
 	});
 
+	// //serach with url
+	describe('Count colors by image urls', function() {
+		
+		it('Should return a call with status "ok" and 2 results', function(done) {
+
+			var params = {
+				urls:[url,url2],
+				count_colors:['#f1c40f','#e74c3c']
+			};
+
+			multicolorengine.countImageColors(params, function(err, data) {
+	    		if(err)
+	    			done(new Error(JSON.stringify(data.err,null, 4)));
+				else if (data.result.length === 2){
+	    			done();
+				}else
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
+
+			});
+
+		});
+
+	});
 });

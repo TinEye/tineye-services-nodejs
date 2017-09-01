@@ -10,7 +10,7 @@ var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine)
 describe('MulticolorEngine Ping:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(10000);
 
 	describe('Check Server Ping', function() {
 		it('Should return a call with status "ok"', function(done) {

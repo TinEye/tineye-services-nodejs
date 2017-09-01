@@ -11,7 +11,7 @@ var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine)
 describe('MulticolorEngine Add:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(10000);
 
 	//make call to delete image after each add
 	after(function(done){

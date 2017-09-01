@@ -10,7 +10,7 @@ var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine)
 describe('MulticolorEngine Delete:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(10000);
 
 	//post an image to the collection for deletion
 	before(function(done) {

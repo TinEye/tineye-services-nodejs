@@ -117,21 +117,20 @@ describe('MulticolorEngine Search:', function() {
 	//serach with weights
 	describe('Search with a single color green(#1abc9c)', function() {
 		
-		it('Should return a call with status "ok" and a result', function(done) {
+		it('Should return a call with status "ok" and 2 results', function(done) {
 
 			params = {
-				colors:['#1abc9c'
-				]
+				colors:['#1abc9c']
 			};
 
 			multicolorengine.search(params, function(err, data) {
 				
 	    		if(err)
-	    			done(new Error(err));
+	    			done(new Error(err.message[0]));
 	    		else if (data.result.length == 2)
 	    			done();
 	    		else
-	    			done(new Error('No Result was returned'));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
@@ -152,11 +151,11 @@ describe('MulticolorEngine Search:', function() {
 			multicolorengine.search(params, function(err, data) {
 				
 	    		if(err)
-	    			done(new Error(err));
+	    			done(new Error(err.message[0]));
 	    		else if (data.result.length == 1)
 	    			done();
 	    		else
-	    			done(new Error('No Result was returned'));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
@@ -177,11 +176,11 @@ describe('MulticolorEngine Search:', function() {
 			multicolorengine.search(params, function(err, data) {
 
 				if(err)
-					done(new Error(err));
+	    			done(new Error(err.message[0]));
 				else if (data.result.length === 1)
 					done();
 				else
-					done(new Error('No Result was returned'));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
@@ -193,16 +192,16 @@ describe('MulticolorEngine Search:', function() {
 	// //serach with file
 	describe('Search by image file', function() {
 		
-		it('Should return a call with status "ok" and a result', function(done) {
+		it('Should return a call with status "ok" and 2 results', function(done) {
 
 			multicolorengine.search({image:bluePath}, function(err, data) {
 				
 	    		if(err)
-	    			done(new Error(err));
+	    			done(new Error(err.message[0]));
 				else if (data.result.length === 2){
 	    			done();
 				}else
-	    			done(new Error('Incorrect Result was returned'));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
@@ -218,11 +217,11 @@ describe('MulticolorEngine Search:', function() {
 			multicolorengine.search({filepath:'multicolorEngineSearchGreens.jpg'}, function(err, data) {
 
 	    		if(err)
-	    			done(new Error(err));
+	    			done(new Error(err.message[0]));
 				else if (data.result.length === 2){
 	    			done();
 				}else
-	    			done(new Error('Incorrect Result was returned'));
+	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
 
 			});
 
