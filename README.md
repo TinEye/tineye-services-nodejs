@@ -825,4 +825,5 @@ npm test
 * Add asserts to tests
 * Add more comprehensive tests
 * Refactor compare to remove duplicate code
+* Refactor Remove duplicate setup and tear down code in tests
 
