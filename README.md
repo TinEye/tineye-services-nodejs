@@ -28,6 +28,14 @@ Official API documentation available at https://services.tineye.com/docs
 		- [ Search ](#search-1)
 		- [ Ping ](#ping-1)
 	- [ MulticolorEngine ](#multicolorengine)
+		- [ Add URL ](#add-url-2)
+		- [ Add Image File ](#add-image-file-2)
+		- [ Count ](#count-2)
+		- [ Count Image Colors ](#count-image-colors)
+		- [ Delete ](#delete-2)
+		- [ Extract Image Colors ](#extract-image-colors)
+		- [ Search ](#search-2)
+		- [ Ping ](#ping-2)
 	- [ WineEngine ](#wineengine)
 		- [ Add URL ](#add-url-3)
 		- [ Add Image File ](#add-image-file-3)
@@ -103,7 +111,7 @@ matchengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.image - Required 
+ * @param params.image - Required (path to local image)
  * @param params.filepath - Required
  * @param options - Optional
  * @param callback
@@ -283,7 +291,7 @@ Below are methods available for MobileEngine, for more information on parameters
 ```node
 /**
  * Add an image to an image collection
- * @param params.rl - Required
+ * @param params.url - Required
  * @param params.filepath - Optional
  * @param options - Optional
  * @param callback
@@ -481,13 +489,13 @@ Below are methods available for MobileEngine, for more information on parameters
 ```node
 /**
  * Add an image to an image collection
- * @param params.rl - Required URL of an image.
- * @param params.filepath - Optional remote filepath for the 
+ * @param params.url - Required
+ * @param params.filepath - Optional 
  * @param params.ignore_background - Optional 
  * @param params.ignore_interior_background - Optional
  * @param params.metadata - Optional
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 multicolorengine.add(params, options, function callback (err, data) {
 	data = {
@@ -502,13 +510,13 @@ multicolorengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.rl - Required URL of an image.
- * @param params.filepath - Optional remote filepath for the 
+ * @param params.image - Required (path to local image)
+ * @param params.filepath - Optional
  * @param params.ignore_background - Optional 
  * @param params.ignore_interior_background - Optional
  * @param params.metadata - Optional
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 multicolorengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
 	data = {
@@ -523,8 +531,8 @@ multicolorengine.add(paramdd an Image to an image collections, options, function
 ```node
 /**
  * Counts images in collection
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 multicolorengine.count({options, function(err, data) {
 	data = {
@@ -537,13 +545,70 @@ multicolorengine.count({options, function(err, data) {
 	}
 });
 ```
+#### Count Image Colors 
+```node
+/**
+ * Delete an image from the collection
+ * @param params.images[] - Required (array of image paths)
+ * @param params.urls[] - Optional
+ * @param params.colors[] - Optional
+ * @param params.filepaths[] - Optional
+ * @param params.weights[] - Optional
+ * @param params.metadata - Required
+ * @param ignore_background - Optional
+ * @param ignore_interior_background - Optional
+ * @param target_number_colors - Optional
+ * @param limit - Optional
+ * @param color_format - Optional
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.extractImageColors(params, options function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "count_image_colors",
+	    "result": [
+		{
+		    "color": [
+			255,
+			112,
+			223
+		    ],
+		    "num_images_full_area": 0,
+		    "name": "Pale Magenta",
+		    "num_images_partial_area": 0,
+		    "class": "Violet"
+		},
+		{
+		    "color": [
+			95,
+			136,
+			165
+		    ],
+		    "num_images_full_area": 0,
+		    "name": "Air Force Blue",
+		    "num_ images_partial_area": 0,
+		    "class": "Blue"
+		},
+		{
+		    "color": "df4f23",
+		    "num_images_full_area": 1,
+		    "name": "Cinnabar",
+		    "num_images_partial_area": 1,
+		    "class": "Red"
+		}
+	    ]
+	}
+});
+```
 #### Delete 
 ```node
 /**
  * Delete an image from the collection
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 multicolorengine.delete(params, options, function callback(err, data) {
 	data = {
@@ -554,14 +619,60 @@ multicolorengine.delete(params, options, function callback(err, data) {
 	}
 })
 ```
+#### Extract Image Colors 
+```node
+/**
+ * Delete an image from the collection
+ * @param params.images[] - Required (array of image paths)
+ * @param params.urls[] - Required (array of image urls, required if images are not specified)
+ * @param ignore_background - Optional
+ * @param ignore_interior_background - Optional
+ * @param target_number_colors - Optional
+ * @param limit - Optional
+ * @param color_format - Optional
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.extractImageColors(params, options function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "extract_image_colors",
+	    "result": [
+		{
+		    "color": [
+			194,
+			66,
+			28
+		    ],
+		    "weight": 76.37,
+		    "name": "Rust",
+		    "rank": 1,
+		    "class": "Red"
+		},
+		{
+		    "color": [
+			141,
+			125,
+			83
+		    ],
+		    "weight": 23.63,
+		    "name": "Clay Creek",
+		    "rank": 2,
+		    "class": "Grey"
+		}
+	    ]
+	}
+});
+```
 #### List
 ```node
 /**
  * List images in collection
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.offset - Optional
+ * @param params.limit - Optional
+ * @param options - Optional
+ * @param callback
  */
 multicolorengine.list({params, options, function(err, data) {
 	data = {
@@ -580,20 +691,20 @@ multicolorengine.list({params, options, function(err, data) {
 #### Search
 ```node
 /**
- * Search images in collection
- * @param params.url 
- * @param params.image
- * @param params.filepath
- * @param params.ignore_background
- * @param params.ignore_interior_background
- * @param params.metadata
- * @param params.return_metadata
- * @param params.sort_metadata
- * @param params.colors[] - Array of colors
- * @param params.weights[] - Array of weights 
- * @param params.limit
- * @param params.min_score
- * @param params.offset
+ * Search colors in collection
+ * @param params.url - Required (if no image or filepath included)
+ * @param params.image - Required (if no url or filepath included)
+ * @param params.filepath - Required (if no image or url included)
+ * @param params.colors[] - Required
+ * @param params.ignore_background - Optional
+ * @param params.ignore_interior_background - Optional
+ * @param params.metadata - Optional
+ * @param params.return_metadata - Optional
+ * @param params.sort_metadata - Optional
+ * @param params.weights[] - Optional
+ * @param params.limit - Optional
+ * @param params.min_score - Optional
+ * @param params.offset - Optional
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
@@ -626,8 +737,8 @@ multicolorengine.search({params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 multicolorengine.ping({options, function(err, data) {
 	data = {
