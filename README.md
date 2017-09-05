@@ -124,7 +124,7 @@ matchengine.add(params, options, function callback (err, data) {
  * @param options - Optional
  * @param callback
  */
-matchengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
+matchengine.add(params, options, function callback (err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -153,7 +153,7 @@ When comparing images you must have at least one url, image or filepath for each
  * @param options - Optional
  * @param callback
  */
-matchengine.compare({params, options, function(err, data) {
+matchengine.compare(params, options, function(err, data) {
 	data = {
 	    "status": "ok",
 	    "error": [],
@@ -178,7 +178,7 @@ matchengine.compare({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-matchengine.list({options, function(err, data) {
+matchengine.list(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -215,7 +215,7 @@ matchengine.delete(params, options, function callback(err, data) {
  * @param options - Optional
  * @param callback
  */
-matchengine.list({params, options, function(err, data) {
+matchengine.list(params, options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -245,7 +245,7 @@ matchengine.list({params, options, function(err, data) {
  * @param options - Optional
  * @param callback - callback
  */
-matchengine.search({params, options, function(err, data) {
+matchengine.search(params, options, function(err, data) {
 	data = {
 	    "status": "ok",
 	    "error": [],
@@ -276,7 +276,7 @@ matchengine.search({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-matchengine.list({options, function(err, data) {
+matchengine.list(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -322,7 +322,7 @@ mobileengine.add(params, options, function callback (err, data) {
  * @param options - Optional
  * @param callback
  */
-mobileengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
+mobileengine.add(params, options, function callback (err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -350,7 +350,7 @@ When comparing images you must have at least one url, image or filepath for each
  * @param options - Optional
  * @param callback
  */
-mobileengine.compare({params, options, function(err, data) {
+mobileengine.compare(params, options, function(err, data) {
 	data = {
 	    "status": "ok",
 	    "error": [],
@@ -375,7 +375,7 @@ mobileengine.compare({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-mobileengine.count({options, function(err, data) {
+mobileengine.count(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -412,7 +412,7 @@ mobileengine.delete(params, options, function callback(err, data) {
  * @param options - Optional
  * @param callback
  */
-mobileengine.list({params, options, function(err, data) {
+mobileengine.list(params, options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -442,7 +442,7 @@ mobileengine.list({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-mobileengine.search({params, options, function(err, data) {
+mobileengine.search(params, options, function(err, data) {
 	data = {
 	    "status": "ok",
 	    "error": [],
@@ -473,7 +473,7 @@ mobileengine.search({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-mobileengine.ping({options, function(err, data) {
+mobileengine.ping(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -526,7 +526,7 @@ multicolorengine.add(params, options, function callback (err, data) {
  * @param options - Optional
  * @param callback
  */
-multicolorengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
+multicolorengine.add(params, options, function callback (err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -921,7 +921,7 @@ multicolorengine.getSearchMetadata(options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-multicolorengine.list({params, options, function(err, data) {
+multicolorengine.list(params, options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -955,7 +955,7 @@ multicolorengine.list({params, options, function(err, data) {
  * @param options - Optional object containing common parameters
  * @param callback - callback function returing err or data
  */
-multicolorengine.search({params, options, function(err, data) {
+multicolorengine.search(params, options, function(err, data) {
 	data = {
 	    "count": "2",
 	    "status": "ok",
@@ -987,7 +987,7 @@ multicolorengine.search({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-multicolorengine.ping({options, function(err, data) {
+multicolorengine.ping(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -1005,7 +1005,7 @@ multicolorengine.ping({options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-multicolorengine.updateMetadata({options, function(err, data) {
+multicolorengine.updateMetadata(options, function(err, data) {
 	data = {
 	    "status": "ok",
 	    "error": [],
@@ -1051,7 +1051,7 @@ wineengine.add(params, options, function callback (err, data) {
  * @param options - Optional
  * @param callback
  */
-wineengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
+wineengine.add(params, options, function callback (err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -1067,7 +1067,7 @@ wineengine.add(paramdd an Image to an image collections, options, function callb
  * @param options - Optional
  * @param callback
  */
-wineengine.count({options, function(err, data) {
+wineengine.count(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -1104,7 +1104,7 @@ wineengine.delete(params, options, function callback(err, data) {
  * @param options - Optional
  * @param callback
  */
-wineengine.list({params, options, function(err, data) {
+wineengine.list(params, options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "method": "list",
@@ -1128,7 +1128,7 @@ wineengine.list({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-wineengine.search({params, options, function(err, data) {
+wineengine.search(params, options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "method": "search",        -- [ Add URL ](#add-url)
@@ -1191,7 +1191,7 @@ wineengine.search({params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
-wineengine.ping({options, function(err, data) {
+wineengine.ping(options, function(err, data) {
 	data = {
 	  "status": "ok",
 	  "error": [],
@@ -1228,4 +1228,3 @@ npm test
 * Refactor Remove duplicate setup and tear down code in tests
 * alter extractCollectionColors to make optional params object
 * Alter methods to return promises if no callback is provided
-
