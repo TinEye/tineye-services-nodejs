@@ -1225,6 +1225,7 @@ npm test
 * Add asserts to tests
 * Add more comprehensive tests
 * Refactor compare to remove duplicate code
+* Refactor before and after test functions to remove duplicate code
 * Refactor Remove duplicate setup and tear down code in tests
 * alter extractCollectionColors to make optional params object
 * Alter methods to return promises if no callback is provided
