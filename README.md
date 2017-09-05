@@ -10,15 +10,23 @@ Official API documentation available at https://services.tineye.com/docs
 - [ Basic Usage ](#basic-usage)
 - [ Services ](#services)
 	- [ MatchEngine ](#matchengine)
-		- [ Count ](#count)
 		- [ Add URL ](#add-url)
 		- [ Add Image File ](#add-image-file)
 		- [ Compare ](#compare)
+		- [ Count ](#count)
 		- [ Delete ](#delete)
 		- [ List ](#list)
 		- [ Search ](#search)
 		- [ Ping ](#ping)
 	- [ MobileEngine ](#mobileengine)
+		- [ Add URL ](#add-url-1)
+		- [ Add Image File ](#add-image-file-1)
+		- [ Compare ](#compare-1)
+		- [ Count ](#count-1)
+		- [ Delete ](#delete-1)
+		- [ List ](#list-1)
+		- [ Search ](#search-1)
+		- [ Ping ](#ping-1)
 	- [ MulticolorEngine ](#multicolorengine)
 	- [ WineEngine ](#wineengine)
 - [ Testing ](#testing)
@@ -66,24 +74,6 @@ matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ```
 ### Methods
 Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/
-#### Count
-```node
-/**
- * Counts Images in collection
- * @param options - Optional
- * @param callback
- */
-matchengine.list({options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
-});
-```
 #### Add URL
 ```node
 /**
@@ -155,6 +145,24 @@ matchengine.compare({params, options, function(err, data) {
 		    "match_percent": 92.11
 		}
 	    ]
+	}
+});
+```
+#### Count
+```node
+/**
+ * Counts Images in collection
+ * @param options - Optional
+ * @param callback
+ */
+matchengine.list({options, function(err, data) {
+	data = {
+	  "status": "ok",
+	  "error": [],
+	  "method": "count",
+	  "result": [
+	    4
+	  ]
 	}
 });
 ```
@@ -268,10 +276,10 @@ Below are methods available for MobileEngine, for more information on parameters
 ```node
 /**
  * Add an image to an image collection
- * @param params.rl - Required URL of an image.
- * @param params.filepath - Optional remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.rl - Required
+ * @param params.filepath - Optional
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.add(params, options, function callback (err, data) {
 	data = {
@@ -286,10 +294,10 @@ mobileengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.image - Required path to an image file 
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - Callback function returing err or data
+ * @param params.image - Required(image path)
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
 	data = {
@@ -305,19 +313,19 @@ When comparing images you must have at least one url, image or filepath for each
 ```node
 /**
  * Compare two images in collection
- * @param params.url1 
- * @param params.image1 
- * @param params.filepath1
- * @param params.url2
- * @param params.image2
- * @param params.filepath2
- * @param params.minScore
- * @param params.check_horizontal_flip
- * @param params.generate_overlay
- * @param params.enhanced_score
- * @param params.color_compare
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.url1 - Required (if no image1 or filepath1 included)
+ * @param params.image1 - Required (if no url1 or filepath1 included)
+ * @param params.filepath1 - Required (if no image1 or url1 included)
+ * @param params.url2 - Required (if no image2 or filepath2 included)
+ * @param params.image2 - Required (if no url2 or filepath2 included)
+ * @param params.filepath2 - Required (if no image2 or url2 included)
+ * @param params.minScore - Optional
+ * @param params.check_horizontal_flip - Optional
+ * @param params.generate_overlay - Optional
+ * @param params.enhanced_score - Optional
+ * @param params.color_compare - Optional
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.compare({params, options, function(err, data) {
 	data = {
@@ -341,8 +349,8 @@ mobileengine.compare({params, options, function(err, data) {
 ```node
 /**
  * Counts images in collection
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.count({options, function(err, data) {
 	data = {
@@ -359,9 +367,9 @@ mobileengine.count({options, function(err, data) {
 ```node
 /**
  * Delete an image from the collection
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.delete(params, options, function callback(err, data) {
 	data = {
@@ -376,10 +384,10 @@ mobileengine.delete(params, options, function callback(err, data) {
 ```node
 /**
  * List images in collection
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.offset - Optional
+ * @param params.limit - Optional
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.list({params, options, function(err, data) {
 	data = {
@@ -399,17 +407,17 @@ mobileengine.list({params, options, function(err, data) {
 ```node
 /**
  * Search images in collection
- * @param params.url
- * @param params.image
- * @param params.filepath
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param params.minScore
- * @param params.check_horizontal_flip
- * @param params.generate_overlay
- * @param params.enhanced_score
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.url - Required (if no image or filepath included)
+ * @param params.image - Required (if no url or filepath included)
+ * @param params.filepath - Required (if no image or url included)
+ * @param params.offset - Optional
+ * @param params.limit - Optional
+ * @param params.minScore - Optional
+ * @param params.check_horizontal_flip - Optional
+ * @param params.generate_overlay - Optional
+ * @param params.enhanced_score - Optional
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.search({params, options, function(err, data) {
 	data = {
@@ -439,8 +447,8 @@ mobileengine.search({params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 mobileengine.ping({options, function(err, data) {
 	data = {
