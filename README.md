@@ -611,7 +611,7 @@ multicolorengine.countImageColors(params, options function(err, data) {
 #### Count Collection Colors 
 ```node
 /**
- * There are 4 ways to count collection colors: cikkection, metadata, colors and filepaths
+ * There are 4 ways to count collection colors: collection, metadata, colors and filepaths
  * @param collection.count_colors[] - Required
  * @param metadata.metadata - Required
  * @param metadata.count_colors[] - Required
@@ -665,7 +665,7 @@ multicolorengine.countCollectionColors(params, options function(err, data) {
 #### Count Metadata
 ```node
 /**
- * There are 4 ways to count collection colors: cikkection, metadata, colors and filepaths
+ * There are 4 ways to count collection colors: collection, metadata, colors and filepaths
  * @param collection.count_metadata[] - Required
  * @param metadata.metadata - Required
  * @param metadata.count_metadata[] - Required
@@ -945,7 +945,7 @@ multicolorengine.list({params, options, function(err, data) {
  * @param params.colors[] - Required
  * @param params.ignore_background - Optional
  * @param params.ignore_interior_background - Optional
- * @param params.metadata - Optional
+ * @param params.metadata - Optionalcikkection
  * @param params.return_metadata - Optional
  * @param params.sort_metadata - Optional
  * @param params.weights[] - Optional
@@ -1017,7 +1017,7 @@ multicolorengine.updateMetadata({options, function(err, data) {
 ## WineEngine
 Once TinEye Services is installed you can include and configure WineEngine 
 ```node
-const { WineEngine } = require('tineye-services')
+const { WineEngine } = require('tineye-services')cikcikkectioncikkectioncikkectioncikkectioncikkectioncikkectioncikkectionkection
 
 // url is optional, if none is specified then defualt is https://wineengine.tineye.com/
 wineengine = new WineEngine('user_name', 'password', 'company_name', 'url')
