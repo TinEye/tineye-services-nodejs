@@ -5,6 +5,7 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
+const chai = require('chai');
 
 var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 
@@ -37,12 +38,15 @@ describe('MatchEngine Add:', function() {
 		    	// Search your index for an image
 		    	var url = 'http://tineye.com/images/meloncat.jpg';
 
-		    	matchengine.add({url: url, filepath: 'matchEngineAdd.jpg'}, function(err, data) {
+		    	matchengine.add({url: url, filepath: 'matchEngineAdd.jpg'}, function(error, data) {
 
-		    		if(err)
-		    			done(err);
-		    		else
-		    			done();
+			        try {
+						chai.assert.isOk(data, 'Data not returned');
+			            done();
+			        } catch(err) {
+			            done(err);
+			        }
+
 		    	});
 
 		    });
@@ -57,10 +61,13 @@ describe('MatchEngine Add:', function() {
 
 		    	matchengine.add({url: url},  function(err, data) {
 
-		    		if(err.status === 'fail'&&err.message[0] === 'Missing matching filepath')
-		    			done();
-		    		else
-		    			done(new Error('Image was added by URL without filepath'));
+			        try {
+						chai.assert.isOk(err, 'Data not returned');
+						chai.assert.equal(err.status,'fail','Non fail returned')
+			            done();
+			        } catch(err) {
+			            done(err);
+			        }
 
 		    	});
 

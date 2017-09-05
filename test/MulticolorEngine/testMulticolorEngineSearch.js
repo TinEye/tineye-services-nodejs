@@ -5,6 +5,7 @@ const got = require('got');
 const { MulticolorEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
+const chai = require('chai');
 
 var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
 
@@ -149,13 +150,13 @@ describe('MulticolorEngine Search:', function() {
 			};
 
 			multicolorengine.search(params, function(err, data) {
-				
-	    		if(err)
-	    			done(new Error(err.message[0]));
-	    		else if (data.result.length == 1)
-	    			done();
-	    		else
-	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
+
+					try {
+						chai.expect(data.result.length).to.be.at.least(1);
+			            done();
+			        } catch(err) {
+			            done(err);
+			        }
 
 			});
 
@@ -175,12 +176,12 @@ describe('MulticolorEngine Search:', function() {
 
 			multicolorengine.search(params, function(err, data) {
 
-				if(err)
-	    			done(new Error(err.message[0]));
-				else if (data.result.length === 1)
-					done();
-				else
-	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
+				try {
+					chai.expect(data.result.length).to.be.at.least(1);
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 			});
 

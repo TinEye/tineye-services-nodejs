@@ -32,10 +32,18 @@ Official API documentation available at https://services.tineye.com/docs
 		- [ Add Image File ](#add-image-file-2)
 		- [ Count ](#count-2)
 		- [ Count Image Colors ](#count-image-colors)
+		- [ Count Collection Colors ](#count-collection-colors)
+		- [ Count Metadata](#count-metadata)
 		- [ Delete ](#delete-2)
+		- [ Extract Collection Colors ](#extract-collection-colors)
 		- [ Extract Image Colors ](#extract-image-colors)
+		- [ Get Metadata](#get-metadata)
+		- [ Get Return Metadata](#get-return-metadata)
+		- [ Get Search Metadata](#get-search-metadata)
+		- [ List ](#list-2)
 		- [ Search ](#search-2)
 		- [ Ping ](#ping-2)
+		- [ Update Metadata ](#update-metadata)
 	- [ WineEngine ](#wineengine)
 		- [ Add URL ](#add-url-3)
 		- [ Add Image File ](#add-image-file-3)
@@ -548,22 +556,20 @@ multicolorengine.count({options, function(err, data) {
 #### Count Image Colors 
 ```node
 /**
- * Delete an image from the collection
- * @param params.images[] - Required (array of image paths)
- * @param params.urls[] - Optional
- * @param params.colors[] - Optional
- * @param params.filepaths[] - Optional
- * @param params.weights[] - Optional
- * @param params.metadata - Required
- * @param ignore_background - Optional
- * @param ignore_interior_background - Optional
- * @param target_number_colors - Optional
- * @param limit - Optional
- * @param color_format - Optional
+ * Count colors from an Image
+ *There are two ways to count image colors: images and urls
+ * @param images.images[] - Required (array of image paths)
+ * @param images.count_colors[] - Required
+ * @param images.ignore_background - Optional
+ * @param images.ignore_interior_background - Optional
+ * @param urls.urls[] - Required
+ * @param urls.count_colors[] - Required
+ * @param urls.ignore_background - Optional
+ * @param urls.ignore_interior_background - Optional
  * @param options - Optional
  * @param callback
  */
-multicolorengine.extractImageColors(params, options function(err, data) {
+multicolorengine.countImageColors(params, options function(err, data) {
 	data = {
 	    "status": "ok",
 	    "error": [],
@@ -602,6 +608,114 @@ multicolorengine.extractImageColors(params, options function(err, data) {
 	}
 });
 ```
+#### Count Collection Colors 
+```node
+/**
+ * There are 4 ways to count collection colors: cikkection, metadata, colors and filepaths
+ * @param collection.count_colors[] - Required
+ * @param metadata.metadata - Required
+ * @param metadata.count_colors[] - Required
+ * @param colors.colors[] - Required
+ * @param colors.weights[] - Required
+ * @param colors.count_colors[] - Required
+ * @param filepaths.filepaths[] - Required
+ * @param filepaths.count_colors[] - Required
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.countCollectionColors(params, options function(err, data) {
+	data = {
+    "status": "ok",
+    "error": [],
+    "method": "count_collection_colors",
+    "result": [
+        {
+            "color": [
+                255,
+                112,
+                223
+            ],
+            "num_images_full_area": 1,
+            "name": "Pale Magenta",
+            "num_images_partial_area": 2,
+            "class": "Violet"
+        },
+        {
+            "color": [
+                95,
+                136,
+                165
+            ],
+            "num_images_full_area": 0,
+            "name": "Air Force Blue",
+            "num_images_partial_area": 0,
+            "class": "Blue"
+        },
+        {
+            "color": "df4f23",
+            "num_images_full_area": 0,
+            "name": "Cinnabar",
+            "num_images_partial_area": 1,
+            "class": "Red"
+        }
+    ]
+}
+});
+```
+#### Count Metadata
+```node
+/**
+ * There are 4 ways to count collection colors: cikkection, metadata, colors and filepaths
+ * @param collection.count_metadata[] - Required
+ * @param metadata.metadata - Required
+ * @param metadata.count_metadata[] - Required
+ * @param metadata.min_score - Optional
+ * @param colors.colors[] - Required
+ * @param colors.weights[] - Required
+ * @param colors.count_metadata[] - Required
+ * @param colors.min_score - Optional
+ * @param filepaths.filepaths[] - Required
+ * @param filepaths.count_metadata[] - Required
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.countMetadata(params, options function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "count_metadata",
+	    "result": [
+	        {
+	            "metadata": [
+	                {
+	                    "count-metadata": {
+	                        "count": "1",
+	                        "": {
+	                            "keywords": "dog"
+	                        }
+	                    }
+	                },
+	                {
+	                    "count-metadata": {
+	                        "count": "4",
+	                        "": {
+	                            "_or_operator_": [
+	                                {
+	                                    "keywords": "whale"
+	                                },
+	                                {
+	                                    "keywords": "shark"
+	                                }
+	                            ]
+	                        }
+	                    }
+	                }
+	            ]
+	        }
+	    ]
+	}
+});
+```
 #### Delete 
 ```node
 /**
@@ -619,17 +733,71 @@ multicolorengine.delete(params, options, function callback(err, data) {
 	}
 })
 ```
+#### Extract Collection Colors 
+```node
+/**
+ * There are 4 ways to extract collection colors: collection, metadata, colors and filepaths
+ * @param collection.count_colors[] - Required
+ * @param metadata.metadata - Required
+ * @param metadata.count_colors[] - Required
+ * @param colors.colors[] - Required
+ * @param colors.weights[] - Required
+ * @param colors.limit - Optional
+ * @param colors.color_format - Optional
+ * @param filepaths.filepaths[] - Required
+ * @param filepaths.limit - Optional
+ * @param filepaths.color_format - Optional
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.extractCollectionColors(params, options function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "extract_collection_colors",
+	    "result": [
+	        {
+	            "color": [
+	                141,
+	                125,
+	                83
+	            ],
+	            "weight": 76.37,
+	            "name": "Clay Creek",
+	            "rank": 1,
+	            "class": "Grey"
+	        },
+	        {
+	            "color": [
+	                35,
+	                22,
+	                19
+	            ],
+	            "weight": 23.63,
+	            "name": "Seal Brown",
+	            "rank": 2,
+	            "class": "Black"
+	        }
+	    ]
+	}
+});
+```
 #### Extract Image Colors 
 ```node
 /**
- * Delete an image from the collection
- * @param params.images[] - Required (array of image paths)
- * @param params.urls[] - Required (array of image urls, required if images are not specified)
- * @param ignore_background - Optional
- * @param ignore_interior_background - Optional
- * @param target_number_colors - Optional
- * @param limit - Optional
- * @param color_format - Optional
+ * There are two ways to extract colors from an image: images and urls
+ * @param images.images[] - Required (array of image paths)
+ * @param images.ignore_background - Optional
+ * @param images.ignore_interior_background - Optional
+ * @param images.target_number_colors - Optional
+ * @param images.limit - Optional
+ * @param images.color_format - Optional
+ * @param urls.urls[] - Required (array of image urls)
+ * @param urls.ignore_background - Optional
+ * @param urls.ignore_interior_background - Optional
+ * @param urls.target_number_colors - Optional
+ * @param urls.limit - Optional
+ * @param urls.color_format - Optional
  * @param options - Optional
  * @param callback
  */
@@ -661,6 +829,85 @@ multicolorengine.extractImageColors(params, options function(err, data) {
 		    "rank": 2,
 		    "class": "Grey"
 		}
+	    ]
+	}
+});
+```
+#### Get Metadata
+```node
+/**
+ * Get Metadata for collection images
+ * @param params.filepaths[] - Required
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.getMetadata(params, options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "get_metadata",
+	    "result": []
+	}
+});
+```
+#### Get Return Metadata
+```node
+/**
+ * Get Return Metadata for collection images
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.getReturnMetadata(options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "get_return_metadata",
+	    "result": [
+	        {
+	            "metadata": {
+	                "id": {
+	                    "count": "2",
+	                    "": null,
+	                    "type": "uint"
+	                },
+	            }
+	        }
+	    ]
+	}
+});
+```
+#### Get Search Metadata
+```node
+/**
+ * Get Search Metadata for collection images
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.getSearchMetadata(options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "get_search_metadata",
+	    "result": [
+	        {
+	            "metadata": {
+	                "keywords": {
+	                    "count": "4",
+	                    "type": "string",
+	                    "": {
+	                       "dog": {
+	                            "count": "1",
+	                            "": null
+	                        },
+	                        "cat": {
+	                            "count": "1",
+	                            "": null
+	                        }
+	                        //...
+	                    }
+	                }
+	            }
+	        }
 	    ]
 	}
 });
@@ -749,8 +996,24 @@ multicolorengine.ping({options, function(err, data) {
 	}
 });
 ```
-
-
+#### Update Metadata
+```node
+/**
+ * Update Metadata for collection image
+ * @param params.filepath - Required
+ * @param params.metadata - Required
+ * @param options - Optional
+ * @param callback
+ */
+multicolorengine.updateMetadata({options, function(err, data) {
+	data = {
+	    "status": "ok",
+	    "error": [],
+	    "method": "update_metadata",
+	    "result": []
+	}
+});
+```
 ## WineEngine
 Once TinEye Services is installed you can include and configure WineEngine 
 ```node
