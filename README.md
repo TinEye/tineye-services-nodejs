@@ -29,6 +29,13 @@ Official API documentation available at https://services.tineye.com/docs
 		- [ Ping ](#ping-1)
 	- [ MulticolorEngine ](#multicolorengine)
 	- [ WineEngine ](#wineengine)
+		- [ Add URL ](#add-url-3)
+		- [ Add Image File ](#add-image-file-3)
+		- [ Count ](#count-3)
+		- [ Delete ](#delete-3)
+		- [ List ](#list-3)
+		- [ Search ](#search-3)
+		- [ Ping ](#ping-3)
 - [ Testing ](#testing)
 
 # Installation
@@ -647,10 +654,10 @@ Below are methods available for WineEngine, for more information on parameters a
 ```node
 /**
  * Add an image to an image collection
- * @param params.rl - Required URL of an image.
- * @param params.filepath - Optional remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.url - Required
+ * @param params.filepath - Optional
+ * @param options - Optional
+ * @param callback
  */
 wineengine.add(params, options, function callback (err, data) {
 	data = {
@@ -665,10 +672,10 @@ wineengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Add an image to an image collection
- * @param params.image - Required path to an image file 
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - Callback function returing err or data
+ * @param params.image - Required(path to local file)
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 wineengine.add(paramdd an Image to an image collections, options, function callback (err, data) {
 	data = {
@@ -683,8 +690,8 @@ wineengine.add(paramdd an Image to an image collections, options, function callb
 ```node
 /**
  * Counts images in collection
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 wineengine.count({options, function(err, data) {
 	data = {
@@ -701,9 +708,9 @@ wineengine.count({options, function(err, data) {
 ```node
 /**
  * Delete an image from the collection
- * @param params.filepath - Required remote filepath for the image
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.filepath - Required
+ * @param options - Optional
+ * @param callback
  */
 wineengine.delete(params, options, function callback(err, data) {
 	data = {
@@ -718,10 +725,10 @@ wineengine.delete(params, options, function callback(err, data) {
 ```node
 /**
  * List images in collection
- * @param params.offset - Optional skips that many images in the collection, defaults to 0.
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.offset - Optional
+ * @param params.limit - Optional
+ * @param options - Optional
+ * @param callback
  */
 wineengine.list({params, options, function(err, data) {
 	data = {
@@ -739,13 +746,13 @@ wineengine.list({params, options, function(err, data) {
 ```node
 /**
  * Search images in collection
- * @param params.url
- * @param params.image
- * @param params.filepath
- * @param params.limit - Optional limits the results to this many images, defaults to 20. 
- * @param params.generate_overlay
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param params.url - Required (if no image or filepath included)
+ * @param params.image - Required (if no url or filepath included)
+ * @param params.filepath - Required (if no image or url included)
+ * @param params.limit - Optional
+ * @param params.generate_overlay - Optional
+ * @param options - Optional
+ * @param callback
  */
 wineengine.search({params, options, function(err, data) {
 	data = {
@@ -807,8 +814,8 @@ wineengine.search({params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional object containing common parameters
- * @param callback - callback function returing err or data
+ * @param options - Optional
+ * @param callback
  */
 wineengine.ping({options, function(err, data) {
 	data = {
@@ -821,6 +828,8 @@ wineengine.ping({options, function(err, data) {
 ```
 # Testing
 Tests are written with mocha and stored in the tests folder
+
+Test must run on an empty collection of images
 
 To run the tests first install the dependencies 
 ```shell
