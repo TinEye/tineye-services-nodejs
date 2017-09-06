@@ -65,14 +65,15 @@ describe('MulticolorEngine Search:', function() {
 			});
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
-		});
 
+		});
 
 	});
 
@@ -110,7 +111,6 @@ describe('MulticolorEngine Search:', function() {
 				
 	});
 
-
 	//serach with weights
 	describe('Search with a single color green(#1abc9c)', function() {
 		
@@ -138,7 +138,6 @@ describe('MulticolorEngine Search:', function() {
 
 	});
 
-
 	//serach with weights
 	describe('Search with a more than one color (#f1c40f and #e74c3c)', function() {
 		
@@ -150,12 +149,12 @@ describe('MulticolorEngine Search:', function() {
 
 			multicolorengine.search(params, function(err, data) {
 
-					try {
-						chai.expect(data.result.length).to.be.at.least(1);
-			            done();
-			        } catch(err) {
-			            done(err);
-			        }
+				try {
+					chai.expect(data.result.length).to.be.at.least(1);
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 			});
 
@@ -187,7 +186,6 @@ describe('MulticolorEngine Search:', function() {
 		});
 
 	});
-
 
 	// //serach with file
 	describe('Search by image file', function() {

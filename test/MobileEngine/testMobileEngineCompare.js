@@ -66,6 +66,7 @@ describe('MobileEngine Compare:', function() {
 	});
 
 	describe('Compare the same image by URL', function() {
+
 		it('Should return a call with status "ok" and a non-empty result', function(done) {
 
 	    	mobileengine.compare({url1: melonCatUrl, url2: melonCatUrl}, function(err, data) {
@@ -87,6 +88,7 @@ describe('MobileEngine Compare:', function() {
 	});
 
 	describe('Compare the same image by URL and filepath', function() {
+
 		it('Should return a call with status "ok" and a empty result', function(done) {
 
 	    	mobileengine.compare({url1: melonCatUrl, filepath2: 'mobileEngineCompareTest.jpg'}, function(err, data) {
@@ -108,6 +110,7 @@ describe('MobileEngine Compare:', function() {
 	});
 
 	describe('Compare 2 images by File and filepath', function() {
+		
 		it('Should return a call with status "ok" and a non-empty result', function(done) {
 
 	    	mobileengine.compare({image1: birdFilePath, filepath2: 'mobileEngineCompareTest.jpg'}, function(err, data) {

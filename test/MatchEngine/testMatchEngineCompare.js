@@ -1,3 +1,4 @@
+const chai = require('chai');
 const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
@@ -65,16 +66,19 @@ describe('MatchEngine Compare:', function() {
 	});
 
 	describe('Compare the same image by URL', function() {
+
 		it('Should return a call with status "ok" and a non-empty result', function(done) {
 
 	    	matchengine.compare({url1: melonCatUrl, url2: melonCatUrl}, function(err, data) {
 
-	    		if(err)
-	    			done(err);
-	    		else if (data.result)
-	    			done();
-	    		else
-	    			done(new Error('No Result was returned'));
+		        try {
+					chai.assert.isOk(data, 'Data not returned');
+					chai.assert(data.status === 'ok','Status not ok');
+					chai.assert.isOk(data.result, 'Result not returned');
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 	    	});
 
@@ -83,16 +87,19 @@ describe('MatchEngine Compare:', function() {
 	});
 
 	describe('Compare the same image by URL and filepath', function() {
+
 		it('Should return a call with status "ok" and a empty result', function(done) {
 
 	    	matchengine.compare({url1: melonCatUrl, filepath2: 'matchEngineCompareTest.jpg'}, function(err, data) {
 
-	    		if(err)
-	    			done(err);
-	    		else if (!data.result[0])
-	    			done();
-	    		else
-	    			done(new Error('No Result was returned'));
+		        try {
+					chai.assert.isOk(data, 'Data not returned');
+					chai.assert(data.status === 'ok','Status not ok');
+					chai.assert.isNotOk(data.result[0], 'Result returned');
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 	    	});
 
@@ -101,16 +108,19 @@ describe('MatchEngine Compare:', function() {
 	});
 
 	describe('Compare 2 images by File and filepath', function() {
+
 		it('Should return a call with status "ok" and a non-empty result', function(done) {
 
 	    	matchengine.compare({image1: birdFilePath, filepath2: 'matchEngineCompareTest.jpg'}, function(err, data) {
 
-	    		if(err)
-	    			done(err);
-	    		else if (data.result)
-	    			done();
-	    		else
-	    			done(new Error('No Result was returned'));
+		        try {
+					chai.assert.isOk(data, 'Data not returned');
+					chai.assert(data.status === 'ok','Status not ok');
+					chai.assert.isOk(data.result, 'Result not returned');
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 	    	});
 

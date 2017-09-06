@@ -64,14 +64,15 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 			});
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
-		});
 
+		});
 
 	});
 
@@ -169,7 +170,6 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 			});
 
 		});
-
 
 	});
 

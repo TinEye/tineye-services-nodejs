@@ -62,7 +62,9 @@ describe('MulticolorEngine Count:', function() {
 
 
 	describe('Get a count of total images', function() {
+
 		it('Should return a call with status "ok" and a result > 0', function(done) {
+
 			multicolorengine.count(function(err, data) {
 				
 				if(err){
@@ -72,7 +74,7 @@ describe('MulticolorEngine Count:', function() {
 					done();
 				}
 				else{
-					done(new Error("Response does not contain image.jpg"));
+					done(new Error('Response does not contain image.jpg'));
 				}
 
 			});

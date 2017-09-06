@@ -40,7 +40,6 @@ describe('MoileEngine Search:', function() {
 
 	});
 
-
 	//make call to delete images after tests
 	after(function(done){
 				
@@ -65,12 +64,11 @@ describe('MoileEngine Search:', function() {
 
 	});
 
-
 	describe('Search Image by filepath', function() {
 		
 		it('Should return a call with status "ok" and a result', function(done) {
 
-			mobileengine.search({filepath: "mobileEngineSearchTest1.jpg"}, function(err, data) {
+			mobileengine.search({filepath: 'mobileEngineSearchTest1.jpg'}, function(err, data) {
 				
 	    		if(err){
 	    			done(new Error(err));

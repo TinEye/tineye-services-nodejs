@@ -66,14 +66,15 @@ describe('MulticolorEngine CountImageColors:', function() {
 			});
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
-		});
 
+		});
 
 	});
 
@@ -188,4 +189,5 @@ describe('MulticolorEngine CountImageColors:', function() {
 		});
 
 	});
+	
 });

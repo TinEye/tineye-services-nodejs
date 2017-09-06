@@ -66,7 +66,7 @@ describe('MobileEngine Delete:', function() {
 		
 		it('Should return a call with status "ok"', function(done) {
 
-			mobileengine.delete({filepath: "mobileEngineDeleteTest.jpg"}, function(err, data) {
+			mobileengine.delete({filepath:'mobileEngineDeleteTest.jpg'}, function(err, data) {
 				
 				if(err){
 					done(err);

@@ -30,7 +30,7 @@ describe('MobileEngine Ping:', function() {
 					done(err);
 				}
 				else{
-					done(new Error("Server failed to return ping response"));
+					done(new Error('Server failed to return ping response'));
 				}
 
 			});

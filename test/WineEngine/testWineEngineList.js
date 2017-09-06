@@ -62,7 +62,6 @@ describe('WineEngine List', function() {
 
 	});
 
-
 	describe('Get list of collection', function() {
 
 		it('Should return a call with status "ok" and list wineEngineListTest.jpg', function(done) {

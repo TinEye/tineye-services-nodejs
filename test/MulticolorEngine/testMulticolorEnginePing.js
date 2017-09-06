@@ -18,7 +18,9 @@ describe('MulticolorEngine Ping:', function() {
 	this.timeout(10000);
 
 	describe('Check Server Ping', function() {
+
 		it('Should return a call with status "ok"', function(done) {
+			
 			multicolorengine.ping(function(err, data) {
 				
 				if(err){

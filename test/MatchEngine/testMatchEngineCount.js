@@ -27,13 +27,13 @@ describe('MatchEngine Count:', function() {
 	   	got.post(config.MatchEngine.url + 'add', {
 	       auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 		   body: form
-		   })
-		  	.then(response => {
-				done(); 
-			})
-			.catch(error => {
-				done(error);
-			});
+		})
+		.then(response => {
+			done(); 
+		})
+		.catch(error => {
+			done(error);
+		});
 
 	});
 
@@ -46,10 +46,14 @@ describe('MatchEngine Count:', function() {
 	      query: {filepath:'matchEngineCountTest.jpg'}
 	    })
 	    .then((response) => {
-   			if(response.body.status !== 'ok')
+
+   			if(response.body.status !== 'ok'){
 				done(new Error('After hook failed to delete added image')); 
-   			else
+   			}
+   			else{
 				done(); 
+   			}
+
 	    })
 	    .catch((err) => {
 			done();
@@ -57,9 +61,10 @@ describe('MatchEngine Count:', function() {
 
 	});
 
-
 	describe('Get a count of total images', function() {
+
 		it('Should return a call with status "ok" and a result > 0', function(done) {
+			
 			matchengine.count(function(err, data) {
 				
 				if(err)

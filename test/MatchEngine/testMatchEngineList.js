@@ -27,43 +27,45 @@ describe('MatchEngine List', function() {
 	   	got.post(config.MatchEngine.url + 'add', {
 	       auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,	   		
 		   body: form
-		   })
-		  	.then(response => {
-				done(); 
-			})
-			.catch(error => {
-				done(error);
-			});
+		})
+		.then(response => {
+			done(); 
+		})
+		.catch(error => {
+			done(error);
+		});
 
 	});
 
 	//delete manually
 	after(function(done) {
 	
-		    got.delete(config.MatchEngine.url + 'delete', {
-	     	  auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
-		      json: true,
-		      query: {filepath:'matchEngineListTest.jpg'}
-		    })
-		    .then((response) => {
+	    got.delete(config.MatchEngine.url + 'delete', {
+     	  auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
+	      json: true,
+	      query: {filepath:'matchEngineListTest.jpg'}
+	    })
+	    .then((response) => {
 
-	   			if(response.body.status === 'ok'){
-	   				done();
-	   			}
-	   			else{
-					done(new Error('After hook failed to delete image')); 
-	   			}
-	   			
-		    })
-		    .catch((err) => {
-				done();
-		    });
+   			if(response.body.status === 'ok'){
+   				done();
+   			}
+   			else{
+				done(new Error('After hook failed to delete image')); 
+   			}
+   			
+	    })
+	    .catch((err) => {
+			done();
+	    });
 
 	});
 
 
 	describe('Get list of collection', function() {
+
 		it('Should return a call with status "ok" and list matchEngineListTest.jpg', function(done) {
+			
 			matchengine.list(function(err, data) {
 				
 				if(err)

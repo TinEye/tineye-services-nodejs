@@ -58,7 +58,6 @@ describe('WineEngine Count:', function() {
 
 	});
 
-
 	describe('Get a count of total images', function() {
 
 		it('Should return a call with status "ok" and a result > 0', function(done) {

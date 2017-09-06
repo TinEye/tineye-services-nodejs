@@ -66,14 +66,15 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 			});
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
-		});
 
+		});
 
 	});
 
@@ -99,12 +100,14 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 		    });
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
+			
 		});
 				
 	});

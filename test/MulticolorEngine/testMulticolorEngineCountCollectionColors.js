@@ -66,14 +66,15 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 			});
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
-		});
 
+		});
 
 	});
 
@@ -95,15 +96,18 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 		    });
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
+
 		});
 				
 	});
+	
 	describe('Count colors in Image Collection ', function() {
 		
 		it('Should return a call with status "ok" and 2 results', function(done) {

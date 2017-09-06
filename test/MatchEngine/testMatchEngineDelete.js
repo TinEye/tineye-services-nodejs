@@ -28,37 +28,37 @@ describe('MatchEngine Delete:', function() {
 	   	got.post(config.MatchEngine.url + 'add', {
 	       auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 		   body: form
-		   })
-		   .then(response => {
-				done(); 
-			})
-			.catch(error => {
-				done(error);
-			});
+		})
+		.then(response => {
+			done(); 
+		})
+		.catch(error => {
+			done(error);
+		});
 
 	});
 
 		//post an image to the collection for deletion
 	after(function(done) {
 	
-		    got.delete(config.MatchEngine.url + 'delete', {
-	      	  auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
-		      json: true,
-		      query: {filepath:'matchEngineDeleteTest.jpg'}
-		    })
-		    .then((response) => {
+	    got.delete(config.MatchEngine.url + 'delete', {
+      	  auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
+	      json: true,
+	      query: {filepath:'matchEngineDeleteTest.jpg'}
+	    })
+	    .then((response) => {
 
-	   			if(response.body.status === 'warn'){
-	   				done();
-	   			}
-	   			else{
-					done(new Error("Test failed to delete image, image deleted by after hook"));
-	   			}
+   			if(response.body.status === 'warn'){
+   				done();
+   			}
+   			else{
+				done(new Error("Test failed to delete image, image deleted by after hook"));
+   			}
 
-		    })
-		    .catch((err) => {
-				done();
-		    });
+	    })
+	    .catch((err) => {
+			done();
+	    });
 
 	});
 

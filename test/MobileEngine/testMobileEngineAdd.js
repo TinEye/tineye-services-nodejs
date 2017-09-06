@@ -42,6 +42,7 @@ describe('MobileEngine Add:', function() {
 	});
 
 	describe('Add Image by URL', function() {
+
 		it('Should return a call with status "ok"', function(done) {
 	    	// Search your index for an image
 	    	var url = 'http://tineye.com/images/meloncat.jpg';
@@ -83,6 +84,7 @@ describe('MobileEngine Add:', function() {
 	});
 
 	describe('Add Image by File with no optional params', function() {
+
 		it('Should return a call with status "ok"', function(done) {
 
 			mobileengine.add({ image: __dirname + '/../image2.jpg', filepath: 'mobileEngineAdd.jpg'}, function (err, data) {
@@ -101,6 +103,7 @@ describe('MobileEngine Add:', function() {
 	});
 
 	describe('Add Image by File with optional param format:xml', function() {
+
 		it('Return a string of xml that cam successfully be parsed ', function(done) {
 
 			mobileengine.add({ image: __dirname + '/../image.jpg', filepath: 'mobileEngineAdd.jpg' },{format:'xml'}, function (err, data) {
@@ -124,6 +127,7 @@ describe('MobileEngine Add:', function() {
 	});
 
 	describe('Add Image by File with optional param callback', function() {
+
 		it('Return a string of json wrapped in JSON.parse function', function(done) {
 
 			mobileengine.add({ image: __dirname + '/../image.jpg', filepath:'mobileEngineAdd.jpg' },{callback:'JSON.parse'}, function (err, data) {
@@ -142,6 +146,7 @@ describe('MobileEngine Add:', function() {
 	});
 
 	describe('Add Image by File with optional param timeout', function() {
+		
 		it('Return a status of "ok"', function(done) {
 
 			mobileengine.add({ image: __dirname + '/../image.jpg', filepath: 'mobileEngineAdd.jpg' },{timeout:100}, function (err, data) {

@@ -65,12 +65,14 @@ describe('MulticolorEngine ExtractCollectionColors:', function() {
 			});
 
 		}, function (err,results) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
+
 		});
 
 
@@ -136,6 +138,7 @@ describe('MulticolorEngine ExtractCollectionColors:', function() {
 			};
 
 			multicolorengine.extractCollectionColors(params, function(err, data) {
+				
 	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
 	    		}

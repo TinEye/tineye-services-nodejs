@@ -17,7 +17,9 @@ describe('MatchEngine Ping:', function() {
 	this.timeout(15000);
 
 	describe('Check Server Ping', function() {
+
 		it('Should return a call with status "ok"', function(done) {
+			
 			matchengine.ping(function(err, data) {
 				
 				if(err){
