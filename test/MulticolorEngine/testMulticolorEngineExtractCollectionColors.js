@@ -1,3 +1,5 @@
+const async = require('async');
+const chai = require('chai');
 const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
@@ -10,65 +12,59 @@ var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine)
 
 describe('MulticolorEngine ExtractCollectionColors:', function() {
 
-	//Set timeout to 5s
-	this.timeout(10000);
+	//Set timeout to 15s
+	this.timeout(15000);
 
    	var colorsPath = __dirname + '/../colors.png';
 	var bluePath = __dirname + '/../blue.png';
 	var purplePath = __dirname + '/../purple.png';
 	var greensPath = __dirname + '/../greens.png';
-	var url = 'http://tineye.com/images/meloncat.jpg';
-	var url2 = 'https://services.tineye.com/developers/matchengine/_images/364069_a1.jpg';
-	   
-	var form = new FormData();
-	form.append('image', fs.createReadStream(greensPath));
-	form.append('filepath', 'multicolorEngineExtractCollectionGreens.jpg');
 
-	var form2 = new FormData();
-	form2.append('image', fs.createReadStream(purplePath));
-	form2.append('filepath', 'multicolorEngineExtractCollectionPurple.jpg');
-
-	var form3 = new FormData();
-	form3.append('image', fs.createReadStream(bluePath));
-	form3.append('filepath', 'multicolorEngineExtractCollectionBlue.jpg');
-
-	var form4 = new FormData();
-	form4.append('image', fs.createReadStream(colorsPath));
-	form4.append('filepath', 'multicolorEngineExtractCollectionColors.jpg');
-
+	var images = {
+		colorsPath:{
+			imagePath:colorsPath,
+			filePath:'multicolorEngineExtractCollectionColorsColors.jpg'
+		}, 
+		bluePath:{
+			imagePath:bluePath,
+			filePath:'multicolorEngineExtractCollectionColorsBlue.jpg'
+		}, 
+		greensPath:{
+			imagePath:bluePath,
+			filePath:'multicolorEngineExtractCollectionColorsGreens.jpg'
+		}, 
+		purplePath:{
+			imagePath:purplePath,
+			filePath:'multicolorEngineExtractCollectionColorsPurple.jpg'
+		}
+	};
+   
 	//post an image to the collection manually
 	before(function(done) {
-	
-	   	var postColor1 = got.post(config.MulticolorEngine + 'add', {
-		    body: form
-		});
 
-	   	var postColor2 = got.post(config.MulticolorEngine + 'add', {
-		    body: form2
-		});
+		async.forEachOfSeries(images, function (value, key, callback) {
 
-		var postColor3 = got.post(config.MulticolorEngine + 'add', {
-		    body: form3
-		});
+			var form = new FormData();
+			form.append('image', fs.createReadStream(value.imagePath));
+			form.append('filepath', value.filePath);
 
-		var postColors = got.post(config.MulticolorEngine + 'add', {
-		    body: form4
-		});
+		    got.post(config.MulticolorEngine+'add', {
+		    	body:form
+		    })
+		    .then((response) => {
+	   			callback();
+		    })
+		    .catch((err) => {
+		    	callback(err);
+		    });
 
-		postColor1.then(function(response){
-			return postColor2;
-		})
-		.then(function(response){
-			return postColor3;
-		})
-		.then(function(response){
-			return postColors;
-		})
-		.then(function(response){
-			done();
-		})
-		.catch(function(error){
-			done(error);
+		}, function (err,results) {
+			if(err){
+				done(err);
+			}
+			else{
+				done();
+			}
 		});
 
 
@@ -76,43 +72,29 @@ describe('MulticolorEngine ExtractCollectionColors:', function() {
 
 	//make call to delete images after tests
 	after(function(done){
+
+		async.forEachOfSeries(images, function (value, key, callback) {
+
+		    got.delete(config.MulticolorEngine+'delete', {
+	      		json: true,
+	      		query: {filepath:value.filePath}
+		    })
+		    .then((response) => {
+	   			callback();
+		    })
+		    .catch((err) => {
+		    	callback(err);
+		    });
+
+		}, function (err,results) {
+			if(err){
+				done(err);
+			}
+			else{
+				done();
+			}
+		});
 				
-	    var deleteColor1 = got.delete(config.MulticolorEngine+'delete', {
-	      json: true,
-	      query: {filepath:'multicolorEngineExtractCollectionGreens.jpg'}
-		});
-
-		var deleteColor2 = got.delete(config.MulticolorEngine+'delete', {
-			json: true,
-			query: {filepath:'multicolorEngineExtractCollectionPurple.jpg'}
-		});
-		
-		var deleteColor3 = got.delete(config.MulticolorEngine+'delete', {
-			json: true,
-			query: {filepath:'multicolorEngineExtractCollectionBlue.jpg'}
-		});
-
-		var deleteColors = got.delete(config.MulticolorEngine+'delete', {
-			json: true,
-			query: {filepath:'multicolorEngineExtractCollectionColors.jpg'}
-		});
-
-		deleteColor1.then(function(response){
-			return deleteColor2;
-		})
-		.then(function(response){
-			return deleteColor3;
-		})
-		.then(function(response){
-			return deleteColors;
-		})
-		.then(function(response){
-			done();
-		})
-		.catch(function(error){
-			done(new Error('After hook failed to delete added images'));
-		});
-
 	});
 
 	describe('Extract collection colors by image file', function() {
@@ -120,12 +102,14 @@ describe('MulticolorEngine ExtractCollectionColors:', function() {
 		it('Should return a call with status "ok" and 13 colors', function(done) {
 
 			multicolorengine.extractCollectionColors({},function(err, data) {
-	    		if(err)
-	    			done(new Error(JSON.stringify(err,null, 4)));
-				else if (data.result.length === 13){
-	    			done();
-				}else
-	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+
+		        try{
+					chai.assert.isOk(data.result, 'Data not returned');
+					chai.expect(data.result.length).to.be.at.least(10);
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 			});
 

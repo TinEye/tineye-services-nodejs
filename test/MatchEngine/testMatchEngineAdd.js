@@ -1,3 +1,4 @@
+const chai = require('chai');
 const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
@@ -5,7 +6,6 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
-const chai = require('chai');
 
 var matchengine = new MatchEngine('', '', '', config.MatchEngine);
 

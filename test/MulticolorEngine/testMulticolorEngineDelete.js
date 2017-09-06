@@ -12,7 +12,7 @@ describe('MulticolorEngine Delete:', function() {
 	//Set timeout to 5s
 	this.timeout(10000);
 
-	//post an image to the collection for deletion
+	//post an image to the collection for testing
 	before(function(done) {
 	
 		var form = new FormData();
@@ -30,7 +30,7 @@ describe('MulticolorEngine Delete:', function() {
 
 	});
 
-		//post an image to the collection for deletion
+	//Delete files added to the collection 
 	after(function(done) {
 	
 	    got.delete(config.MulticolorEngine+'delete', {
