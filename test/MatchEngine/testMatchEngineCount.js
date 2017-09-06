@@ -5,7 +5,11 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var matchengine = new MatchEngine('', '', '', config.MatchEngine);
+var matchengine = new MatchEngine(
+	config.MatchEngine.user, 
+	config.MatchEngine.pass, 
+	'', 
+	config.MatchEngine.url);
 
 describe('MatchEngine Count:', function() {
 
@@ -20,7 +24,8 @@ describe('MatchEngine Count:', function() {
 		form.append('image', fs.createReadStream(__dirname + '/../image.jpg'));
 		form.append('filepath', "matchEngineCountTest.jpg");
 
-	   	got.post(config.MatchEngine + 'add', {
+	   	got.post(config.MatchEngine.url + 'add', {
+	       auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 		   body: form
 		   })
 		  	.then(response => {
@@ -35,7 +40,8 @@ describe('MatchEngine Count:', function() {
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.MatchEngine+'delete', {
+	    got.delete(config.MatchEngine.url+'delete', {
+	      auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 	      json: true,
 	      query: {filepath:'matchEngineCountTest.jpg'}
 	    })

@@ -7,8 +7,11 @@ const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 var expect = require('chai').expect;
 
-
-var matchengine = new MatchEngine('', '', '', config.MatchEngine);
+var matchengine = new MatchEngine(
+	config.MatchEngine.user, 
+	config.MatchEngine.pass, 
+	'', 
+	config.MatchEngine.url);
 
 describe('MatchEngine Search:', function() {
 
@@ -26,7 +29,8 @@ describe('MatchEngine Search:', function() {
 		form.append('image', fs.createReadStream(birdFilePath));
 		form.append('filepath', 'matchEngineSearchTest1.jpg');
 
-	   	got.post(config.MatchEngine + 'add', {
+	   	got.post(config.MatchEngine.url + 'add', {
+	   	    auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 		    body: form
 		}).then(response => {
 			done(); 
@@ -41,15 +45,20 @@ describe('MatchEngine Search:', function() {
 	//make call to delete images after tests
 	after(function(done){
 				
-	    got.delete(config.MatchEngine+'delete', {
+	    got.delete(config.MatchEngine.url + 'delete', {
+    	  auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 	      json: true,
 	      query: {filepath:'matchEngineSearchTest1.jpg'}
 	    })
 	    .then((response) => {
-   			if(response.body.status === 'ok')
+
+   			if(response.body.status === 'ok'){
 				done();
-			else
+   			}
+			else{
 				done(new Error('After hook failed to delete added image')); 
+			}
+
 	    })
 	    .catch((err) => {
 			done();
@@ -64,12 +73,15 @@ describe('MatchEngine Search:', function() {
 
 			matchengine.search({filepath: "matchEngineSearchTest1.jpg"}, function(err, data) {
 				
-	    		if(err)
+	    		if(err){
 	    			done(new Error(err));
-	    		else if (data.result.length > 0)
+	    		}
+	    		else if (data.result.length > 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 			});
 
@@ -83,12 +95,15 @@ describe('MatchEngine Search:', function() {
 
 			matchengine.search({image:birdFilePath }, function(err, data) {
 				
-	    		if(err)
+	    		if(err){
 	    			done(err);
-	    		else if (data.result.length > 0)
+	    		}
+	    		else if (data.result.length > 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 			});
 
@@ -103,12 +118,15 @@ describe('MatchEngine Search:', function() {
 
 			matchengine.search({image:melonCatFilePath }, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error(err));
-	    		else if (data.result.length == 0)
+	    		}
+	    		else if (data.result.length == 0){
 	    			done(); 	    			
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('A non error status was returned'));
+	    		}
 
 			});
 

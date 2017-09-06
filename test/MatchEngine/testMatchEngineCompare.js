@@ -5,7 +5,12 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 
-var matchengine = new MatchEngine('', '', '', config.MatchEngine);
+var matchengine = new MatchEngine(
+	config.MatchEngine.user, 
+	config.MatchEngine.pass, 
+	'', 
+	config.MatchEngine.url
+	);
 
 describe('MatchEngine Compare:', function() {
 
@@ -24,7 +29,8 @@ describe('MatchEngine Compare:', function() {
 		form.append('image', fs.createReadStream(birdFilePath));
 		form.append('filepath', 'matchEngineCompareTest.jpg');
 
-	   	got.post(config.MatchEngine + 'add', {
+	   	got.post(config.MatchEngine.url + 'add', {
+	        auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 		    body: form
 		}).then(response => {
 			done(); 
@@ -37,15 +43,20 @@ describe('MatchEngine Compare:', function() {
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.MatchEngine+'delete', {
+   		got.delete(config.MatchEngine.url+'delete', {
+	      auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 	      json: true,
 	      query: {filepath:'matchEngineCompareTest.jpg'}
 	    })
 	    .then((response) => {
-   			if(response.body.status === 'ok')
+
+			if(response.body.status === 'ok'){
 				done();
-			else
+			}
+			else{
 				done(new Error('After hook failed to delete added image')); 
+			}
+			
 	    })
 	    .catch((err) => {
 			done();

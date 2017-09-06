@@ -5,7 +5,11 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var matchengine = new MatchEngine('', '', '', config.MatchEngine);
+var matchengine = new MatchEngine(
+	config.MatchEngine.user, 
+	config.MatchEngine.pass, 
+	'', 
+	config.MatchEngine.url);
 
 describe('MatchEngine List', function() {
 
@@ -20,7 +24,8 @@ describe('MatchEngine List', function() {
 		form.append('image', fs.createReadStream(__dirname + '/../image.jpg'));
 		form.append('filepath', 'matchEngineListTest.jpg');
 
-	   	got.post(config.MatchEngine + 'add', {
+	   	got.post(config.MatchEngine.url + 'add', {
+	       auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,	   		
 		   body: form
 		   })
 		  	.then(response => {
@@ -35,15 +40,20 @@ describe('MatchEngine List', function() {
 	//delete manually
 	after(function(done) {
 	
-		    got.delete(config.MatchEngine+'delete', {
+		    got.delete(config.MatchEngine.url + 'delete', {
+	     	  auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 		      json: true,
 		      query: {filepath:'matchEngineListTest.jpg'}
 		    })
 		    .then((response) => {
-	   			if(response.body.status === 'ok')
+
+	   			if(response.body.status === 'ok'){
 	   				done();
-	   			else
+	   			}
+	   			else{
 					done(new Error('After hook failed to delete image')); 
+	   			}
+	   			
 		    })
 		    .catch((err) => {
 				done();

@@ -5,7 +5,12 @@ const got = require('got');
 const { MulticolorEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
+var multicolorengine = new MulticolorEngine(
+	config.MulticolorEngine.user, 
+	config.MulticolorEngine.pass, 
+	'', 
+	config.MulticolorEngine.url
+	);
 
 describe('MulticolorEngine Ping:', function() {
 
@@ -16,12 +21,15 @@ describe('MulticolorEngine Ping:', function() {
 		it('Should return a call with status "ok"', function(done) {
 			multicolorengine.ping(function(err, data) {
 				
-				if(err)
+				if(err){
 					done(err);
-				else if(data.status === "ok")
+				}
+				else if(data.status === 'ok'){
 					done();
-				else
-					done(new Error("Server failed to return ping response"));
+				}
+				else{
+					done(new Error('Server failed to return ping response'));
+				}
 
 			});
 

@@ -6,7 +6,12 @@ const { MobileEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
-var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
+var mobileengine = new MobileEngine(
+	config.MobileEngine.user, 
+	config.MobileEngine.pass, 
+	'', 
+	config.MobileEngine.url
+	);
 
 describe('MoileEngine Search:', function() {
 
@@ -24,12 +29,13 @@ describe('MoileEngine Search:', function() {
 		form.append('image', fs.createReadStream(birdFilePath));
 		form.append('filepath', 'mobileEngineSearchTest1.jpg');
 
-	   	got.post(config.MobileEngine + 'add', {
+	   	got.post(config.MobileEngine.url + 'add', {
+	        auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
 		    body: form
 		}).then(response => {
 			done(); 
 		}).catch(error => {
-				done(error);
+			done(error);
 		});
 
 	});
@@ -38,15 +44,20 @@ describe('MoileEngine Search:', function() {
 	//make call to delete images after tests
 	after(function(done){
 				
-	    got.delete(config.MobileEngine+'delete', {
+	    got.delete(config.MobileEngine.url + 'delete', {
+	      auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
 	      json: true,
 	      query: {filepath:'mobileEngineSearchTest1.jpg'}
 	    })
 	    .then((response) => {
-   			if(response.body.status === 'ok')
+
+   			if(response.body.status === 'ok'){
 				done();
-			else
+   			}
+			else{
 				done(new Error('After hook failed to delete added image')); 
+			}
+
 	    })
 	    .catch((err) => {
 			done();
@@ -61,12 +72,15 @@ describe('MoileEngine Search:', function() {
 
 			mobileengine.search({filepath: "mobileEngineSearchTest1.jpg"}, function(err, data) {
 				
-	    		if(err)
+	    		if(err){
 	    			done(new Error(err));
-	    		else if (data.result.length > 0)
+	    		}
+	    		else if (data.result.length > 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 			});
 
@@ -80,12 +94,15 @@ describe('MoileEngine Search:', function() {
 
 			mobileengine.search({image:birdFilePath }, function(err, data) {
 				
-	    		if(err)
+	    		if(err){
 	    			done(err);
-	    		else if (data.result.length > 0)
+	    		}
+	    		else if (data.result.length > 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 			});
 
@@ -100,12 +117,15 @@ describe('MoileEngine Search:', function() {
 
 			mobileengine.search({image:melonCatFilePath }, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error(err));
-	    		else if (data.result.length === 0)
+	    		}
+	    		else if (data.result.length === 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('A result was returned when result should === 0'));
+	    		}
 
 			});
 

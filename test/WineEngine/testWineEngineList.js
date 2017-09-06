@@ -5,7 +5,12 @@ const got = require('got');
 const { WineEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var wineengine = new WineEngine('', '', '', config.WineEngine);
+var wineengine = new WineEngine(
+	config.WineEngine.user, 
+	config.WineEngine.pass, 
+	'', 
+	config.WineEngine.url
+	);
 
 describe('WineEngine List', function() {
 
@@ -20,48 +25,59 @@ describe('WineEngine List', function() {
 		form.append('image', fs.createReadStream(__dirname + '/../image.jpg'));
 		form.append('filepath', 'wineEngineListTest.jpg');
 
-	   	got.post(config.WineEngine + 'add', {
-		   body: form
-		   })
-		  	.then(response => {
-				done(); 
-			})
-			.catch(error => {
-				done(error);
-			});
+	   	got.post(config.WineEngine.url  + 'add', {
+	      	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
+		   	body: form
+		})
+		.then(response => {
+			done(); 
+		})
+		.catch(error => {
+			done(error);
+		});
 
 	});
 
 	//delete manually
 	after(function(done) {
 	
-		    got.delete(config.WineEngine + 'delete', {
-		      json: true,
-		      query: {filepath:'wineEngineListTest.jpg'}
-		    })
-		    .then((response) => {
-	   			if(response.body.status === 'ok')
-	   				done();
-	   			else
-					done(new Error('After hook failed to delete image')); 
-		    })
-		    .catch((err) => {
-				done();
-		    });
+	    got.delete(config.WineEngine.url + 'delete', {
+	      	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
+	      	json: true,
+	      	query: {filepath:'wineEngineListTest.jpg'}
+	    })
+	    .then((response) => {
+
+   			if(response.body.status === 'ok'){
+   				done();
+   			}
+   			else{
+				done(new Error('After hook failed to delete image')); 
+   			}
+
+	    })
+	    .catch((err) => {
+			done();
+	    });
 
 	});
 
 
 	describe('Get list of collection', function() {
+
 		it('Should return a call with status "ok" and list wineEngineListTest.jpg', function(done) {
+
 			wineengine.list(function(err, data) {
 				
-				if(err)
+				if(err){
 					done();
-				else if(data.result.contains("wineEngineListTest.jpg"))
+				}
+				else if(data.result.contains('wineEngineListTest.jpg')){
 					done(err);
-				else
-					done(new Error("Response does not contain image.jpg"));
+				}
+				else{
+					done(new Error('Response does not contain image.jpg'));
+				}
 
 			});
 

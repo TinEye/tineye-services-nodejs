@@ -5,23 +5,30 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var matchengine = new MatchEngine('', '', '', config.MatchEngine);
+var matchengine = new MatchEngine(
+	config.MatchEngine.user, 
+	config.MatchEngine.pass, 
+	'', 
+	config.MatchEngine.url);
 
 describe('MatchEngine Ping:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(15000);
 
 	describe('Check Server Ping', function() {
 		it('Should return a call with status "ok"', function(done) {
 			matchengine.ping(function(err, data) {
 				
-				if(err)
+				if(err){
 					done(err);
-				else if(data.status === "ok")
+				}
+				else if(data.status === 'ok'){
 					done();
-				else
+				}
+				else{
 					done(new Error("Server failed to return ping response"));
+				}
 
 			});
 

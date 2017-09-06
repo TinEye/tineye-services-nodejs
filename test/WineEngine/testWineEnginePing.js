@@ -5,7 +5,12 @@ const got = require('got');
 const { WineEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var wineengine = new WineEngine('', '', '', config.WineEngine);
+var wineengine = new WineEngine(
+	config.WineEngine.user, 
+	config.WineEngine.pass, 
+	'', 
+	config.WineEngine.url
+	);
 
 describe('WineEngine Ping:', function() {
 
@@ -13,15 +18,20 @@ describe('WineEngine Ping:', function() {
 	this.timeout(5000);
 
 	describe('Check Server Ping', function() {
+
 		it('Should return a call with status "ok"', function(done) {
+			
 			wineengine.ping(function(err, data) {
 				
-				if(err)
+				if(err){
 					done(err);
-				else if(data.status === "ok")
+				}
+				else if(data.status === 'ok'){
 					done();
-				else
-					done(new Error("Server failed to return ping response"));
+				}
+				else{
+					done(new Error('Server failed to return ping response'));
+				}
 
 			});
 

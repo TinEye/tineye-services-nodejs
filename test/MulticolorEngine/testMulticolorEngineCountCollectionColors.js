@@ -7,7 +7,12 @@ const { MulticolorEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
-var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
+var multicolorengine = new MulticolorEngine(
+	config.MulticolorEngine.user, 
+	config.MulticolorEngine.pass, 
+	'', 
+	config.MulticolorEngine.url
+	);
 
 describe('MulticolorEngine CountCollectionColors:', function() {
 
@@ -49,15 +54,16 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 			form.append('image', fs.createReadStream(value.imagePath));
 			form.append('filepath', value.filePath);
 
-		    got.post(config.MulticolorEngine+'add', {
-		    	body:form
-		    })
-		    .then((response) => {
-	   			callback();
-		    })
-		    .catch((err) => {
-		    	callback(err);
-		    });
+		   	got.post(config.MulticolorEngine.url + 'add', {
+		      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
+		      body: form
+			})
+			.then(response => {
+				callback(); 
+			})
+			.catch(error => {
+				callback(error);
+			});
 
 		}, function (err,results) {
 			if(err){
@@ -76,7 +82,8 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 
 		async.forEachOfSeries(images, function (value, key, callback) {
 
-		    got.delete(config.MulticolorEngine+'delete', {
+		    got.delete(config.MulticolorEngine.url + 'delete', {
+		      	auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
 	      		json: true,
 	      		query: {filepath:value.filePath}
 		    })
@@ -107,12 +114,14 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 
 			multicolorengine.countCollectionColors(params, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error('Result returned:' + JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.result.length === 2){
 	    			done();
-				}else
+				}else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 
@@ -131,12 +140,14 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 
 			multicolorengine.countCollectionColors(params, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error('Result returned:' + JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.result.length === 2){
 	    			done();
-				}else
+				}else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 

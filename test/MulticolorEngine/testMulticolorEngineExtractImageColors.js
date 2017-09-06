@@ -7,7 +7,12 @@ const { MulticolorEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
-var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
+var multicolorengine = new MulticolorEngine(
+	config.MulticolorEngine.user, 
+	config.MulticolorEngine.pass, 
+	'', 
+	config.MulticolorEngine.url
+	);
 
 describe('MulticolorEngine ExtractImageColors:', function() {
 
@@ -49,15 +54,16 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 			form.append('image', fs.createReadStream(value.imagePath));
 			form.append('filepath', value.filePath);
 
-		    got.post(config.MulticolorEngine+'add', {
-		    	body:form
-		    })
-		    .then((response) => {
-	   			callback();
-		    })
-		    .catch((err) => {
-		    	callback(err);
-		    });
+		   	got.post(config.MulticolorEngine.url + 'add', {
+		      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
+		      body: form
+			})
+			.then(response => {
+		    	callback();
+			})
+			.catch(error => {
+		    	callback(error);
+			});
 
 		}, function (err,results) {
 			if(err){
@@ -80,7 +86,8 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 			form.append('image', fs.createReadStream(value.imagePath));
 			form.append('filepath', value.filePath);
 
-		    got.delete(config.MulticolorEngine+'delete', {
+		    got.delete(config.MulticolorEngine.url + 'delete', {
+		   		auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
 	      		json: true,
 	      		query: {filepath:value.filePath}
 		    })
@@ -109,12 +116,16 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 		it('Should return a call with status "ok" and 9 colors', function(done) {
 
 			multicolorengine.extractImageColors({images:[colorsPath]}, function(err, data) {
-	    		if(err)
+
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.result.length === 9){
 	    			done();
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 
@@ -129,12 +140,16 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 		it('Should return a call with status "ok" and 11 colors', function(done) {
 
 			multicolorengine.extractImageColors({images:[colorsPath,bluePath]}, function(err, data) {
-	    		if(err)
+
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.result.length === 11){
 	    			done();
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 
@@ -148,12 +163,16 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 		it('Should return a call with status "ok" and 10 colors', function(done) {
 
 			multicolorengine.extractImageColors({urls:[url]}, function(err, data) {
-	    		if(err)
+
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.result.length === 10){
 	    			done();
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 
@@ -167,13 +186,16 @@ describe('MulticolorEngine ExtractImageColors:', function() {
 		it('Should return a call with status "ok" and 18 colors', function(done) {
 
 			multicolorengine.extractImageColors({urls:[url,url2]}, function(err, data) {
-	    		if(err)
+
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.result.length === 18){
 	    			done();
-				
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 

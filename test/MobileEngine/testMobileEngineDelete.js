@@ -5,7 +5,12 @@ const got = require('got');
 const { MobileEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
+var mobileengine = new MobileEngine(
+	config.MobileEngine.user, 
+	config.MobileEngine.pass, 
+	'', 
+	config.MobileEngine.url
+	);
 
 describe('MobileEngine Delete:', function() {
 
@@ -20,8 +25,9 @@ describe('MobileEngine Delete:', function() {
 		form.append('image', fs.createReadStream(__dirname + '/../image.jpg'));
 		form.append('filepath', 'mobileEngineDeleteTest.jpg');
 
-	   	got.post(config.MobileEngine+'add', {
-		   body: form
+	   	got.post(config.MobileEngine.url + 'add', {
+	        auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
+		    body: form
 		}).then(response => {
 			done(); 
 		}).catch(error => {
@@ -33,17 +39,26 @@ describe('MobileEngine Delete:', function() {
 		//post an image to the collection for deletion
 	after(function(done) {
 	
-	    got.delete(config.MobileEngine+'delete', {
+	    got.delete(config.MobileEngine.url + 'delete', {
+	      auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
 	      json: true,
 	      query: {filepath:'mobileEngineDeleteTest.jpg'}
-	    }).then((response) => {
-   			if(response.body.status === 'warn')
-   				done();
-   			else
-				done(new Error("Test failed to delete image, image deleted by after hook")); 
-	    }).catch((err) => {
+	    })
+	    .then((response) => {
+
+	   			if(response.body.status === 'warn'){
+	   				done();
+	   			}
+	   			else{
+					done(new Error("Test failed to delete image, image deleted by after hook"));
+	   			}
+
+
+	    })
+	    .catch((err) => {
 			done();
 	    });
+
 
 	});
 
@@ -53,10 +68,12 @@ describe('MobileEngine Delete:', function() {
 
 			mobileengine.delete({filepath: "mobileEngineDeleteTest.jpg"}, function(err, data) {
 				
-				if(err)
+				if(err){
 					done(err);
-				else
+				}
+				else{
 					done();
+				}
 
 			});
 

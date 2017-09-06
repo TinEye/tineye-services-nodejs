@@ -7,8 +7,12 @@ const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 var expect = require('chai').expect;
 
-
-var wineengine = new WineEngine('', '', '', config.WineEngine);
+var wineengine = new WineEngine(
+	config.WineEngine.user, 
+	config.WineEngine.pass, 
+	'', 
+	config.WineEngine.url
+	);
 
 describe('WineEngine Search:', function() {
 
@@ -26,29 +30,33 @@ describe('WineEngine Search:', function() {
 		form.append('image', fs.createReadStream(birdFilePath));
 		form.append('filepath', 'wineEngineSearchTest1.jpg');
 
-	   	got.post(config.WineEngine + 'add', {
+	   	got.post(config.WineEngine.url + 'add', {
+	   	    auth:config.WineEngine.user + ':' + config.WineEngine.pass,
 		    body: form
 		}).then(response => {
 			done(); 
 		}).catch(error => {
-				done(error);
+			done(error);
 		});
 
-
 	});
-
 
 	//make call to delete images after tests
 	after(function(done){
 				
-	    got.delete(config.WineEngine+'delete', {
+	    got.delete(config.WineEngine.url + 'delete', {
+	      auth:config.WineEngine.user + ':' + config.WineEngine.pass,
 	      json: true,
 	      query: {filepath:'wineEngineSearchTest1.jpg'}
 	    }).then((response) => {
-   			if(response.body.status === 'ok')
+
+   			if(response.body.status === 'ok'){
 				done();
-			else
+   			}
+			else{
 				done(new Error('After hook failed to delete added image')); 
+			}
+
 	    }).catch((err) => {
 			done();
 	    });
@@ -60,14 +68,17 @@ describe('WineEngine Search:', function() {
 		
 		it('Should return a call with status "ok" and a result', function(done) {
 
-			wineengine.search({filepath: "wineEngineSearchTest1.jpg"}, function(err, data) {
-				
-	    		if(err)
+			wineengine.search({filepath: 'wineEngineSearchTest1.jpg'}, function(err, data) {
+
+	    		if(err){
 	    			done(new Error(err));
-	    		else if (data.result.length > 0)
+	    		}
+	    		else if (data.result.length > 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 			});
 
@@ -81,12 +92,15 @@ describe('WineEngine Search:', function() {
 
 			wineengine.search({image:birdFilePath }, function(err, data) {
 				
-	    		if(err)
+	    		if(err){
 	    			done(err);
-	    		else if (data.result.length > 0)
+	    		}
+	    		else if (data.result.length > 0){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 			});
 
@@ -101,12 +115,15 @@ describe('WineEngine Search:', function() {
 
 			wineengine.search({image:melonCatFilePath }, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error(err));
-	    		else if (data.result.length == 0)
+	    		}
+	    		else if (data.result.length === 0){
 	    			done(); 	    			
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('A non error status was returned'));
+	    		}
 
 			});
 

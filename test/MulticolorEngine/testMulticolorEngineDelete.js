@@ -5,7 +5,12 @@ const got = require('got');
 const { MulticolorEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
+var multicolorengine = new MulticolorEngine(
+	config.MulticolorEngine.user, 
+	config.MulticolorEngine.pass, 
+	'', 
+	config.MulticolorEngine.url
+	);
 
 describe('MulticolorEngine Delete:', function() {
 
@@ -20,11 +25,14 @@ describe('MulticolorEngine Delete:', function() {
 		form.append('image', fs.createReadStream(__dirname + '/../image.jpg'));
 		form.append('filepath', 'multicolorEngineDeleteTest.jpg');
 
-	   	got.post(config.MulticolorEngine+'add', {
-		   body: form
-		}).then(response => {
+	   	got.post(config.MulticolorEngine.url + 'add', {
+	      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
+	      body: form
+		})
+		.then(response => {
 			done(); 
-		}).catch(error => {
+		})
+		.catch(error => {
 			done(error);
 		});
 
@@ -33,14 +41,19 @@ describe('MulticolorEngine Delete:', function() {
 	//Delete files added to the collection 
 	after(function(done) {
 	
-	    got.delete(config.MulticolorEngine+'delete', {
-	      json: true,
-	      query: {filepath:'multicolorEngineDeleteTest.jpg'}
+	    got.delete(config.MulticolorEngine.url + 'delete', {
+	    	auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
+	      	json: true,
+	      	query: {filepath:'multicolorEngineDeleteTest.jpg'}
 	    }).then((response) => {
-   			if(response.body.status === 'warn')
+
+   			if(response.body.status === 'warn'){
    				done();
-   			else
+   			}
+   			else{
 				done(new Error("Test failed to delete image, image deleted by after hook")); 
+   			}
+
 	    }).catch((err) => {
 			done();
 	    });
@@ -51,12 +64,14 @@ describe('MulticolorEngine Delete:', function() {
 		
 		it('Should return a call with status "ok"', function(done) {
 
-			multicolorengine.delete({filepath: "multicolorEngineDeleteTest.jpg"}, function(err, data) {
+			multicolorengine.delete({filepath: 'multicolorEngineDeleteTest.jpg'}, function(err, data) {
 				
-				if(err)
+				if(err){
 					done(err);
-				else
+				}
+				else{
 					done();
+				}
 
 			});
 

@@ -7,7 +7,12 @@ const { MulticolorEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
-var multicolorengine = new MulticolorEngine('', '', '', config.MulticolorEngine);
+var multicolorengine = new MulticolorEngine(
+	config.MulticolorEngine.user, 
+	config.MulticolorEngine.pass, 
+	'', 
+	config.MulticolorEngine.url
+	);
 
 describe('MulticolorEngine Search and Return Metadata:', function() {
 
@@ -47,15 +52,16 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 			form.append('image', fs.createReadStream(value.imagePath));
 			form.append('filepath', value.filePath);
 
-		    got.post(config.MulticolorEngine+'add', {
-		    	body:form
-		    })
-		    .then((response) => {
-	   			callback();
-		    })
-		    .catch((err) => {
-		    	callback(err);
-		    });
+		   	got.post(config.MulticolorEngine.url + 'add', {
+		      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
+		      body: form
+			})
+			.then(response => {
+				callback();
+			})
+			.catch(error => {
+				callback(error);
+			});
 
 		}, function (err,results) {
 			if(err){
@@ -74,8 +80,9 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 
 		async.forEachOfSeries(images, function (value, key, callback) {
 
-		    got.delete(config.MulticolorEngine+'delete', {
-	      		json: true,
+		    got.delete(config.MulticolorEngine.url + 'delete', {
+		      	auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
+		      	json: true,
 	      		query: {filepath:value.filePath}
 		    })
 		    .then((response) => {
@@ -85,13 +92,15 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 		    	callback(err);
 		    });
 
-		}, function (err,results) {
+		}, function (err) {
+
 			if(err){
 				done(err);
 			}
 			else{
 				done();
 			}
+
 		});
 				
 	});
@@ -102,12 +111,15 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 
 			multicolorengine.getMetadata({filepaths:['multicolorEngineGetMetadataGreens.jpg']},function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.status === 'ok'){
 	    			done();
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 
@@ -122,12 +134,15 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 
 			multicolorengine.getSearchMetadata(function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.status === 'ok'){
 	    			done();
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 
@@ -141,12 +156,15 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 
 			multicolorengine.getReturnMetadata(function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
+	    		}
 				else if (data.status === 'ok'){
 	    			done();
-				}else
+				}
+				else{
 	    			done(new Error('Result returned:' + JSON.stringify(data,null, 4)));
+				}
 
 			});
 

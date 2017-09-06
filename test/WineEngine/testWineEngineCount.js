@@ -5,7 +5,12 @@ const got = require('got');
 const { WineEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
-var wineengine = new WineEngine('', '', '', config.WineEngine);
+var wineengine = new WineEngine(
+	config.WineEngine.user, 
+	config.WineEngine.pass, 
+	'', 
+	config.WineEngine.url
+	);
 
 describe('WineEngine Count:', function() {
 
@@ -18,10 +23,11 @@ describe('WineEngine Count:', function() {
 		var form = new FormData();
 					
 		form.append('image', fs.createReadStream(__dirname + '/../image.jpg'));
-		form.append('filepath', "wineEngineCountTest.jpg");
+		form.append('filepath', 'wineEngineCountTest.jpg');
 
-	   	got.post(config.WineEngine + 'add', {
-		   body: form
+	   	got.post(config.WineEngine.url + 'add', {
+	    	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
+			body: form
 		}).then(response => {
 			done(); 
 		}).catch(error => {
@@ -33,14 +39,19 @@ describe('WineEngine Count:', function() {
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.WineEngine + 'delete', {
-	      json: true,
-	      query: {filepath:'wineEngineCountTest.jpg'}
+	    got.delete(config.WineEngine.url + 'delete', {
+	    	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
+	      	json: true,
+	      	query: {filepath:'wineEngineCountTest.jpg'}
 	    }).then((response) => {
-   			if(response.body.status !== 'ok')
+
+   			if(response.body.status !== 'ok'){
 				done(new Error('After hook failed to delete added image')); 
-   			else
+   			}
+   			else{
 				done(); 
+   			}
+
 	    }).catch((err) => {
 			done();
 	    });
@@ -49,15 +60,20 @@ describe('WineEngine Count:', function() {
 
 
 	describe('Get a count of total images', function() {
+
 		it('Should return a call with status "ok" and a result > 0', function(done) {
+
 			wineengine.count(function(err, data) {
 				
-				if(err)
+				if(err){
 					done(err);
-				else if(data.result[0]>0)
+				}
+				else if(data.result[0]>0){
 					done();
-				else
-					done(new Error("Response does not contain image.jpg"));
+				}
+				else{
+					done(new Error('Response does not contain image.jpg'));
+				}
 
 			});
 

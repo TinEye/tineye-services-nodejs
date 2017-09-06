@@ -7,25 +7,35 @@ const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
-var matchengine = new MatchEngine('', '', '', config.MatchEngine);
+var matchengine = new MatchEngine(
+	config.MatchEngine.user, 
+	config.MatchEngine.pass, 
+	'', 
+	config.MatchEngine.url
+	);
 
 describe('MatchEngine Add:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(15000);
 
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.MatchEngine+'delete', {
+	    got.delete(config.MatchEngine.url+'delete', {
+	      auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
 	      json: true,
 	      query: {filepath:'matchEngineAdd.jpg'}
 	    })
 	    .then((response) => {
-   			if(response.body.status === 'ok')
+
+   			if(response.body.status === 'ok'){
 				done();
-			else
+   			}
+			else{
 				done(new Error('After hook failed to delete added image')); 
+			}
+
 	    })
 	    .catch((err) => {
 			done();

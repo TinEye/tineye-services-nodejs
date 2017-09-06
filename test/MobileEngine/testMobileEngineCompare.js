@@ -5,7 +5,12 @@ const got = require('got');
 const { MobileEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 
-var mobileengine = new MobileEngine('', '', '', config.MobileEngine);
+var mobileengine = new MobileEngine(
+	config.MobileEngine.user, 
+	config.MobileEngine.pass, 
+	'', 
+	config.MobileEngine.url
+	);
 
 describe('MobileEngine Compare:', function() {
 
@@ -24,7 +29,8 @@ describe('MobileEngine Compare:', function() {
 		form.append('image', fs.createReadStream(birdFilePath));
 		form.append('filepath', 'mobileEngineCompareTest.jpg');
 
-	   	got.post(config.MobileEngine + 'add', {
+	   	got.post(config.MobileEngine.url + 'add', {
+	        auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
 		    body: form
 		}).then(response => {
 			done(); 
@@ -38,15 +44,22 @@ describe('MobileEngine Compare:', function() {
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.MobileEngine+'delete', {
+	    got.delete(config.MobileEngine.url + 'delete', {
+	      auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
 	      json: true,
 	      query: {filepath:'mobileEngineCompareTest.jpg'}
-	    }).then((response) => {
-   			if(response.body.status === 'ok')
+	    })
+	    .then((response) => {
+
+   			if(response.body.status === 'ok'){
 				done();
-			else
+   			}
+			else{
 				done(new Error('After hook failed to delete added image')); 
-	    }).catch((err) => {
+			}
+
+	    })
+	    .catch((err) => {
 			done();
 	    });
 
@@ -57,12 +70,15 @@ describe('MobileEngine Compare:', function() {
 
 	    	mobileengine.compare({url1: melonCatUrl, url2: melonCatUrl}, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(err);
-	    		else if (data.result)
+	    		}
+	    		else if (data.result){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 	    	});
 
@@ -75,12 +91,15 @@ describe('MobileEngine Compare:', function() {
 
 	    	mobileengine.compare({url1: melonCatUrl, filepath2: 'mobileEngineCompareTest.jpg'}, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(err);
-	    		else if (!data.result[0])
+	    		}
+	    		else if (!data.result[0]){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 	    	});
 
@@ -93,12 +112,15 @@ describe('MobileEngine Compare:', function() {
 
 	    	mobileengine.compare({image1: birdFilePath, filepath2: 'mobileEngineCompareTest.jpg'}, function(err, data) {
 
-	    		if(err)
+	    		if(err){
 	    			done(err);
-	    		else if (data.result)
+	    		}
+	    		else if (data.result){
 	    			done();
-	    		else
+	    		}
+	    		else{
 	    			done(new Error('No Result was returned'));
+	    		}
 
 	    	});
 
