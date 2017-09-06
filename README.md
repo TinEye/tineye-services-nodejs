@@ -9,6 +9,8 @@ Official API documentation available at https://services.tineye.com/docs
 - [ Installation ](#installation)
 - [ Basic Usage ](#basic-usage)
 - [ Services ](#services)
+	- [ Common Parameters ](#common-parameters)
+	- [ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image)
 	- [ MatchEngine ](#matchengine)
 		- [ Add URL ](#add-url)
 		- [ Add Image File ](#add-image-file)
@@ -78,6 +80,7 @@ matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
 })
 ```
 # Services
+## Common Parameters
 All of the below services accept the following optional common parameters object
 ```javascript
 options = {
@@ -86,7 +89,51 @@ options = {
     callback:'handle_callback' // When using JSON, output will be wrapped in the callback method
 }
 ```
+## Adding, Deleteing, or Updating an Image
+The following APIs can perform one add, delete, or update operation at a time. For this reason it is improtant that images are **added or deleted one at a time**. One appraoch would to be use the [async](https://caolan.github.io/async/docs.html#eachOfSeries) module to ensure that images are submitted in series.
 
+For example
+```node
+//Array of Images
+var images = {
+        image1:{
+            imagePath:pathToImage1,
+            filePath:'Image1'
+        }, 
+        image2:{
+            imagePath:pathToImage2,
+            filePath:'Image2'
+        }
+};
+
+//object to store results
+var results = {};
+
+//Use the async module to eunsure images are submitted one at a time
+async.forEachOfSeries(images, function (value, key, callback) {
+
+    multicolorengine.add({image:value.imagePath,filepath:value.filePath},  function(error, data) {
+        console.log(error, data);
+        
+        if(data){
+            results[key] = data;
+            callback();
+        }
+        else{
+            results[key] = error;                
+            calback(err);
+        }
+
+    });
+
+}, function (error) {
+
+    if(error)
+        console.log(error);
+    else
+        console.log(results);
+});
+```
 ## MatchEngine
 Once TinEye Services is installed you can include and configure MatchEngine 
 ```node
