@@ -145,6 +145,7 @@ matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
 ### Methods
 Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/
 #### Add URL
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
@@ -163,6 +164,8 @@ matchengine.add(params, options, function callback (err, data) {
 })
 ```
 #### Add Image File
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
+
 ```node
 /**
  * Add an image to an image collection
@@ -343,6 +346,7 @@ mobileengine = new MobileEngine('user_name', 'password', 'company_name', 'url')
 ### Methods
 Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/mobileengine/
 #### Add URL
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
@@ -361,13 +365,15 @@ mobileengine.add(params, options, function callback (err, data) {
 })
 ```
 #### Add Image File
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
  * @param params.image - Required(image path)
  * @param params.filepath - Required
  * @param options - Optional
- * @param callback
+ * @param callback	- [ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image)
+
  */
 mobileengine.add(params, options, function callback (err, data) {
 	data = {
@@ -541,6 +547,7 @@ multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name',
 Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/multicolorengine/
 
 #### Add URL
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
@@ -562,6 +569,7 @@ multicolorengine.add(params, options, function callback (err, data) {
 })
 ```
 #### Add Image File
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
@@ -1072,6 +1080,7 @@ wineengine = new WineEngine('user_name', 'password', 'company_name', 'url')
 ### Methods
 Below are methods available for WineEngine, for more information on parameters and responses go to https://services.tineye.com/developers/wineengine/
 #### Add URL
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
@@ -1090,6 +1099,7 @@ wineengine.add(params, options, function callback (err, data) {
 })
 ```
 #### Add Image File
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
 ```node
 /**
  * Add an image to an image collection
@@ -1272,7 +1282,5 @@ npm test
 * Add asserts to tests
 * Add more comprehensive tests
 * Refactor compare to remove duplicate code
-* Refactor before and after test functions to remove duplicate code
-* Refactor Remove duplicate setup and tear down code in tests
 * alter extractCollectionColors to make optional params object
 * Alter methods to return promises if no callback is provided
