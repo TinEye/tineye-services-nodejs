@@ -71,7 +71,7 @@ describe('WineEngine Add:', function() {
 
 	    	wineengine.add({url: url},  function(err, data) {
 
-	    		if(err.status === 'fail'&&err.message[0] === 'Missing matching filepath'){
+	    		if(data.status === 'fail'){
 	    			done();
 	    		}
 	    		else{

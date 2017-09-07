@@ -1,3 +1,4 @@
+const chai = require('chai');
 const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
@@ -69,13 +70,14 @@ describe('MobileEngine Add:', function() {
 	    	var url = 'http://tineye.com/images/meloncat.jpg';
 
 	    	mobileengine.add({url: url},  function(err, data) {
-
-	    		if(err.status === 'fail'&&err.message[0] === 'Missing matching filepath'){
-	    			done();
-	    		}
-	    		else{
-	    			done(new Error('Image was added by URL without filepath'));
-	    		}
+		        
+		        try {
+					chai.assert.isOk(data, 'Error not returned');
+					chai.assert(data.status !== 'ok', 'Error not returned');
+		            done();
+		        } catch(err) {
+		            done(err);
+		        }
 
 	    	});
 

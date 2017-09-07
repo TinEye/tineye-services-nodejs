@@ -70,7 +70,7 @@ describe('MulticolorEngine Add:', function() {
 
 	    	multicolorengine.add({url: url},  function(err, data) {
 
-	    		if(err.status === 'fail'&&err.message[0] === 'Missing matching filepath'){
+	    		if(data.status === 'fail'){
 	    			done();
 	    		}
 	    		else{

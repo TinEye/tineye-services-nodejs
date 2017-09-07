@@ -74,7 +74,8 @@ describe('MatchEngine Add:', function() {
 	    	matchengine.add({url: url},  function(err, data) {
 
 		        try {
-					chai.assert.isOk(err, 'Error not returned');
+					chai.assert.isOk(data, 'Error not returned');
+					chai.assert(data.status !== 'ok', 'Error not returned');
 		            done();
 		        } catch(err) {
 		            done(err);
