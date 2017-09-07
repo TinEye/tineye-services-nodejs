@@ -1,17 +1,26 @@
 {
-  "name": "tineye-matchengine",
-  "version": "0.0.2",
-  "description": "TinEye Services API node.js library",
+  "name": "tineye-services",
+  "version": "0.0.1",
+  "description": "TinEye Services API node.js library for MatchEngine, MobileEngine, MulticolorEngine, and WineEngine",
+  "keywords": [
+    "Tineye",
+    "MatchEngine",
+    "MobileEngine",
+    "MulticolorEngine",
+    "WineEngine",
+    "Image",
+    "search"
+  ],
   "main": "index.js",
-  "directories": {
-    "test": "test"
+  "engines": {
+    "node": ">=6.4.0"
   },
   "scripts": {
     "test": "mocha ./test/*/test*.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jgould22/tineye-services"
+    "url": "git+https://github.com/TinEye/tineye-services-nodejs.git"
   },
   "author": "Jordan Gould <jordan@tineye.com>",
   "license": "MIT",
@@ -24,5 +33,13 @@
     "chai": "^4.1.2",
     "libxmljs": "^0.18.7",
     "mocha": "^3.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/TinEye/tineye-services-nodejs/issues"
+  },
+  "homepage": "https://github.com/TinEye/tineye-services-nodejs#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
   }
 }
