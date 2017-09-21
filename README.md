@@ -9,51 +9,51 @@ Official API documentation availabTinEyele at https://services.tineye.com/docs
 - [ Installation ](#installation)
 - [ Basic Usage ](#basic-usage)
 - [ Services ](#services)
-	- [ Common Parameters ](#common-parameters)
-	- [ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)
-	- [ MatchEngine ](#matchengine)
-		- [ Add URL ](#add-url)
-		- [ Add Image File ](#add-image-file)
-		- [ Compare ](#compare)
-		- [ Count ](#count)
-		- [ Delete ](#delete)
-		- [ List ](#list)
-		- [ Search ](#search)
-		- [ Ping ](#ping)
-	- [ MobileEngine ](#mobileengine)
-		- [ Add URL ](#add-url-1)
-		- [ Add Image File ](#add-image-file-1)
-		- [ Compare ](#compare-1)
-		- [ Count ](#count-1)
-		- [ Delete ](#delete-1)
-		- [ List ](#list-1)
-		- [ Search ](#search-1)
-		- [ Ping ](#ping-1)
-	- [ MulticolorEngine ](#multicolorengine)
-		- [ Add URL ](#add-url-2)
-		- [ Add Image File ](#add-image-file-2)
-		- [ Count ](#count-2)
-		- [ Count Image Colors ](#count-image-colors)
-		- [ Count Collection Colors ](#count-collection-colors)
-		- [ Count Metadata](#count-metadata)
-		- [ Delete ](#delete-2)
-		- [ Extract Collection Colors ](#extract-collection-colors)
-		- [ Extract Image Colors ](#extract-image-colors)
-		- [ Get Metadata](#get-metadata)
-		- [ Get Return Metadata](#get-return-metadata)
-		- [ Get Search Metadata](#get-search-metadata)
-		- [ List ](#list-2)
-		- [ Search ](#search-2)
-		- [ Ping ](#ping-2)
-		- [ Update Metadata ](#update-metadata)
-	- [ WineEngine ](#wineengine)
-		- [ Add URL ](#add-url-3)
-		- [ Add Image File ](#add-image-file-3)
-		- [ Count ](#count-3)
-		- [ Delete ](#delete-3)
-		- [ List ](#list-3)
-		- [ Search ](#search-3)
-		- [ Ping ](#ping-3)
+    - [ Common Parameters ](#common-parameters)
+    - [ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)
+    - [ MatchEngine ](#matchengine)
+        - [ Add URL ](#add-url)
+        - [ Add Image File ](#add-image-file)
+        - [ Compare ](#compare)
+        - [ Count ](#count)
+        - [ Delete ](#delete)
+        - [ List ](#list)
+        - [ Search ](#search)
+        - [ Ping ](#ping)
+    - [ MobileEngine ](#mobileengine)
+        - [ Add URL ](#add-url-1)
+        - [ Add Image File ](#add-image-file-1)
+        - [ Compare ](#compare-1)
+        - [ Count ](#count-1)
+        - [ Delete ](#delete-1)
+        - [ List ](#list-1)
+        - [ Search ](#search-1)
+        - [ Ping ](#ping-1)
+    - [ MulticolorEngine ](#multicolorengine)
+        - [ Add URL ](#add-url-2)
+        - [ Add Image File ](#add-image-file-2)
+        - [ Count ](#count-2)
+        - [ Count Image Colors ](#count-image-colors)
+        - [ Count Collection Colors ](#count-collection-colors)
+        - [ Count Metadata](#count-metadata)
+        - [ Delete ](#delete-2)
+        - [ Extract Collection Colors ](#extract-collection-colors)
+        - [ Extract Image Colors ](#extract-image-colors)
+        - [ Get Metadata](#get-metadata)
+        - [ Get Return Metadata](#get-return-metadata)
+        - [ Get Search Metadata](#get-search-metadata)
+        - [ List ](#list-2)
+        - [ Search ](#search-2)
+        - [ Ping ](#ping-2)
+        - [ Update Metadata ](#update-metadata)
+    - [ WineEngine ](#wineengine)
+        - [ Add URL ](#add-url-3)
+        - [ Add Image File ](#add-image-file-3)
+        - [ Count ](#count-3)
+        - [ Delete ](#delete-3)
+        - [ List ](#list-3)
+        - [ Search ](#search-3)
+        - [ Ping ](#ping-3)
 - [ Testing ](#testing)
 
 # Installation
@@ -62,22 +62,22 @@ npm install tineye-services
 ```
 # Basic Usage
 ```node
-const { MatchEngine } = require('tineye-services')
+const { MatchEngine } = require('tineye-services');
 
 // url is optional, if none is specified then default is https://matchengine.tineye.com/
-matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url')
+matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
 
 // Sample Image URL
-url = 'https://tineye.com/images/meloncat.jpg'
+url = 'https://tineye.com/images/meloncat.jpg';
 
 // Add an image to your index
 // Requires both url and file path
 matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
     if (!err)
-        console.log(data)
+        console.log(data);
     else
-        console.log(err.message)
-})
+        console.log(err.message);
+});
 ```
 # Services
 ## Common Parameters
@@ -155,12 +155,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 matchengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	};
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    };
 });
 ```
 #### Add Image File
@@ -175,13 +175,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 matchengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
+});
 ```
 #### Compare
 When comparing images you must have at least one url, image or filepath for each image being compared
@@ -204,21 +204,21 @@ When comparing images you must have at least one url, image or filepath for each
  * @param callback
  */
 matchengine.compare(params, options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "compare",
-	    "result": [
-		{
-		    "target_overlap_percent": 99.22,
-		    "query_overlap_percent": 98.59,
-		    "filepath": "match.jpg",
-		    "listscore_enhanced": 68.2,
-		    "score": 65.9,
-		    "match_percent": 92.11
-		}
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "compare",
+        "result": [
+        {
+            "target_overlap_percent": 99.22,
+            "query_overlap_percent": 98.59,
+            "filepath": "match.jpg",
+            "listscore_enhanced": 68.2,
+            "score": 65.9,
+            "match_percent": 92.11
+        }
+        ]
+    }
 });
 ```
 #### Count
@@ -229,14 +229,14 @@ matchengine.compare(params, options, function(err, data) {
  * @param callback
  */
 matchengine.list(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "count",
+      "result": [
+        4
+      ]
+    }
 });
 ```
 #### Delete 
@@ -248,13 +248,13 @@ matchengine.list(options, function(err, data) {
  * @param callback
  */
 matchengine.delete(params, options, function callback(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "delete",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "delete",
+      "result": []
+    }
+});
 ```
 #### List
 ```node
@@ -266,17 +266,17 @@ matchengine.delete(params, options, function callback(err, data) {
  * @param callback
  */
 matchengine.list(params, options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "list",
-	  "result": [
-	    "melonCat",
-	    "limeCat.jpg",
-	    "meloncat.jpg",
-	    "image.jpg"
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "list",
+      "result": [
+        "melonCat",
+        "limeCat.jpg",
+        "meloncat.jpg",
+        "image.jpg"
+      ]
+    }
 });
 ```
 #### Search
@@ -296,27 +296,27 @@ matchengine.list(params, options, function(err, data) {
  * @param callback - callback
  */
 matchengine.search(params, options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "search",
-	    "result": [
-		{
-		    "match_percent": 89.52,
-		    "score": 97.2,
-		    "target_overlap_percent": 95.62,
-		    "query_overlap_percent": 72.37,
-		    "filepath": "path/folder/match1.png"
-		},
-		{
-		    "match_percent": 82.83,
-		    "score": 94.5,
-		    "target_overlap_percent": 87.13,
-		    "query_overlap_percent": 97.17,
-		    "filepath": "path/folder/match2.png"
-		}
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "search",
+        "result": [
+        {
+            "match_percent": 89.52,
+            "score": 97.2,
+            "target_overlap_percent": 95.62,
+            "query_overlap_percent": 72.37,
+            "filepath": "path/folder/match1.png"
+        },
+        {
+            "match_percent": 82.83,
+            "score": 94.5,
+            "target_overlap_percent": 87.13,
+            "query_overlap_percent": 97.17,
+            "filepath": "path/folder/match2.png"
+        }
+        ]
+    }
 });
 ```
 #### Ping
@@ -327,12 +327,12 @@ matchengine.search(params, options, function(err, data) {
  * @param callback
  */
 matchengine.list(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "ping",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "ping",
+      "result": []
+    }
 });
 ```
 ## MobileEngine
@@ -356,13 +356,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating 
  * @param callback
  */
 mobileengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
+});
 ```
 #### Add Image File
 Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
@@ -375,13 +375,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 mobileengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
+});
 ```
 #### Compare
 When comparing images you must have at least one url, image or filepath for each image being compared
@@ -403,21 +403,21 @@ When comparing images you must have at least one url, image or filepath for each
  * @param callback
  */
 mobileengine.compare(params, options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "compare",
-	    "result": [
-		{
-		    "target_overlap_percent": 99.22,
-		    "query_overlap_percent": 98.59,
-		    "filepath": "match.jpg",
-		    "listscore_enhanced": 68.2,
-		    "score": 65.9,
-		    "match_percent": 92.11
-		}
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "compare",
+        "result": [
+        {
+            "target_overlap_percent": 99.22,
+            "query_overlap_percent": 98.59,
+            "filepath": "match.jpg",
+            "listscore_enhanced": 68.2,
+            "score": 65.9,
+            "match_percent": 92.11
+        }
+        ]
+    }
 });
 ```
 #### Count
@@ -428,14 +428,14 @@ mobileengine.compare(params, options, function(err, data) {
  * @param callback
  */
 mobileengine.count(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "count",
+      "result": [
+        4
+      ]
+    }
 });
 ```
 #### Delete 
@@ -447,13 +447,13 @@ mobileengine.count(options, function(err, data) {
  * @param callback
  */
 mobileengine.delete(params, options, function callback(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "delete",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "delete",
+      "result": []
+    }
+});
 ```
 #### List
 ```node
@@ -465,17 +465,17 @@ mobileengine.delete(params, options, function callback(err, data) {
  * @param callback
  */
 mobileengine.list(params, options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "list",
-	  "result": [
-	    "melonCat",
-	    "limeCat.jpg",
-	    "meloncat.jpg",
-	    "image.jpg"
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "list",
+      "result": [
+        "melonCat",
+        "limeCat.jpg",
+        "meloncat.jpg",
+        "image.jpg"
+      ]
+    }
 });
 ```
 #### Search
@@ -495,27 +495,27 @@ mobileengine.list(params, options, function(err, data) {
  * @param callback
  */
 mobileengine.search(params, options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "search",
-	    "result": [
-		{
-		    "match_percent": 89.52,
-		    "score": 97.2,
-		    "target_overlap_percent": 95.62,
-		    "query_overlap_percent": 72.37,
-		    "filepath": "path/folder/match1.png"
-		},
-		{
-		    "match_percent": 82.83,
-		    "score": 94.5,
-		    "target_overlap_percent": 87.13,
-		    "query_overlap_percent": 97.17,
-		    "filepath": "path/folder/match2.png"
-		}
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "search",
+        "result": [
+        {
+            "match_percent": 89.52,
+            "score": 97.2,
+            "target_overlap_percent": 95.62,
+            "query_overlap_percent": 72.37,
+            "filepath": "path/folder/match1.png"
+        },
+        {
+            "match_percent": 82.83,
+            "score": 94.5,
+            "target_overlap_percent": 87.13,
+            "query_overlap_percent": 97.17,
+            "filepath": "path/folder/match2.png"
+        }
+        ]
+    }
 });
 ```
 #### Ping
@@ -526,21 +526,21 @@ mobileengine.search(params, options, function(err, data) {
  * @param callback
  */
 mobileengine.ping(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "ping",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "ping",
+      "result": []
+    }
 });
 ```
 ## MulticolorEngine
 Once TinEye Services is installed you can include and configure MulticolorEngine 
 ```node
-const { MulticolorEngine } = require('tineye-services')
+const { MulticolorEngine } = require('tineye-services');
 
 // url is optional, if none is specified then default is https://multicolorengine.tineye.com/
-multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name', 'url')
+multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
 Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/multicolorengine/
@@ -559,12 +559,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 multicolorengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
 })
 ```
 #### Add Image File
@@ -581,12 +581,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 multicolorengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
 })
 ```
 #### Count
@@ -597,14 +597,14 @@ multicolorengine.add(params, options, function callback (err, data) {
  * @param callback
  */
 multicolorengine.count({options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "count",
+      "result": [
+        4
+      ]
+    }
 });
 ```
 #### Count Image Colors 
@@ -624,42 +624,42 @@ multicolorengine.count({options, function(err, data) {
  * @param callback
  */
 multicolorengine.countImageColors(params, options function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "count_image_colors",
-	    "result": [
-		{
-		    "color": [
-			255,
-			112,
-			223
-		    ],
-		    "num_images_full_area": 0,
-		    "name": "Pale Magenta",
-		    "num_images_partial_area": 0,
-		    "class": "Violet"
-		},
-		{
-		    "color": [
-			95,
-			136,
-			165
-		    ],
-		    "num_images_full_area": 0,
-		    "name": "Air Force Blue",
-		    "num_ images_partial_area": 0,
-		    "class": "Blue"
-		},
-		{
-		    "color": "df4f23",
-		    "num_images_full_area": 1,
-		    "name": "Cinnabar",
-		    "num_images_partial_area": 1,
-		    "class": "Red"
-		}
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "count_image_colors",
+        "result": [
+        {
+            "color": [
+            255,
+            112,
+            223
+            ],
+            "num_images_full_area": 0,
+            "name": "Pale Magenta",
+            "num_images_partial_area": 0,
+            "class": "Violet"
+        },
+        {
+            "color": [
+            95,
+            136,
+            165
+            ],
+            "num_images_full_area": 0,
+            "name": "Air Force Blue",
+            "num_ images_partial_area": 0,
+            "class": "Blue"
+        },
+        {
+            "color": "df4f23",
+            "num_images_full_area": 1,
+            "name": "Cinnabar",
+            "num_images_partial_area": 1,
+            "class": "Red"
+        }
+        ]
+    }
 });
 ```
 #### Count Collection Colors 
@@ -678,7 +678,7 @@ multicolorengine.countImageColors(params, options function(err, data) {
  * @param callback
  */
 multicolorengine.countCollectionColors(params, options function(err, data) {
-	data = {
+    data = {
     "status": "ok",
     "error": [],
     "method": "count_collection_colors",
@@ -734,40 +734,40 @@ multicolorengine.countCollectionColors(params, options function(err, data) {
  * @param callback
  */
 multicolorengine.countMetadata(params, options function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "count_metadata",
-	    "result": [
-	        {
-	            "metadata": [
-	                {
-	                    "count-metadata": {
-	                        "count": "1",
-	                        "": {
-	                            "keywords": "dog"
-	                        }
-	                    }
-	                },
-	                {
-	                    "count-metadata": {
-	                        "count": "4",
-	                        "": {
-	                            "_or_operator_": [
-	                                {
-	                                    "keywords": "whale"
-	                                },
-	                                {
-	                                    "keywords": "shark"
-	                                }
-	                            ]
-	                        }
-	                    }
-	                }
-	            ]
-	        }
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "count_metadata",
+        "result": [
+            {
+                "metadata": [
+                    {
+                        "count-metadata": {
+                            "count": "1",
+                            "": {
+                                "keywords": "dog"
+                            }
+                        }
+                    },
+                    {
+                        "count-metadata": {
+                            "count": "4",
+                            "": {
+                                "_or_operator_": [
+                                    {
+                                        "keywords": "whale"
+                                    },
+                                    {
+                                        "keywords": "shark"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 });
 ```
 #### Delete 
@@ -779,12 +779,12 @@ multicolorengine.countMetadata(params, options function(err, data) {
  * @param callback
  */
 multicolorengine.delete(params, options, function callback(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "delete",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "delete",
+      "result": []
+    }
 })
 ```
 #### Extract Collection Colors 
@@ -805,35 +805,35 @@ multicolorengine.delete(params, options, function callback(err, data) {
  * @param callback
  */
 multicolorengine.extractCollectionColors(params, options function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "extract_collection_colors",
-	    "result": [
-	        {
-	            "color": [
-	                141,
-	                125,
-	                83
-	            ],
-	            "weight": 76.37,
-	            "name": "Clay Creek",
-	            "rank": 1,
-	            "class": "Grey"
-	        },
-	        {
-	            "color": [
-	                35,
-	                22,
-	                19
-	            ],
-	            "weight": 23.63,
-	            "name": "Seal Brown",
-	            "rank": 2,
-	            "class": "Black"
-	        }
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "extract_collection_colors",
+        "result": [
+            {
+                "color": [
+                    141,
+                    125,
+                    83
+                ],
+                "weight": 76.37,
+                "name": "Clay Creek",
+                "rank": 1,
+                "class": "Grey"
+            },
+            {
+                "color": [
+                    35,
+                    22,
+                    19
+                ],
+                "weight": 23.63,
+                "name": "Seal Brown",
+                "rank": 2,
+                "class": "Black"
+            }
+        ]
+    }
 });
 ```
 #### Extract Image Colors 
@@ -856,35 +856,35 @@ multicolorengine.extractCollectionColors(params, options function(err, data) {
  * @param callback
  */
 multicolorengine.extractImageColors(params, options function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "extract_image_colors",
-	    "result": [
-		{
-		    "color": [
-			194,
-			66,
-			28
-		    ],
-		    "weight": 76.37,
-		    "name": "Rust",
-		    "rank": 1,
-		    "class": "Red"
-		},
-		{
-		    "color": [
-			141,
-			125,
-			83
-		    ],
-		    "weight": 23.63,
-		    "name": "Clay Creek",
-		    "rank": 2,
-		    "class": "Grey"
-		}
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "extract_image_colors",
+        "result": [
+        {
+            "color": [
+            194,
+            66,
+            28
+            ],
+            "weight": 76.37,
+            "name": "Rust",
+            "rank": 1,
+            "class": "Red"
+        },
+        {
+            "color": [
+            141,
+            125,
+            83
+            ],
+            "weight": 23.63,
+            "name": "Clay Creek",
+            "rank": 2,
+            "class": "Grey"
+        }
+        ]
+    }
 });
 ```
 #### Get Metadata
@@ -896,12 +896,12 @@ multicolorengine.extractImageColors(params, options function(err, data) {
  * @param callback
  */
 multicolorengine.getMetadata(params, options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "get_metadata",
-	    "result": []
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "get_metadata",
+        "result": []
+    }
 });
 ```
 #### Get Return Metadata
@@ -912,22 +912,22 @@ multicolorengine.getMetadata(params, options, function(err, data) {
  * @param callback
  */
 multicolorengine.getReturnMetadata(options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "get_return_metadata",
-	    "result": [
-	        {
-	            "metadata": {
-	                "id": {
-	                    "count": "2",
-	                    "": null,
-	                    "type": "uint"
-	                },
-	            }
-	        }
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "get_return_metadata",
+        "result": [
+            {
+                "metadata": {
+                    "id": {
+                        "count": "2",
+                        "": null,
+                        "type": "uint"
+                    },
+                }
+            }
+        ]
+    }
 });
 ```
 #### Get Search Metadata
@@ -938,32 +938,32 @@ multicolorengine.getReturnMetadata(options, function(err, data) {
  * @param callback
  */
 multicolorengine.getSearchMetadata(options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "get_search_metadata",
-	    "result": [
-	        {
-	            "metadata": {
-	                "keywords": {
-	                    "count": "4",
-	                    "type": "string",
-	                    "": {
-	                       "dog": {
-	                            "count": "1",
-	                            "": null
-	                        },
-	                        "cat": {
-	                            "count": "1",
-	                            "": null
-	                        }
-	                        //...
-	                    }
-	                }
-	            }
-	        }
-	    ]
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "get_search_metadata",
+        "result": [
+            {
+                "metadata": {
+                    "keywords": {
+                        "count": "4",
+                        "type": "string",
+                        "": {
+                           "dog": {
+                                "count": "1",
+                                "": null
+                            },
+                            "cat": {
+                                "count": "1",
+                                "": null
+                            }
+                            //...
+                        }
+                    }
+                }
+            }
+        ]
+    }
 });
 ```
 #### List
@@ -976,17 +976,17 @@ multicolorengine.getSearchMetadata(options, function(err, data) {
  * @param callback
  */
 multicolorengine.list(params, options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "list",
-	  "result": [
-	    "melonCat",
-	    "limeCat.jpg",
-	    "meloncat.jpg",
-	    "image.jpg"
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "list",
+      "result": [
+        "melonCat",
+        "limeCat.jpg",
+        "meloncat.jpg",
+        "image.jpg"
+      ]
+    }
 });
 ```
 #### Search
@@ -1010,28 +1010,28 @@ multicolorengine.list(params, options, function(err, data) {
  * @param callback
  */
 multicolorengine.search(params, options, function(err, data) {
-	data = {
-	    "count": "2",
-	    "status": "ok",
-	    "error": [],
-	    "method": "color_search",
-	    "result": [
-		{
-		    "metadata-score": 3.0,
-		    "metadata": {
-			"id": "67890"
-		    },
-		    "filepath": "path/folder/2.jpg"
-		},
-		{
-		    "metadata-score": 3.0,
-		    "metadata": {
-			"id": "12345"
-		    },
-		    "filepath": "path/folder/1.jpg"
-		}
-	    ]
-	}
+    data = {
+        "count": "2",
+        "status": "ok",
+        "error": [],
+        "method": "color_search",
+        "result": [
+        {
+            "metadata-score": 3.0,
+            "metadata": {
+            "id": "67890"
+            },
+            "filepath": "path/folder/2.jpg"
+        },
+        {
+            "metadata-score": 3.0,
+            "metadata": {
+            "id": "12345"
+            },
+            "filepath": "path/folder/1.jpg"
+        }
+        ]
+    }
 });
 ```
 #### Ping
@@ -1042,12 +1042,12 @@ multicolorengine.search(params, options, function(err, data) {
  * @param callback
  */
 multicolorengine.ping(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "ping",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "ping",
+      "result": []
+    }
 });
 ```
 #### Update Metadata
@@ -1060,21 +1060,21 @@ multicolorengine.ping(options, function(err, data) {
  * @param callback
  */
 multicolorengine.updateMetadata(options, function(err, data) {
-	data = {
-	    "status": "ok",
-	    "error": [],
-	    "method": "update_metadata",
-	    "result": []
-	}
+    data = {
+        "status": "ok",
+        "error": [],
+        "method": "update_metadata",
+        "result": []
+    }
 });
 ```
 ## WineEngine
 Once TinEye Services is installed you can include and configure WineEngine 
 ```node
-const { WineEngine } = require('tineye-services')
+const { WineEngine } = require('tineye-services');
 
 // url is optional, if none is specified then default is https://wineengine.tineye.com/
-wineengine = new WineEngine('user_name', 'password', 'company_name', 'url')
+wineengine = new WineEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
 Below are methods available for WineEngine, for more information on parameters and responses go to https://services.tineye.com/developers/wineengine/
@@ -1089,13 +1089,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 wineengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
+});
 ```
 #### Add Image File
 Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
@@ -1108,13 +1108,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param callback
  */
 wineengine.add(params, options, function callback (err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "add",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "add",
+      "result": []
+    }
+});
 ```
 #### Count
 ```node
@@ -1124,14 +1124,14 @@ wineengine.add(params, options, function callback (err, data) {
  * @param callback
  */
 wineengine.count(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "count",
-	  "result": [
-	    4
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "count",
+      "result": [
+        4
+      ]
+    }
 });
 ```
 #### Delete 
@@ -1143,13 +1143,13 @@ wineengine.count(options, function(err, data) {
  * @param callback
  */
 wineengine.delete(params, options, function callback(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "delete",
-	  "result": []
-	}
-})
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "delete",
+      "result": []
+    }
+});
 ```
 #### List
 ```node
@@ -1161,15 +1161,15 @@ wineengine.delete(params, options, function callback(err, data) {
  * @param callback
  */
 wineengine.list(params, options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "method": "list",
-	  "error": [],
-	  "result": [
-	    "path/folder/2.jpg",
-	    "path/folder/3.jpg"
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "method": "list",
+      "error": [],
+      "result": [
+        "path/folder/2.jpg",
+        "path/folder/3.jpg"
+      ]
+    }
 });
 ```
 #### Search
@@ -1185,59 +1185,57 @@ wineengine.list(params, options, function(err, data) {
  * @param callback
  */
 wineengine.search(params, options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "method": "search",        -- [ Add URL ](#add-url)
-14
-
-	  "error": [],
-	  "query_image": {
-	    "filepath": "query_image.jpg",
-	    "metadata": {
-	      "vintage_year": 2013,
-	      "vintage_rect": {
-		"top": 364,
-		"right": 277,
-		"bottom": 391,
-		"left": 237
-	      },
-	      "label_rect": {
-		"top": 256,
-		"right": 384,
-		"bottom": 704,
-		"left": 48
-	      }
-	    }
-	  },
-	  "result": [
-	    {
-	      "filepath": "h&b_label.jpg",
-	      "score": 34,
-	      "match_percent": 49.15,
-	      "query_overlap_percent": 49.35,
-	      "target_overlap_percent": 80.82,
-	      "overlay": "overlay/?query=query_image.jpg&target=h%26b_label.jpg&sc_2=0.625942&\
-	      tr_2_x=162.408&tr_2_y=534.414&  fd_2_z=1262.32&fd_2_x=299.411&fd_2_y=342.536&\
-	      rot_1_y=-0.349066&rot_1_x=-0.523599&rot_1_z=0.0&rot_2_z=0.163794&rot_2_x=-0.599223&\
-	      rot_2_y=-0.282812&fd_1_y=480.25&fd_1_x=216.0&fd_1_z=784.5",
-	      "metadata": {
-		"vintage_year": "2013",
-		"vintage_rect": {
-		  "top": 151,
-		  "right": 354,
-		  "bottom": 192,
-		  "left": 288
-		},
-		"label_rect": {
-		  "top": 0,
-		  "right": 552,
-		  "bottom": 685,
-		  "left": 0
-		}
-	      }
-	    }
-	  ]
-	}
+    data = {
+      "status": "ok",
+      "method": "search",
+      "error": [],
+      "query_image": {
+        "filepath": "query_image.jpg",
+        "metadata": {
+          "vintage_year": 2013,
+          "vintage_rect": {
+        "top": 364,
+        "right": 277,
+        "bottom": 391,
+        "left": 237
+          },
+          "label_rect": {
+        "top": 256,
+        "right": 384,
+        "bottom": 704,
+        "left": 48
+          }
+        }
+      },
+      "result": [
+        {
+          "filepath": "h&b_label.jpg",
+          "score": 34,
+          "match_percent": 49.15,
+          "query_overlap_percent": 49.35,
+          "target_overlap_percent": 80.82,
+          "overlay": "overlay/?query=query_image.jpg&target=h%26b_label.jpg&sc_2=0.625942&\
+          tr_2_x=162.408&tr_2_y=534.414&  fd_2_z=1262.32&fd_2_x=299.411&fd_2_y=342.536&\
+          rot_1_y=-0.349066&rot_1_x=-0.523599&rot_1_z=0.0&rot_2_z=0.163794&rot_2_x=-0.599223&\
+          rot_2_y=-0.282812&fd_1_y=480.25&fd_1_x=216.0&fd_1_z=784.5",
+          "metadata": {
+            "vintage_year": "2013",
+            "vintage_rect": {
+              "top": 151,
+              "right": 354,
+              "bottom": 192,
+              "left": 288
+            },
+            "label_rect": {
+              "top": 0,
+              "right": 552,
+              "bottom": 685,
+              "left": 0
+            }
+          }
+        }
+      ]
+    }
 });
 ```
 #### Ping
@@ -1248,12 +1246,12 @@ wineengine.search(params, options, function(err, data) {
  * @param callback
  */
 wineengine.ping(options, function(err, data) {
-	data = {
-	  "status": "ok",
-	  "error": [],
-	  "method": "ping",
-	  "result": []
-	}
+    data = {
+      "status": "ok",
+      "error": [],
+      "method": "ping",
+      "result": []
+    }
 });
 ```
 # Testing
@@ -1268,9 +1266,14 @@ npm install
 Add test servers to the /test/testConfig.js file
 ```
 module.exports = {
-	MatchEngine:'<user>:<pass>@<host>/rest/',
-	MobileEngine:'joe:smith@host.com/rest/'
-	//...
+    MatchEngine:{
+        url:'<host>/rest/',
+        user:'username'
+        pass:'password'
+    },
+    MobileEngine:{
+    //...
+    }
 };
 ```
 Then run the tests using 
@@ -1281,5 +1284,5 @@ npm test
 * Add asserts to tests
 * Add more comprehensive tests
 * Re-factor compare to remove duplicate code
-* alter extractCollectionColors to make optional params object
+* Alter extractCollectionColors to make optional params object
 * Alter methods to return promises if no callback is provided

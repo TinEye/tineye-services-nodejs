@@ -5,9 +5,9 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 const libxmljs = require('libxmljs');
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
-var matchengine = new MatchEngine(
+const matchengine = new MatchEngine(
     config.MatchEngine.user, 
     config.MatchEngine.pass, 
     '', 

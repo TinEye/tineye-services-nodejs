@@ -1,11 +1,11 @@
-var config = require('../testConfig.js');
+const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
 const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
-var mocha = require('mocha');
+const mocha = require('mocha');
 
-var matchengine = new MatchEngine(
+const matchengine = new MatchEngine(
     config.MatchEngine.user, 
     config.MatchEngine.pass, 
     '', 

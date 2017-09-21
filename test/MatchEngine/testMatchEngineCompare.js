@@ -6,7 +6,7 @@ const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
 const mocha = require('mocha');
 
-var matchengine = new MatchEngine(
+const matchengine = new MatchEngine(
     config.MatchEngine.user, 
     config.MatchEngine.pass, 
     '', 
