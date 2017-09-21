@@ -6,37 +6,37 @@ const { WineEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
 var wineengine = new WineEngine(
-	config.WineEngine.user, 
-	config.WineEngine.pass, 
-	'', 
-	config.WineEngine.url
-	);
+    config.WineEngine.user, 
+    config.WineEngine.pass, 
+    '', 
+    config.WineEngine.url
+    );
 
 describe('WineEngine Ping:', function() {
 
-	//Set timeout to 5s
-	this.timeout(5000);
+    //Set timeout to 5s
+    this.timeout(5000);
 
-	describe('Check Server Ping', function() {
+    describe('Check Server Ping', function() {
 
-		it('Should return a call with status "ok"', function(done) {
-			
-			wineengine.ping(function(err, data) {
-				
-				if(err){
-					done(err);
-				}
-				else if(data.status === 'ok'){
-					done();
-				}
-				else{
-					done(new Error('Server failed to return ping response'));
-				}
+        it('Should return a call with status "ok"', function(done) {
+            
+            wineengine.ping(function(err, data) {
+                
+                if(err){
+                    done(err);
+                }
+                else if(data.status === 'ok'){
+                    done();
+                }
+                else{
+                    done(new Error('Server failed to return ping response'));
+                }
 
-			});
+            });
 
-		});
+        });
 
-	});
+    });
 
 });

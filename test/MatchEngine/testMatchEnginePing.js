@@ -6,36 +6,36 @@ const { MatchEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
 var matchengine = new MatchEngine(
-	config.MatchEngine.user, 
-	config.MatchEngine.pass, 
-	'', 
-	config.MatchEngine.url);
+    config.MatchEngine.user, 
+    config.MatchEngine.pass, 
+    '', 
+    config.MatchEngine.url);
 
 describe('MatchEngine Ping:', function() {
 
-	//Set timeout to 5s
-	this.timeout(15000);
+    //Set timeout to 5s
+    this.timeout(15000);
 
-	describe('Check Server Ping', function() {
+    describe('Check Server Ping', function() {
 
-		it('Should return a call with status "ok"', function(done) {
-			
-			matchengine.ping(function(err, data) {
-				
-				if(err){
-					done(err);
-				}
-				else if(data.status === 'ok'){
-					done();
-				}
-				else{
-					done(new Error("Server failed to return ping response"));
-				}
+        it('Should return a call with status "ok"', function(done) {
+            
+            matchengine.ping(function(err, data) {
+                
+                if(err){
+                    done(err);
+                }
+                else if(data.status === 'ok'){
+                    done();
+                }
+                else{
+                    done(new Error("Server failed to return ping response"));
+                }
 
-			});
+            });
 
-		});
+        });
 
-	});
+    });
 
 });
