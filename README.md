@@ -1,16 +1,15 @@
 # TinEye Services
 TinEye services is a module that is designed to work with TinEye products: MatchEngine, MobileEngine, MulticolorEngine and WineEngine. 
 
-Learn more at http://tineye.com
+Learn more at https://tineye.com
 
-Official API documentation availabTinEyele at https://services.tineye.com/docs
+Official API documentation available at https://services.tineye.com/docs
 # Contents
-
 - [ Installation ](#installation)
 - [ Basic Usage ](#basic-usage)
 - [ Services ](#services)
     - [ Common Parameters ](#common-parameters)
-    - [ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)
+    - [ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)
     - [ MatchEngine ](#matchengine)
         - [ Add URL ](#add-url)
         - [ Add Image File ](#add-image-file)
@@ -71,7 +70,7 @@ matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
 url = 'https://tineye.com/images/meloncat.jpg';
 
 // Add an image to your index
-// Requires both url and file path
+// Required url and optional remote file path
 matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
     if (!err)
         console.log(data);
@@ -81,7 +80,7 @@ matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
 ```
 # Services
 ## Common Parameters
-All of the below services accept the following optional common parameters object
+All of the below services accept the following optional common parameters object.
 ```javascript
 options = {
     format:'xml', // Return will be in xml format, default is json
@@ -143,9 +142,9 @@ const { MatchEngine } = require('tineye-services');
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
-Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/
+Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/ .
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
+Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -154,6 +153,9 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  url:'http://aurltoanimage.com/image.jpg',
+}
 matchengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -164,8 +166,7 @@ matchengine.add(params, options, function callback (err, data) {
 });
 ```
 #### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
-
+Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -174,6 +175,10 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image:'/path/to/local/image.jpg',
+  filepath:'remote/path/to/store/image'
+}
 matchengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -184,7 +189,7 @@ matchengine.add(params, options, function callback (err, data) {
 });
 ```
 #### Compare
-When comparing images you must have at least one url, image or filepath for each image being compared
+When comparing images you must have at least one url, image or filepath for each image being compared.
 ```node
 /**
  * Compare two images in collection
@@ -195,7 +200,7 @@ When comparing images you must have at least one url, image or filepath for each
  * @param params.url2 - Required (if no image2 or filepath2 included)
  * @param params.image2 - Required (if no url2 or filepath2 included)
  * @param params.filepath2 - Required (if no image2 or url2 included)
- * @param params.minScore - Optional
+ * @param params.min_score - Optional
  * @param params.check_horizontal_flip - Optional
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
@@ -203,6 +208,10 @@ When comparing images you must have at least one url, image or filepath for each
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image1:'/path/to/local/image.jpg',
+  filepath2:'remote/path/to/image'
+}
 matchengine.compare(params, options, function(err, data) {
     data = {
         "status": "ok",
@@ -247,6 +256,9 @@ matchengine.list(options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+var params = {
+  filepath:'remote/path/to/image'
+}
 matchengine.delete(params, options, function callback(err, data) {
     data = {
       "status": "ok",
@@ -288,13 +300,16 @@ matchengine.list(params, options, function(err, data) {
  * @param params.filepath - Required (if no image or url included)
  * @param params.offset - Optional
  * @param params.limit - Optional
- * @param params.minScore - Optional
+ * @param params.min_score - Optional
  * @param params.check_horizontal_flip - Optional
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
  * @param options - Optional
  * @param callback - callback
  */
+var params = {
+  url:'http://aurltoanimage.com/image.jpg',
+}
 matchengine.search(params, options, function(err, data) {
     data = {
         "status": "ok",
@@ -344,9 +359,9 @@ const { MobileEngine } = require('tineye-services')
 mobileengine = new MobileEngine('user_name', 'password', 'company_name', 'url')
 ```
 ### Methods
-Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/mobileengine/
+Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/mobileengine/ .
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image))
+Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -355,6 +370,9 @@ Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating 
  * @param options - Optional
  * @param callback
  */
+var params = {
+  url:'http://aurltoanimage.com/image.jpg',
+}
 mobileengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -365,7 +383,7 @@ mobileengine.add(params, options, function callback (err, data) {
 });
 ```
 #### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
+Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -374,6 +392,10 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image:'/path/to/local/image.jpg',
+  filepath:'remote/path/to/store/image'
+}
 mobileengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -384,7 +406,7 @@ mobileengine.add(params, options, function callback (err, data) {
 });
 ```
 #### Compare
-When comparing images you must have at least one url, image or filepath for each image being compared
+When comparing images you must have at least one url, image or filepath for each image being compared.
 ```node
 /**
  * Compare two images in collection
@@ -394,7 +416,7 @@ When comparing images you must have at least one url, image or filepath for each
  * @param params.url2 - Required (if no image2 or filepath2 included)
  * @param params.image2 - Required (if no url2 or filepath2 included)
  * @param params.filepath2 - Required (if no image2 or url2 included)
- * @param params.minScore - Optional
+ * @param params.min_score - Optional
  * @param params.check_horizontal_flip - Optional
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
@@ -402,6 +424,10 @@ When comparing images you must have at least one url, image or filepath for each
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image1:'/path/to/local/image.jpg',
+  filepath2:'remote/path/to/image'
+}
 mobileengine.compare(params, options, function(err, data) {
     data = {
         "status": "ok",
@@ -446,6 +472,9 @@ mobileengine.count(options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+var params = {
+  filepath:'remote/path/to/image'
+}
 mobileengine.delete(params, options, function callback(err, data) {
     data = {
       "status": "ok",
@@ -487,13 +516,16 @@ mobileengine.list(params, options, function(err, data) {
  * @param params.filepath - Required (if no image or url included)
  * @param params.offset - Optional
  * @param params.limit - Optional
- * @param params.minScore - Optional
+ * @param params.min_score - Optional
  * @param params.check_horizontal_flip - Optional
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image:'/path/to/local/image.jpg',
+}
 mobileengine.search(params, options, function(err, data) {
     data = {
         "status": "ok",
@@ -535,7 +567,7 @@ mobileengine.ping(options, function(err, data) {
 });
 ```
 ## MulticolorEngine
-Once TinEye Services is installed you can include and configure MulticolorEngine 
+Once TinEye Services is installed you can include and configure MulticolorEngine.
 ```node
 const { MulticolorEngine } = require('tineye-services');
 
@@ -543,10 +575,10 @@ const { MulticolorEngine } = require('tineye-services');
 multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
-Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/multicolorengine/
+Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/multicolorengine/ .
 
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
+Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -558,6 +590,9 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  url:'https://aurltoanimage.com/image.jpg',
+}
 multicolorengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -568,7 +603,7 @@ multicolorengine.add(params, options, function callback (err, data) {
 })
 ```
 #### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
+Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -580,6 +615,10 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image:'/path/to/local/image.jpg',
+  filepath:'remote/path/to/image'
+}
 multicolorengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -623,6 +662,17 @@ multicolorengine.count({options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+//Params for images
+var params = {
+    images:[
+      'local/path/to/image1.jpg',
+      'local/path/to/image2.jpg'
+    ],
+    count_colors:[
+      '#f1c40f',
+      '#e74c3c'
+    ]
+};
 multicolorengine.countImageColors(params, options function(err, data) {
     data = {
         "status": "ok",
@@ -677,6 +727,13 @@ multicolorengine.countImageColors(params, options function(err, data) {
  * @param options - Optional
  * @param callback
  */
+//Params for Collection
+var params = {
+  count_colors:[
+    '#f1c40f',
+    '#e74c3c'
+  ]
+};
 multicolorengine.countCollectionColors(params, options function(err, data) {
     data = {
     "status": "ok",
@@ -719,7 +776,7 @@ multicolorengine.countCollectionColors(params, options function(err, data) {
 #### Count Metadata
 ```node
 /**
- * There are 4 ways to count collection colors: collection, metadata, colors and filepaths
+ * There are 4 ways to count collection colors: collection, metadata, colors and filepaths. See official documentation for more information on metadata queries.
  * @param collection.count_metadata[] - Required
  * @param metadata.metadata - Required
  * @param metadata.count_metadata[] - Required
@@ -733,6 +790,15 @@ multicolorengine.countCollectionColors(params, options function(err, data) {
  * @param options - Optional
  * @param callback
  */
+params = {
+  count_metadata[
+    {
+      "_less_operator_": {
+          "price": "150.0"
+      }
+    }
+  ]
+}
 multicolorengine.countMetadata(params, options function(err, data) {
     data = {
         "status": "ok",
@@ -804,6 +870,11 @@ multicolorengine.delete(params, options, function callback(err, data) {
  * @param options - Optional
  * @param callback
  */
+//Params for colors
+params = {
+    colors:['#1abc9c'],
+    weights:[100]
+};
 multicolorengine.extractCollectionColors(params, options function(err, data) {
     data = {
         "status": "ok",
@@ -855,6 +926,12 @@ multicolorengine.extractCollectionColors(params, options function(err, data) {
  * @param options - Optional
  * @param callback
  */
+params = {
+    images:[
+      'local/path/to/image1.jpg',
+      'local/path/to/image2.jpg'
+    ]
+}
 multicolorengine.extractImageColors(params, options function(err, data) {
     data = {
         "status": "ok",
@@ -895,6 +972,12 @@ multicolorengine.extractImageColors(params, options function(err, data) {
  * @param options - Optional
  * @param callback
  */
+params = {
+    filepaths:[
+      'remote/path/to/image1.jpg',
+      'remote/path/to/image2.jpg'
+    ]
+}
 multicolorengine.getMetadata(params, options, function(err, data) {
     data = {
         "status": "ok",
@@ -1009,6 +1092,10 @@ multicolorengine.list(params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image:'/path/to/local/image.jpg',
+  colors:['#1abc9c']
+}
 multicolorengine.search(params, options, function(err, data) {
     data = {
         "count": "2",
@@ -1059,6 +1146,15 @@ multicolorengine.ping(options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+params = {
+  metadata:{
+    "price": {
+    "action": "mixed",
+    "type": "float",
+    "": "120.89"
+    }
+  }
+}
 multicolorengine.updateMetadata(options, function(err, data) {
     data = {
         "status": "ok",
@@ -1088,6 +1184,9 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  url:'https://aurltoanimage.com/image.jpg',
+}
 wineengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -1098,7 +1197,7 @@ wineengine.add(params, options, function callback (err, data) {
 });
 ```
 #### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image))
+Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleteing-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -1107,6 +1206,10 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param options - Optional
  * @param callback
  */
+var params = {
+  image:'/path/to/local/image.jpg',
+  filepath:'remote/path/to/image'
+}
 wineengine.add(params, options, function callback (err, data) {
     data = {
       "status": "ok",
@@ -1142,6 +1245,9 @@ wineengine.count(options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+var params = {
+  filepath:'remote/path/to/image'
+}
 wineengine.delete(params, options, function callback(err, data) {
     data = {
       "status": "ok",
@@ -1184,6 +1290,9 @@ wineengine.list(params, options, function(err, data) {
  * @param options - Optional
  * @param callback
  */
+var params = {
+  filepath:'remote/path/to/image'
+}
 wineengine.search(params, options, function(err, data) {
     data = {
       "status": "ok",
@@ -1255,15 +1364,15 @@ wineengine.ping(options, function(err, data) {
 });
 ```
 # Testing
-Tests are written with mocha and stored in the tests folder
+Tests are run with mocha and stored in the tests folder.
 
-Test must run on an empty collection of images
+Test must run on an empty collection of images.
 
-To run the tests first install the dependencies 
+To run the tests first install the dependencies.
 ```shell
 npm install
 ```
-Add test servers to the /test/testConfig.js file
+Add test servers to the /test/testConfig.js file.
 ```
 module.exports = {
     MatchEngine:{
@@ -1276,7 +1385,7 @@ module.exports = {
     }
 };
 ```
-Then run the tests using 
+Then run the tests using the below command.
 ```shell
 npm test
 ```
