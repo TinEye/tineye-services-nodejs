@@ -40,5 +40,3 @@ jspm_packages
 
 #editor setting directories
 .vscode
-
-package-lock.json
