@@ -80,12 +80,11 @@ matchengine.add({ url: url, filepath:'image_name'}, function (err, data) {
 ```
 # Services
 ## Common Parameters
-All of the below services accept the following optional common parameters object.
+All of the below services accept the following optional common parameters in addition to the listed parameters in the params object
 ```javascript
-options = {
+params = {
     format:'xml', // Return will be in xml format, default is json
     timeout:100, // The call will timeout after timeout seconds. Set to 0 for no timeout.
-    callback:'handle_callback' // When using JSON, output will be wrapped in the callback method
 }
 ```
 ## Adding, Deleting, or Updating an Image
@@ -150,13 +149,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * Add an image to an image collection
  * @param params.url - Required
  * @param params.filepath - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   url:'http://aurltoanimage.com/image.jpg',
 }
-matchengine.add(params, options, function callback (err, data) {
+matchengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -172,14 +170,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * Add an image to an image collection
  * @param params.image - Required (path to local image)
  * @param params.filepath - Required
- * @param options - Optional
  * @param callback
  */
 var params = {
   image:'/path/to/local/image.jpg',
   filepath:'remote/path/to/store/image'
 }
-matchengine.add(params, options, function callback (err, data) {
+matchengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -205,14 +202,13 @@ When comparing images you must have at least one url, image or filepath for each
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
  * @param params.color_compare - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   image1:'/path/to/local/image.jpg',
   filepath2:'remote/path/to/image'
 }
-matchengine.compare(params, options, function(err, data) {
+matchengine.compare(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -234,10 +230,10 @@ matchengine.compare(params, options, function(err, data) {
 ```node
 /**
  * Counts Images in collection
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-matchengine.list(options, function(err, data) {
+matchengine.list(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -253,13 +249,12 @@ matchengine.list(options, function(err, data) {
 /**
  * Delete an image from the collection
  * @param params.filepath - Required
- * @param options - Optional
  * @param callback
  */
 var params = {
   filepath:'remote/path/to/image'
 }
-matchengine.delete(params, options, function callback(err, data) {
+matchengine.delete(params, function callback(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -274,10 +269,9 @@ matchengine.delete(params, options, function callback(err, data) {
  * List Images in collection
  * @param params.offset - Optional
  * @param params.limit - Optional
- * @param options - Optional
  * @param callback
  */
-matchengine.list(params, options, function(err, data) {
+matchengine.list(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -304,13 +298,12 @@ matchengine.list(params, options, function(err, data) {
  * @param params.check_horizontal_flip - Optional
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
- * @param options - Optional
  * @param callback - callback
  */
 var params = {
   url:'http://aurltoanimage.com/image.jpg',
 }
-matchengine.search(params, options, function(err, data) {
+matchengine.search(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -338,10 +331,10 @@ matchengine.search(params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-matchengine.list(options, function(err, data) {
+matchengine.list(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -367,13 +360,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleteing or Updating 
  * Add an image to an image collection
  * @param params.url - Required
  * @param params.filepath - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   url:'http://aurltoanimage.com/image.jpg',
 }
-mobileengine.add(params, options, function callback (err, data) {
+mobileengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -389,14 +381,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * Add an image to an image collection
  * @param params.image - Required(image path)
  * @param params.filepath - Required
- * @param options - Optional
  * @param callback
  */
 var params = {
   image:'/path/to/local/image.jpg',
   filepath:'remote/path/to/store/image'
 }
-mobileengine.add(params, options, function callback (err, data) {
+mobileengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -421,14 +412,13 @@ When comparing images you must have at least one url, image or filepath for each
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
  * @param params.color_compare - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   image1:'/path/to/local/image.jpg',
   filepath2:'remote/path/to/image'
 }
-mobileengine.compare(params, options, function(err, data) {
+mobileengine.compare(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -450,10 +440,10 @@ mobileengine.compare(params, options, function(err, data) {
 ```node
 /**
  * Counts images in collection
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-mobileengine.count(options, function(err, data) {
+mobileengine.count(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -469,13 +459,12 @@ mobileengine.count(options, function(err, data) {
 /**
  * Delete an image from the collection
  * @param params.filepath - Required
- * @param options - Optional
  * @param callback
  */
 var params = {
   filepath:'remote/path/to/image'
 }
-mobileengine.delete(params, options, function callback(err, data) {
+mobileengine.delete(params, function callback(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -490,10 +479,9 @@ mobileengine.delete(params, options, function callback(err, data) {
  * List images in collection
  * @param params.offset - Optional
  * @param params.limit - Optional
- * @param options - Optional
  * @param callback
  */
-mobileengine.list(params, options, function(err, data) {
+mobileengine.list(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -520,13 +508,12 @@ mobileengine.list(params, options, function(err, data) {
  * @param params.check_horizontal_flip - Optional
  * @param params.generate_overlay - Optional
  * @param params.enhanced_score - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   image:'/path/to/local/image.jpg',
 }
-mobileengine.search(params, options, function(err, data) {
+mobileengine.search(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -554,10 +541,10 @@ mobileengine.search(params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-mobileengine.ping(options, function(err, data) {
+mobileengine.ping(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -587,13 +574,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param params.ignore_background - Optional 
  * @param params.ignore_interior_background - Optional
  * @param params.metadata - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   url:'https://aurltoanimage.com/image.jpg',
 }
-multicolorengine.add(params, options, function callback (err, data) {
+multicolorengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -612,14 +598,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * @param params.ignore_background - Optional 
  * @param params.ignore_interior_background - Optional
  * @param params.metadata - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   image:'/path/to/local/image.jpg',
   filepath:'remote/path/to/image'
 }
-multicolorengine.add(params, options, function callback (err, data) {
+multicolorengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -632,10 +617,10 @@ multicolorengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Counts images in collection
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-multicolorengine.count({options, function(err, data) {
+multicolorengine.count(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -659,7 +644,6 @@ multicolorengine.count({options, function(err, data) {
  * @param urls.count_colors[] - Required
  * @param urls.ignore_background - Optional
  * @param urls.ignore_interior_background - Optional
- * @param options - Optional
  * @param callback
  */
 //Params for images
@@ -673,7 +657,7 @@ var params = {
       '#e74c3c'
     ]
 };
-multicolorengine.countImageColors(params, options function(err, data) {
+multicolorengine.countImageColors(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -724,7 +708,6 @@ multicolorengine.countImageColors(params, options function(err, data) {
  * @param colors.count_colors[] - Required
  * @param filepaths.filepaths[] - Required
  * @param filepaths.count_colors[] - Required
- * @param options - Optional
  * @param callback
  */
 //Params for Collection
@@ -734,7 +717,7 @@ var params = {
     '#e74c3c'
   ]
 };
-multicolorengine.countCollectionColors(params, options function(err, data) {
+multicolorengine.countCollectionColors(params, function(err, data) {
     data = {
     "status": "ok",
     "error": [],
@@ -787,7 +770,6 @@ multicolorengine.countCollectionColors(params, options function(err, data) {
  * @param colors.min_score - Optional
  * @param filepaths.filepaths[] - Required
  * @param filepaths.count_metadata[] - Required
- * @param options - Optional
  * @param callback
  */
 params = {
@@ -799,7 +781,7 @@ params = {
     }
   ]
 }
-multicolorengine.countMetadata(params, options function(err, data) {
+multicolorengine.countMetadata(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -841,10 +823,10 @@ multicolorengine.countMetadata(params, options function(err, data) {
 /**
  * Delete an image from the collection
  * @param params.filepath - Required
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-multicolorengine.delete(params, options, function callback(err, data) {
+multicolorengine.delete(params, function callback(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -867,7 +849,6 @@ multicolorengine.delete(params, options, function callback(err, data) {
  * @param filepaths.filepaths[] - Required
  * @param filepaths.limit - Optional
  * @param filepaths.color_format - Optional
- * @param options - Optional
  * @param callback
  */
 //Params for colors
@@ -875,7 +856,7 @@ params = {
     colors:['#1abc9c'],
     weights:[100]
 };
-multicolorengine.extractCollectionColors(params, options function(err, data) {
+multicolorengine.extractCollectionColors(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -923,7 +904,6 @@ multicolorengine.extractCollectionColors(params, options function(err, data) {
  * @param urls.target_number_colors - Optional
  * @param urls.limit - Optional
  * @param urls.color_format - Optional
- * @param options - Optional
  * @param callback
  */
 params = {
@@ -932,7 +912,7 @@ params = {
       'local/path/to/image2.jpg'
     ]
 }
-multicolorengine.extractImageColors(params, options function(err, data) {
+multicolorengine.extractImageColors(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -969,7 +949,6 @@ multicolorengine.extractImageColors(params, options function(err, data) {
 /**
  * Get Metadata for collection images
  * @param params.filepaths[] - Required
- * @param options - Optional
  * @param callback
  */
 params = {
@@ -978,7 +957,7 @@ params = {
       'remote/path/to/image2.jpg'
     ]
 }
-multicolorengine.getMetadata(params, options, function(err, data) {
+multicolorengine.getMetadata(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -991,10 +970,10 @@ multicolorengine.getMetadata(params, options, function(err, data) {
 ```node
 /**
  * Get Return Metadata for collection images
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-multicolorengine.getReturnMetadata(options, function(err, data) {
+multicolorengine.getReturnMetadata(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -1017,10 +996,10 @@ multicolorengine.getReturnMetadata(options, function(err, data) {
 ```node
 /**
  * Get Search Metadata for collection images
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-multicolorengine.getSearchMetadata(options, function(err, data) {
+multicolorengine.getSearchMetadata(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -1055,10 +1034,9 @@ multicolorengine.getSearchMetadata(options, function(err, data) {
  * List images in collection
  * @param params.offset - Optional
  * @param params.limit - Optional
- * @param options - Optional
  * @param callback
  */
-multicolorengine.list(params, options, function(err, data) {
+multicolorengine.list(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -1089,14 +1067,13 @@ multicolorengine.list(params, options, function(err, data) {
  * @param params.limit - Optional
  * @param params.min_score - Optional
  * @param params.offset - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   image:'/path/to/local/image.jpg',
   colors:['#1abc9c']
 }
-multicolorengine.search(params, options, function(err, data) {
+multicolorengine.search(params, function(err, data) {
     data = {
         "count": "2",
         "status": "ok",
@@ -1125,10 +1102,10 @@ multicolorengine.search(params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-multicolorengine.ping(options, function(err, data) {
+multicolorengine.ping(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -1143,7 +1120,7 @@ multicolorengine.ping(options, function(err, data) {
  * Update Metadata for collection image
  * @param params.filepath - Required
  * @param params.metadata - Required
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
 params = {
@@ -1155,7 +1132,7 @@ params = {
     }
   }
 }
-multicolorengine.updateMetadata(options, function(err, data) {
+multicolorengine.updateMetadata(params, function(err, data) {
     data = {
         "status": "ok",
         "error": [],
@@ -1181,13 +1158,12 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * Add an image to an image collection
  * @param params.url - Required
  * @param params.filepath - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   url:'https://aurltoanimage.com/image.jpg',
 }
-wineengine.add(params, options, function callback (err, data) {
+wineengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -1203,14 +1179,13 @@ Note. Only one image can be added at a time (see[ Adding, Deleting or Updating I
  * Add an image to an image collection
  * @param params.image - Required(path to local file)
  * @param params.filepath - Required
- * @param options - Optional
  * @param callback
  */
 var params = {
   image:'/path/to/local/image.jpg',
   filepath:'remote/path/to/image'
 }
-wineengine.add(params, options, function callback (err, data) {
+wineengine.add(params, function callback (err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -1223,10 +1198,10 @@ wineengine.add(params, options, function callback (err, data) {
 ```node
 /**
  * Counts images in collection
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-wineengine.count(options, function(err, data) {
+wineengine.count(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -1242,13 +1217,12 @@ wineengine.count(options, function(err, data) {
 /**
  * Delete an image from the collection
  * @param params.filepath - Required
- * @param options - Optional
  * @param callback
  */
 var params = {
   filepath:'remote/path/to/image'
 }
-wineengine.delete(params, options, function callback(err, data) {
+wineengine.delete(params, function callback(err, data) {
     data = {
       "status": "ok",
       "error": [],
@@ -1263,10 +1237,9 @@ wineengine.delete(params, options, function callback(err, data) {
  * List images in collection
  * @param params.offset - Optional
  * @param params.limit - Optional
- * @param options - Optional
  * @param callback
  */
-wineengine.list(params, options, function(err, data) {
+wineengine.list(params, function(err, data) {
     data = {
       "status": "ok",
       "method": "list",
@@ -1287,13 +1260,12 @@ wineengine.list(params, options, function(err, data) {
  * @param params.filepath - Required (if no image or url included)
  * @param params.limit - Optional
  * @param params.generate_overlay - Optional
- * @param options - Optional
  * @param callback
  */
 var params = {
   filepath:'remote/path/to/image'
 }
-wineengine.search(params, options, function(err, data) {
+wineengine.search(params, function(err, data) {
     data = {
       "status": "ok",
       "method": "search",
@@ -1351,10 +1323,10 @@ wineengine.search(params, options, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param options - Optional
+ * @param params - Common Parameters
  * @param callback
  */
-wineengine.ping(options, function(err, data) {
+wineengine.ping(params, function(err, data) {
     data = {
       "status": "ok",
       "error": [],
