@@ -6,11 +6,11 @@ const { MobileEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
 var mobileengine = new MobileEngine(
-	config.MobileEngine.user, 
-	config.MobileEngine.pass, 
-	'', 
-	config.MobileEngine.url
-	);
+    config.MobileEngine.user, 
+    config.MobileEngine.pass, 
+    '', 
+    config.MobileEngine.url
+    );
 
 describe('MobileEngine Count:', function() {
 
@@ -27,9 +27,17 @@ describe('MobileEngine Count:', function() {
 
 	   	got.post(config.MobileEngine.url + 'add', {
 	        auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
-		    body: form
+		    body: form,
+            json:true
 		}).then(response => {
-			done(); 
+
+            if(response.body.status === 'ok'){
+                done();
+            }
+            else{
+                done(new Error('Before hook failed to add image: ' + response.body )); 
+            }
+
 		}).catch(error => {
 			done(error);
 		});

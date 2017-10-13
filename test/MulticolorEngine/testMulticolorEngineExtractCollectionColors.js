@@ -9,40 +9,40 @@ const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
 var multicolorengine = new MulticolorEngine(
-	config.MulticolorEngine.user, 
-	config.MulticolorEngine.pass, 
-	'', 
-	config.MulticolorEngine.url
-	);
+    config.MulticolorEngine.user, 
+    config.MulticolorEngine.pass, 
+    '', 
+    config.MulticolorEngine.url
+    );
 
 describe('MulticolorEngine ExtractCollectionColors:', function() {
 
-	//Set timeout to 15s
-	this.timeout(15000);
+    //Set timeout to 15s
+    this.timeout(15000);
 
-   	var colorsPath = __dirname + '/../colors.png';
-	var bluePath = __dirname + '/../blue.png';
-	var purplePath = __dirname + '/../purple.png';
-	var greensPath = __dirname + '/../greens.png';
+    var colorsPath = __dirname + '/../colors.png';
+    var bluePath = __dirname + '/../blue.png';
+    var purplePath = __dirname + '/../purple.png';
+    var greensPath = __dirname + '/../greens.png';
 
-	var images = {
-		colorsPath:{
-			imagePath:colorsPath,
-			filePath:'multicolorEngineExtractCollectionColorsColors.jpg'
-		}, 
-		bluePath:{
-			imagePath:bluePath,
-			filePath:'multicolorEngineExtractCollectionColorsBlue.jpg'
-		}, 
-		greensPath:{
-			imagePath:bluePath,
-			filePath:'multicolorEngineExtractCollectionColorsGreens.jpg'
-		}, 
-		purplePath:{
-			imagePath:purplePath,
-			filePath:'multicolorEngineExtractCollectionColorsPurple.jpg'
-		}
-	};
+    var images = {
+        colorsPath:{
+            imagePath:colorsPath,
+            filePath:'multicolorEngineExtractCollectionColorsColors.jpg'
+        }, 
+        bluePath:{
+            imagePath:bluePath,
+            filePath:'multicolorEngineExtractCollectionColorsBlue.jpg'
+        }, 
+        greensPath:{
+            imagePath:bluePath,
+            filePath:'multicolorEngineExtractCollectionColorsGreens.jpg'
+        }, 
+        purplePath:{
+            imagePath:purplePath,
+            filePath:'multicolorEngineExtractCollectionColorsPurple.jpg'
+        }
+    };
    
 	//post an image to the collection manually
 	before(function(done) {
@@ -58,12 +58,21 @@ describe('MulticolorEngine ExtractCollectionColors:', function() {
 		      body: form,
 		      json: true
 			})
-			.then(response => {
-		    	callback();
-			})
-			.catch(error => {
-		    	callback(error);
-			});
+		    .then((response) => {
+
+	            if(response.body.status === 'ok'){
+	                callback();
+	            }
+	            else{
+	                callback(new Error('Before hook failed to add image: ' + response.body )); 
+	            }
+
+		    })
+		    .catch((err) => {
+
+				callback();
+
+		    });
 
 		}, function (err,results) {
 
@@ -90,10 +99,20 @@ describe('MulticolorEngine ExtractCollectionColors:', function() {
 	      		query: {filepath:value.filePath}
 		    })
 		    .then((response) => {
-	   			callback();
+
+
+	            if(response.body.status === 'ok'){
+	                callback();
+	            }
+	            else{
+	                callback(new Error('After hook failed to delete image: ' + response.body )); 
+	            }
+
 		    })
 		    .catch((err) => {
-		    	callback(err);
+
+				callback();
+
 		    });
 
 		}, function (err,results) {

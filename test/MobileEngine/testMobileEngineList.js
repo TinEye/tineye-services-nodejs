@@ -6,80 +6,88 @@ const fs = require('fs');
 var config = require('../testConfig.js');
 
 var mobileengine = new MobileEngine(
-	config.MobileEngine.user, 
-	config.MobileEngine.pass, 
-	'', 
-	config.MobileEngine.url
-	);
+    config.MobileEngine.user, 
+    config.MobileEngine.pass, 
+    '', 
+    config.MobileEngine.url
+    );
 
 describe('MobileEngine List:', function() {
 
-	//Set timeout to 5s
-	this.timeout(5000);
+    //Set timeout to 5s
+    this.timeout(5000);
 
-	//post an image to the collection 
-	before(function(done) {
-	
-		var form = new FormData();
-		
-		form.append('image', fs.createReadStream('./test/image.jpg'));
-		form.append('filepath', 'mobileEngineListTest.jpg');
+    //post an image to the collection 
+    before(function(done) {
+    
+        var form = new FormData();
+        
+        form.append('image', fs.createReadStream('./test/image.jpg'));
+        form.append('filepath', 'mobileEngineListTest.jpg');
 
-	   	got.post(config.MobileEngine.url + 'add', {
-	        auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
-		    body: form
-		}).then(response => {
-			done(); 
-		}).catch(error => {
-			done(error);
-		});
+        got.post(config.MobileEngine.url + 'add', {
+            auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
+            body: form,
+            json:true
+        }).then(response => {
 
-	});
+            if(response.body.status === 'ok'){
+                done();
+            }
+            else{
+                done(new Error('Before hook failed to add image: ' + response.body )); 
+            }
 
-	//delete manually
-	after(function(done) {
-	
-	    got.delete(config.MobileEngine.url + 'delete', {
-	      auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
-	      json: true,
-	      query: {filepath:'mobileEngineListTest.jpg'}
-	    })
-	    .then((response) => {
+        }).catch(error => {
+            done(error);
+        });
 
-   			if(response.body.status === 'ok'){
-				done();
-   			}
-			else{
-				done(new Error('After hook failed to delete added image')); 
-			}
+    });
 
-	    })
-	    .catch((err) => {
-			done();
-	    });
+    //delete manually
+    after(function(done) {
+    
+        got.delete(config.MobileEngine.url + 'delete', {
+          auth:config.MobileEngine.user + ':' + config.MobileEngine.pass,
+          json: true,
+          query: {filepath:'mobileEngineListTest.jpg'}
+        })
+        .then((response) => {
 
-	});
+            if(response.body.status === 'ok'){
+                done();
+            }
+            else{
+                done(new Error('After hook failed to delete added image')); 
+            }
 
-	describe('Get list of collection', function() {
+        })
+        .catch((err) => {
+            done();
+        });
 
-		it('Should return a call with status "ok" and list mobileEngineListTest.jpg', function(done) {
-			
-			mobileengine.list({filepath: 'mobileEngineListTest.jpg'}, function(err, data) {
-				
-				if(err){
-					done();
-				}
-				else if(data.result.contains('mobileEngineListTest.jpg')){
-					done(err);
-				}
-				else{
-					done(new Error('Response does not contain image.jpg'));
-				}
+    });
 
-			});
+    describe('Get list of collection', function() {
 
-		});
+        it('Should return a call with status "ok" and list mobileEngineListTest.jpg', function(done) {
+            
+            mobileengine.list({filepath: 'mobileEngineListTest.jpg'}, function(err, data) {
+                
+                if(err){
+                    done();
+                }
+                else if(data.result.contains('mobileEngineListTest.jpg')){
+                    done(err);
+                }
+                else{
+                    done(new Error('Response does not contain image.jpg'));
+                }
 
-	});
+            });
+
+        });
+
+    });
 
 });

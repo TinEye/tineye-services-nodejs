@@ -8,42 +8,42 @@ const mocha = require('mocha');
 const libxmljs = require('libxmljs');
 
 var multicolorengine = new MulticolorEngine(
-	config.MulticolorEngine.user, 
-	config.MulticolorEngine.pass, 
-	'', 
-	config.MulticolorEngine.url
-	);
+    config.MulticolorEngine.user, 
+    config.MulticolorEngine.pass, 
+    '', 
+    config.MulticolorEngine.url
+    );
 
 describe('MulticolorEngine CountCollectionColors:', function() {
 
-	//Set timeout to 5s
-	this.timeout(15000);
+    //Set timeout to 5s
+    this.timeout(15000);
 
-   	var colorsPath = __dirname + '/../colors.png';
-	var bluePath = __dirname + '/../blue.png';
-	var purplePath = __dirname + '/../purple.png';
-	var greensPath = __dirname + '/../greens.png';
-	var url = 'http://tineye.com/images/meloncat.jpg';
-	var url2 = 'https://services.tineye.com/developers/matchengine/_images/364069_a1.jpg';
+    var colorsPath = __dirname + '/../colors.png';
+    var bluePath = __dirname + '/../blue.png';
+    var purplePath = __dirname + '/../purple.png';
+    var greensPath = __dirname + '/../greens.png';
+    var url = 'http://tineye.com/images/meloncat.jpg';
+    var url2 = 'https://services.tineye.com/developers/matchengine/_images/364069_a1.jpg';
 
-	var images = {
-		colorsPath:{
-			imagePath:colorsPath,
-			filePath:'multicolorEngineCountCollectionTestColors.jpg'
-		}, 
-		bluePath:{
-			imagePath:bluePath,
-			filePath:'multicolorEngineCountCollectionTestBlue.jpg'
-		}, 
-		greensPath:{
-			imagePath:bluePath,
-			filePath:'multicolorEngineCountCollectionTestGreens.jpg'
-		}, 
-		purplePath:{
-			imagePath:purplePath,
-			filePath:'multicolorEngineCountCollectionTestPurple.jpg'
-		}
-	};
+    var images = {
+        colorsPath:{
+            imagePath:colorsPath,
+            filePath:'multicolorEngineCountCollectionTestColors.jpg'
+        }, 
+        bluePath:{
+            imagePath:bluePath,
+            filePath:'multicolorEngineCountCollectionTestBlue.jpg'
+        }, 
+        greensPath:{
+            imagePath:bluePath,
+            filePath:'multicolorEngineCountCollectionTestGreens.jpg'
+        }, 
+        purplePath:{
+            imagePath:purplePath,
+            filePath:'multicolorEngineCountCollectionTestPurple.jpg'
+        }
+    };
    
 	//post an image to the collection manually
 	before(function(done) {
@@ -60,8 +60,13 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 		  	  json:true
 			})
 			.then(response => {
-				callback(); 
-			})
+	            if(response.body.status === 'ok'){
+	                callback();
+	            }
+	            else{
+	                callback(new Error('Before hook failed to add image: ' + response.body )); 
+	            }			
+        	})
 			.catch(error => {
 				callback(error);
 			});
@@ -89,12 +94,17 @@ describe('MulticolorEngine CountCollectionColors:', function() {
 	      		json: true,
 	      		query: {filepath:value.filePath}
 		    })
-		    .then((response) => {
-	   			callback();
-		    })
-		    .catch((err) => {
-		    	callback(err);
-		    });
+			.then(response => {
+	            if(response.body.status === 'ok'){
+	                callback();
+	            }
+	            else{
+	                callback(new Error('After hook failed to delete image: ' + response.body )); 
+	            }			
+        	})
+			.catch(error => {
+				callback(error);
+			});
 
 		}, function (err,results) {
 

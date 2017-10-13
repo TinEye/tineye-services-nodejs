@@ -6,11 +6,11 @@ const { WineEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
 var wineengine = new WineEngine(
-	config.WineEngine.user, 
-	config.WineEngine.pass, 
-	'', 
-	config.WineEngine.url
-	);
+    config.WineEngine.user, 
+    config.WineEngine.pass, 
+    '', 
+    config.WineEngine.url
+    );
 
 describe('WineEngine Count:', function() {
 
@@ -30,12 +30,14 @@ describe('WineEngine Count:', function() {
 	      	json: true,
 			body: form
 		}).then(response => {
+
 			if(response.body.status !== 'ok'){
 				done(new Error('Error Adding Image: ' + JSON.stringify(response.body)));
 			}
 			else{
 				done(); 
 			}
+
 		}).catch(error => {
 			done(error);
 		});
@@ -50,7 +52,7 @@ describe('WineEngine Count:', function() {
 	      	json: true,
 	      	query: {filepath:'wineEngineCountTest.jpg'}
 	    }).then((response) => {
-	    	console.log(response)
+
 			if(response.body.status !== 'ok'){
 				done(new Error(
 					'Error Deleting Image: ' + JSON.stringify(response.body)));
@@ -60,8 +62,9 @@ describe('WineEngine Count:', function() {
 			}
 
 	    }).catch((err) => {
-	    	console.log(err)
+
 			done(new Error('Failed to Delete Image in after hook: '+ err));
+
 	    });
 
 	});

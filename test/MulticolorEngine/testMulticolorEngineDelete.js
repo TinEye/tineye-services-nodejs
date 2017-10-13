@@ -6,11 +6,11 @@ const { MulticolorEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
 var multicolorengine = new MulticolorEngine(
-	config.MulticolorEngine.user, 
-	config.MulticolorEngine.pass, 
-	'', 
-	config.MulticolorEngine.url
-	);
+    config.MulticolorEngine.user, 
+    config.MulticolorEngine.pass, 
+    '', 
+    config.MulticolorEngine.url
+    );
 
 describe('MulticolorEngine Delete:', function() {
 
@@ -31,11 +31,17 @@ describe('MulticolorEngine Delete:', function() {
 	      json:true
 		})
 		.then(response => {
-			done(); 
-		})
+            if(response.body.status === 'ok'){
+                done();
+            }
+            else{
+                done(new Error('Before hook failed to add image: ' + response.body )); 
+            }			
+    	})
 		.catch(error => {
 			done(error);
 		});
+
 
 	});
 
@@ -46,7 +52,8 @@ describe('MulticolorEngine Delete:', function() {
 	    	auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
 	      	json: true,
 	      	query: {filepath:'multicolorEngineDeleteTest.jpg'}
-	    }).then((response) => {
+	    })
+	    .then((response) => {
 
    			if(response.body.status === 'warn'){
    				done();
@@ -55,8 +62,11 @@ describe('MulticolorEngine Delete:', function() {
 				done(new Error("Test failed to delete image, image deleted by after hook")); 
    			}
 
-	    }).catch((err) => {
+	    })
+	    .catch((err) => {
+
 			done();
+
 	    });
 
 	});

@@ -9,40 +9,40 @@ const libxmljs = require('libxmljs');
 const chai = require('chai');
 
 var multicolorengine = new MulticolorEngine(
-	config.MulticolorEngine.user, 
-	config.MulticolorEngine.pass, 
-	'', 
-	config.MulticolorEngine.url
-	);
+    config.MulticolorEngine.user, 
+    config.MulticolorEngine.pass, 
+    '', 
+    config.MulticolorEngine.url
+    );
 
 describe('MulticolorEngine Search:', function() {
 
-	//Set timeout to 15s
-	this.timeout(15000);
+    //Set timeout to 15s
+    this.timeout(15000);
 
-   	var colorsPath = __dirname + '/../colors.png';
-	var bluePath = __dirname + '/../blue.png';
-	var purplePath = __dirname + '/../purple.png';
-	var greensPath = __dirname + '/../greens.png';
+    var colorsPath = __dirname + '/../colors.png';
+    var bluePath = __dirname + '/../blue.png';
+    var purplePath = __dirname + '/../purple.png';
+    var greensPath = __dirname + '/../greens.png';
 
-	var images = {
-		colorsPath:{
-			imagePath:colorsPath,
-			filePath:'multicolorEngineSearchColors.jpg'
-		}, 
-		bluePath:{
-			imagePath:bluePath,
-			filePath:'multicolorEngineSearchBlue.jpg'
-		}, 
-		greensPath:{
-			imagePath:bluePath,
-			filePath:'multicolorEngineSearchGreens.jpg'
-		}, 
-		purplePath:{
-			imagePath:purplePath,
-			filePath:'multicolorEngineSearchPurple.jpg'
-		}
-	};
+    var images = {
+        colorsPath:{
+            imagePath:colorsPath,
+            filePath:'multicolorEngineSearchColors.jpg'
+        }, 
+        bluePath:{
+            imagePath:bluePath,
+            filePath:'multicolorEngineSearchBlue.jpg'
+        }, 
+        greensPath:{
+            imagePath:bluePath,
+            filePath:'multicolorEngineSearchGreens.jpg'
+        }, 
+        purplePath:{
+            imagePath:purplePath,
+            filePath:'multicolorEngineSearchPurple.jpg'
+        }
+    };
    
 	//post an image to the collection manually
 	before(function(done) {
@@ -59,8 +59,13 @@ describe('MulticolorEngine Search:', function() {
 		      json: true
 			})
 			.then(response => {
-	   			callback();
-			})
+	            if(response.body.status === 'ok'){
+	                callback();
+	            }
+	            else{
+	                callback(new Error('Before hook failed to add image: ' + response.body )); 
+	            }
+	        })
 			.catch(error => {
 		    	callback(err);
 			});
@@ -93,8 +98,13 @@ describe('MulticolorEngine Search:', function() {
 	      		query: {filepath:value.filePath}
 		    })
 		    .then((response) => {
-	   			callback();
-		    })
+	            if(response.body.status === 'ok'){
+	                callback();
+	            }
+	            else{
+	                callback(new Error('Before hook failed to add image: ' + response.body )); 
+	            }
+	        })
 		    .catch((err) => {
 		    	callback(err);
 		    });
@@ -163,75 +173,75 @@ describe('MulticolorEngine Search:', function() {
 
 	});
 
-	//serach with weights
-	describe('Search with a more than one color (#f1c40f and #e74c3c) and weights(30 and 70)', function() {
-		
-		it('Should return a call with status "ok" and a result', function(done) {
+    //serach with weights
+    describe('Search with a more than one color (#f1c40f and #e74c3c) and weights(30 and 70)', function() {
+        
+        it('Should return a call with status "ok" and a result', function(done) {
 
-			params = {
-				colors:['#f1c40f','#e74c3c'],
-				weights:[30,70]
-			};
+            params = {
+                colors:['#f1c40f','#e74c3c'],
+                weights:[30,70]
+            };
 
-			multicolorengine.search(params, function(err, data) {
+            multicolorengine.search(params, function(err, data) {
 
-				try {
-					chai.expect(data.result.length).to.be.at.least(1);
-		            done();
-		        } catch(err) {
-		            done(err);
-		        }
+                try {
+                    chai.expect(data.result.length).to.be.at.least(1);
+                    done();
+                } catch(err) {
+                    done(err);
+                }
 
-			});
+            });
 
-		});
+        });
 
-	});
+    });
 
-	// //serach with file
-	describe('Search by image file', function() {
-		
-		it('Should return a call with status "ok" and 3 results', function(done) {
+    // //serach with file
+    describe('Search by image file', function() {
+        
+        it('Should return a call with status "ok" and 3 results', function(done) {
 
-			multicolorengine.search({image:bluePath}, function(err, data) {
-				
-	    		if(err){
-	    			done(new Error(err.message[0]));
-	    		}
-				else if (data.result.length === 3){
-	    			done();
-				}
-				else{
-	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
-				}
+            multicolorengine.search({image:bluePath}, function(err, data) {
+                
+                if(err){
+                    done(new Error(err.message[0]));
+                }
+                else if (data.result.length === 3){
+                    done();
+                }
+                else{
+                    done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
+                }
 
-			});
+            });
 
-		});
+        });
 
-	});
+    });
 
-	// //serach with file
-	describe('Search by collection image filepath', function() {
-		
-		it('Should return a call with status "ok" and 3 results', function(done) {
+    // //serach with file
+    describe('Search by collection image filepath', function() {
+        
+        it('Should return a call with status "ok" and 3 results', function(done) {
 
-			multicolorengine.search({filepath:'multicolorEngineSearchGreens.jpg'}, function(err, data) {
+            multicolorengine.search({filepath:'multicolorEngineSearchGreens.jpg'}, function(err, data) {
 
-	    		if(err){
-	    			done(new Error(err.message[0]));
-	    		}
-				else if (data.result.length === 3){
-	    			done();
-				}
-				else{
-	    			done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
-				}
+                if(err){
+                    done(new Error(err.message[0]));
+                }
+                else if (data.result.length === 3){
+                    done();
+                }
+                else{
+                    done(new Error('Result returned:' + JSON.stringify(data.result,null, 4)));
+                }
 
-			});
+            });
 
-		});
+        });
 
-	});
+    });
 
 });

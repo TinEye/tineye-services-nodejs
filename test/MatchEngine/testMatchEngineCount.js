@@ -1,15 +1,15 @@
-var config = require('../testConfig.js');
+const config = require('../testConfig.js');
 const FormData = require('form-data');
 const fs = require('fs');
 const got = require('got');
 const { MatchEngine }= require('../../../tineye-services');
-var mocha = require('mocha');
+const mocha = require('mocha');
 
-var matchengine = new MatchEngine(
-	config.MatchEngine.user, 
-	config.MatchEngine.pass, 
-	'', 
-	config.MatchEngine.url);
+const matchengine = new MatchEngine(
+    config.MatchEngine.user, 
+    config.MatchEngine.pass, 
+    '', 
+    config.MatchEngine.url);
 
 describe('MatchEngine Count:', function() {
 
@@ -26,10 +26,18 @@ describe('MatchEngine Count:', function() {
 
 	   	got.post(config.MatchEngine.url + 'add', {
 	       auth:config.MatchEngine.user + ':' + config.MatchEngine.pass,
-		   body: form
+		   body: form,
+           json:true
 		})
 		.then(response => {
-			done(); 
+
+            if(response.body.status === 'ok'){
+                done();
+            }
+            else{
+                done(new Error('Before hook failed to add image: ' + response.body )); 
+            }
+
 		})
 		.catch(error => {
 			done(error);
@@ -56,7 +64,9 @@ describe('MatchEngine Count:', function() {
 
 	    })
 	    .catch((err) => {
+
 			done();
+
 	    });
 
 	});

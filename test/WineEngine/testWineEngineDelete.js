@@ -6,16 +6,16 @@ const { WineEngine }= require('../../../tineye-services');
 var mocha = require('mocha');
 
 var wineengine = new WineEngine(
-	config.WineEngine.user, 
-	config.WineEngine.pass, 
-	'', 
-	config.WineEngine.url
-	);
+    config.WineEngine.user, 
+    config.WineEngine.pass, 
+    '', 
+    config.WineEngine.url
+    );
 
 describe('WineEngine Delete:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(10000);
 
 	//post an image to the collection for deletion
 	before(function(done) {
@@ -31,7 +31,14 @@ describe('WineEngine Delete:', function() {
 		  	json:true
 		})
 		.then(response => {
-			done(); 
+
+			if(response.body.status !== 'ok'){
+				done(new Error('Error Adding Image: ' + JSON.stringify(response.body)));
+			}
+			else{
+				done(); 
+			}
+
 		})
 		.catch(error => {
 			done(error);
