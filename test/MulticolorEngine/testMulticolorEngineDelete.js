@@ -27,7 +27,8 @@ describe('MulticolorEngine Delete:', function() {
 
 	   	got.post(config.MulticolorEngine.url + 'add', {
 	      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
-	      body: form
+	      body: form,
+	      json:true
 		})
 		.then(response => {
 			done(); 

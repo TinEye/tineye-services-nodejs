@@ -102,7 +102,7 @@ describe('MulticolorEngine Add:', function() {
 
 		it('Return a string of xml that cam successfully be parsed ', function(done) {
 
-			multicolorengine.add({ image: __dirname + '/../image.jpg', filepath: 'multicolorEngineEngineAdd.jpg' },{format:'xml'}, function (err, data) {
+			multicolorengine.add({ image: __dirname + '/../image.jpg', filepath: 'multicolorEngineEngineAdd.jpg', format:'xml' }, function (err, data) {
 			
 				if(err){
 					done(new Error(err.message));
@@ -122,30 +122,12 @@ describe('MulticolorEngine Add:', function() {
 
 	});
 
-	describe('Add Image by File with optional param callback', function() {
-
-		it('Return a string of json wrapped in JSON.parse function', function(done) {
-
-			multicolorengine.add({ image: __dirname + '/../image.jpg', filepath: 'multicolorEngineEngineAdd.jpg' },{callback:'JSON.parse'}, function (err, data) {
-				
-				if(err){
-					done(new Error(err.message));
-				}
-				else{
-					done();
-				}
-
-			});
-
-		});
-
-	});
 
 	describe('Add Image by File with optional param timeout', function() {
 		
 		it('Return a status of "ok"', function(done) {
 
-			multicolorengine.add({ image: __dirname + '/../image.jpg', filepath: 'multicolorEngineEngineAdd.jpg' },{timeout:100}, function (err, data) {
+			multicolorengine.add({ image: __dirname + '/../image.jpg', filepath: 'multicolorEngineEngineAdd.jpg', timeout:100 }, function (err, data) {
 				
 				if(err){
 					done(new Error(err.message));

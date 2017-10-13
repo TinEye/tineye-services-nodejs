@@ -64,15 +64,18 @@ describe('MatchEngine Count:', function() {
 	describe('Get a count of total images', function() {
 
 		it('Should return a call with status "ok" and a result > 0', function(done) {
-			
-			matchengine.count(function(err, data) {
-				
-				if(err)
+
+			matchengine.count(null, function(err, data) {
+
+				if(err){
 					done(err);
-				else if(data.result[0]>0)
+				}
+				else if(data.result[0]>0){
 					done();
-				else
-					done(new Error("Response does not contain image.jpg"));
+				}
+				else{
+					done(new Error('Response does not contain image.jpg'));
+				}
 
 			});
 

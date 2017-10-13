@@ -54,7 +54,8 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 
 		   	got.post(config.MulticolorEngine.url + 'add', {
 		      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
-		      body: form
+		      body: form,
+		      json: true
 			})
 			.then(response => {
 				callback();
@@ -133,7 +134,7 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 		
 		it('Should return a call with status "ok"', function(done) {
 
-			multicolorengine.getSearchMetadata(function(err, data) {
+			multicolorengine.getSearchMetadata(null, function(err, data) {
 
 	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));
@@ -155,7 +156,7 @@ describe('MulticolorEngine Search and Return Metadata:', function() {
 		
 		it('Should return a call with status "ok"', function(done) {
 
-			multicolorengine.getReturnMetadata(function(err, data) {
+			multicolorengine.getReturnMetadata(null, function(err, data) {
 
 	    		if(err){
 	    			done(new Error(JSON.stringify(err,null, 4)));

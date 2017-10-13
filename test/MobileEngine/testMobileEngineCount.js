@@ -65,7 +65,7 @@ describe('MobileEngine Count:', function() {
 
 		it('Should return a call with status "ok" and a result > 0', function(done) {
 
-			mobileengine.count(function(err, data) {
+			mobileengine.count(null, function(err, data) {
 				
 				if(err){
 					done(err);

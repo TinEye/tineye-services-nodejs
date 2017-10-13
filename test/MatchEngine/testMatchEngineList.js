@@ -66,14 +66,17 @@ describe('MatchEngine List', function() {
 
 		it('Should return a call with status "ok" and list matchEngineListTest.jpg', function(done) {
 			
-			matchengine.list(function(err, data) {
+			matchengine.list(null, function(err, data) {
 				
-				if(err)
+				if(err){
 					done();
-				else if(data.result.contains("matchEngineListTest.jpg"))
+				}
+				else if(data.result.contains("matchEngineListTest.jpg")){
 					done(err);
-				else
+				}
+				else{
 					done(new Error("Response does not contain image.jpg"));
+				}
 
 			});
 

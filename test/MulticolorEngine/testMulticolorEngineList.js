@@ -27,7 +27,8 @@ describe('MulticolorEngine List', function() {
 
 	   	got.post(config.MulticolorEngine.url + 'add', {
 	      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
-	      body: form
+	      body: form,
+	      json: true
 		})
 		.then(response => {
 		    done();
@@ -65,7 +66,7 @@ describe('MulticolorEngine List', function() {
 
 		it('Should return a call with status "ok" and list multicolorEngineListTest.jpg', function(done) {
 			
-			multicolorengine.list(function(err, data) {
+			multicolorengine.list(null, function(err, data) {
 				
 				if(err){
 					done();

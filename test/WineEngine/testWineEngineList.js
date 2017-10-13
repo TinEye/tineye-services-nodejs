@@ -27,7 +27,8 @@ describe('WineEngine List', function() {
 
 	   	got.post(config.WineEngine.url  + 'add', {
 	      	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
-		   	body: form
+		  	body: form,
+		  	json:true
 		})
 		.then(response => {
 			done(); 
@@ -66,7 +67,7 @@ describe('WineEngine List', function() {
 
 		it('Should return a call with status "ok" and list wineEngineListTest.jpg', function(done) {
 
-			wineengine.list(function(err, data) {
+			wineengine.list(null, function(err, data) {
 				
 				if(err){
 					done();

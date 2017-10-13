@@ -15,7 +15,7 @@ var wineengine = new WineEngine(
 describe('WineEngine Count:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(10000);
 
 	//post an image to the collection manually
 	before(function(done) {
@@ -27,9 +27,15 @@ describe('WineEngine Count:', function() {
 
 	   	got.post(config.WineEngine.url + 'add', {
 	    	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
+	      	json: true,
 			body: form
 		}).then(response => {
-			done(); 
+			if(response.body.status !== 'ok'){
+				done(new Error('Error Adding Image: ' + JSON.stringify(response.body)));
+			}
+			else{
+				done(); 
+			}
 		}).catch(error => {
 			done(error);
 		});
@@ -39,21 +45,23 @@ describe('WineEngine Count:', function() {
 	//make call to delete image after each add
 	after(function(done){
 				
-	    got.delete(config.WineEngine.url + 'delete', {
+	    got.get(config.WineEngine.url + 'delete', {
 	    	auth:config.WineEngine.user + ':' + config.WineEngine.pass,
 	      	json: true,
 	      	query: {filepath:'wineEngineCountTest.jpg'}
 	    }).then((response) => {
-
-   			if(response.body.status !== 'ok'){
-				done(new Error('After hook failed to delete added image')); 
-   			}
-   			else{
-				done(); 
-   			}
+	    	console.log(response)
+			if(response.body.status !== 'ok'){
+				done(new Error(
+					'Error Deleting Image: ' + JSON.stringify(response.body)));
+			}
+			else{
+				done();
+			}
 
 	    }).catch((err) => {
-			done();
+	    	console.log(err)
+			done(new Error('Failed to Delete Image in after hook: '+ err));
 	    });
 
 	});
@@ -62,7 +70,7 @@ describe('WineEngine Count:', function() {
 
 		it('Should return a call with status "ok" and a result > 0', function(done) {
 
-			wineengine.count(function(err, data) {
+			wineengine.count(null, function(err, data) {
 				
 				if(err){
 					done(err);
@@ -71,7 +79,7 @@ describe('WineEngine Count:', function() {
 					done();
 				}
 				else{
-					done(new Error('Response does not contain image.jpg'));
+					done(new Error('Response does not contain image.jpg: '+ JSON.stringify(data)));
 				}
 
 			});

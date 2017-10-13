@@ -32,7 +32,8 @@ describe('WineEngine Search:', function() {
 
 	   	got.post(config.WineEngine.url + 'add', {
 	   	    auth:config.WineEngine.user + ':' + config.WineEngine.pass,
-		    body: form
+		  	body: form,
+		  	json:true
 		}).then(response => {
 			done(); 
 		}).catch(error => {

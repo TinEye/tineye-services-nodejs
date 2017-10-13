@@ -16,7 +16,7 @@ var wineengine = new WineEngine(
 describe('WineEngine Add:', function() {
 
 	//Set timeout to 5s
-	this.timeout(5000);
+	this.timeout(10000);
 
 	//make call to delete image after each add
 	after(function(done){
@@ -107,7 +107,7 @@ describe('WineEngine Add:', function() {
 		
 		it('Return a string of xml that cam successfully be parsed ', function(done) {
 
-			wineengine.add({ image: __dirname + '/../image.jpg', filepath: 'wineEngineAdd.jpg' },{format:'xml'}, function (err, data) {
+			wineengine.add({ image: __dirname + '/../image.jpg', filepath: 'wineEngineAdd.jpg', format:'xml'}, function (err, data) {
 				
 				if(err){
 					done(new Error(err.message));
@@ -127,30 +127,12 @@ describe('WineEngine Add:', function() {
 
 	});
 
-	describe('Add Image by File with optional param callback', function() {
-		
-		it('Return a string of json wrapped in JSON.parse function', function(done) {
-
-			wineengine.add({ image: __dirname + '/../image.jpg', filepath: 'wineEngineAdd.jpg' },{callback:'JSON.parse'}, function (err, data) {
-				
-				if(err){
-					done(new Error(err.message));
-				}
-				else{
-					done();
-				}
-
-			});
-
-		});
-
-	});
 
 	describe('Add Image by File with optional param timeout', function() {
 
 		it('Return a status of "ok"', function(done) {
 
-			wineengine.add({ image: __dirname + '/../image.jpg', filepath: 'wineEngineAdd.jpg' },{timeout:100}, function (err, data) {
+			wineengine.add({ image: __dirname + '/../image.jpg', filepath: 'wineEngineAdd.jpg', timeout:100 }, function (err, data) {
 				
 				if(err){
 					done(new Error(err.message));

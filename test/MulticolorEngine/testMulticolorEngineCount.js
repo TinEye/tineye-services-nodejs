@@ -27,7 +27,8 @@ describe('MulticolorEngine Count:', function() {
 
 	   	got.post(config.MulticolorEngine.url + 'add', {
 	      auth:config.MulticolorEngine.user + ':' + config.MulticolorEngine.pass,
-	      body: form
+		  	body: form,
+		  	json:true
 		})
 		.then(response => {
 			done(); 
@@ -65,7 +66,7 @@ describe('MulticolorEngine Count:', function() {
 
 		it('Should return a call with status "ok" and a result > 0', function(done) {
 
-			multicolorengine.count(function(err, data) {
+			multicolorengine.count(null, function(err, data) {
 				
 				if(err){
 					done(err);

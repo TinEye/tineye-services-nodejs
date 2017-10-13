@@ -73,7 +73,7 @@ describe('MatchEngine Compare:', function() {
 
 		        try {
 					chai.assert.isOk(data, 'Data not returned');
-					chai.assert(data.status === 'ok','Status not ok');
+					chai.assert(data.status === 'ok','Status not ok: ' +  JSON.stringify(data));
 					chai.assert.isOk(data.result, 'Result not returned');
 		            done();
 		        } catch(err) {
@@ -94,7 +94,7 @@ describe('MatchEngine Compare:', function() {
 
 		        try {
 					chai.assert.isOk(data, 'Data not returned');
-					chai.assert(data.status === 'ok','Status not ok');
+					chai.assert(data.status === 'ok','Status not ok: ' +  JSON.stringify(data));
 					chai.assert.isNotOk(data.result[0], 'Result returned');
 		            done();
 		        } catch(err) {
@@ -115,7 +115,7 @@ describe('MatchEngine Compare:', function() {
 
 		        try {
 					chai.assert.isOk(data, 'Data not returned');
-					chai.assert(data.status === 'ok','Status not ok');
+					chai.assert(data.status === 'ok','Status not ok: ' +  JSON.stringify(data));
 					chai.assert.isOk(data.result, 'Result not returned');
 		            done();
 		        } catch(err) {
