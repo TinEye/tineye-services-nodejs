@@ -3,21 +3,26 @@ module.exports = {
 	MatchEngine:{
 		url:'',
 		user:'',
-		pass:''
+		pass:'',
+		companyName:''
 	},
 	MobileEngine:{
 		url:'',
 		user:'',
-		pass:''
+		pass:'',
+		companyName:''
 	},
 	MulticolorEngine:{
 		url:'',
 		user:'',
-		pass:''
+		pass:'',
+		companyName:''
 	},
 	WineEngine:{
 		url:'',
 		user:'',
-		pass:''
+		pass:'',
+		companyName:''
 	}
 };
+

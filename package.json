@@ -1,6 +1,6 @@
 {
   "name": "tineye-services",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TinEye Services API node.js library for MatchEngine, MobileEngine, MulticolorEngine, and WineEngine",
   "keywords": [
     "Tineye",
