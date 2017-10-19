@@ -216,14 +216,14 @@ matchengine.compare(params, function(err, data) {
     //     "error": [],
     //     "method": "compare",
     //     "result": [
-    //     {
-    //         "target_overlap_percent": 99.22,
-    //         "query_overlap_percent": 98.59,
-    //         "filepath": "match.jpg",
-    //         "listscore_enhanced": 68.2,
-    //         "score": 65.9,
-    //         "match_percent": 92.11
-    //     }
+    //          {
+    //             "target_overlap_percent": 99.22,
+    //             "query_overlap_percent": 98.59,
+    //             "filepath": "match.jpg",
+    //             "score_enhanced": 68.2,
+    //             "score": 65.9,
+    //             "match_percent": 92.11
+    //          }
     //     ]
     // }
 });
@@ -313,20 +313,20 @@ matchengine.search(params, function(err, data) {
     //     "error": [],
     //     "method": "search",
     //     "result": [
-    //     {
-    //         "match_percent": 89.52,
-    //         "score": 97.2,
-    //         "target_overlap_percent": 95.62,
-    //         "query_overlap_percent": 72.37,
-    //         "filepath": "path/folder/match1.png"
-    //     },
-    //     {
-    //         "match_percent": 82.83,
-    //         "score": 94.5,
-    //         "target_overlap_percent": 87.13,
-    //         "query_overlap_percent": 97.17,
-    //         "filepath": "path/folder/match2.png"
-    //     }
+    //          {
+    //            "match_percent": 89.52,
+    //            "score": 97.2,
+    //            "target_overlap_percent": 95.62,
+    //            "query_overlap_percent": 72.37,
+    //            "filepath": "path/folder/match1.png"
+    //          },
+    //          {
+    //            "match_percent": 82.83,
+    //            "score": 94.5,
+    //            "target_overlap_percent": 87.13,
+    //            "query_overlap_percent": 97.17,
+    //            "filepath": "path/folder/match2.png"
+    //          }
     //     ]
     // }
 });
@@ -335,11 +335,9 @@ matchengine.search(params, function(err, data) {
 ```node
 /**
  * Pings Server
- * @param params - Common Parameters
  * @param callback
  */
-var params = {}
-matchengine.ping(params, function(err, data) {
+matchengine.ping(function(err, data) {
     //data = {
     //   "status": "ok",
     //   "error": [],
@@ -553,8 +551,7 @@ mobileengine.search(params, function(err, data) {
  * @param params - Common Parameters
  * @param callback
  */
-var params = {}
-mobileengine.ping(params, function(err, data) {
+mobileengine.ping(function(err, data) {
     // data = {
     //   "status": "ok",
     //   "error": [],
@@ -665,47 +662,48 @@ var params = {
       'local/path/to/image2.jpg'
     ],
     count_colors:[
-      '#f1c40f',
-      '#e74c3c'
+      '255,112,223',
+      '95,136,165',
+      '#DF4F23'
     ]
 };
 multicolorengine.countImageColors(params, function(err, data) {
-    // data = {
-    //     "status": "ok",
-    //     "error": [],
-    //     "method": "count_image_colors",
-    //     "result": [
-    //     {
-    //         "color": [
-    //         255,
-    //         112,
-    //         223
-    //         ],
-    //         "num_images_full_area": 0,
-    //         "name": "Pale Magenta",
-    //         "num_images_partial_area": 0,
-    //         "class": "Violet"
-    //     },
-    //     {
-    //         "color": [
-    //         95,
-    //         136,
-    //         165
-    //         ],
-    //         "num_images_full_area": 0,
-    //         "name": "Air Force Blue",
-    //         "num_ images_partial_area": 0,
-    //         "class": "Blue"
-    //     },
-    //     {
-    //         "color": "df4f23",
-    //         "num_images_full_area": 1,
-    //         "name": "Cinnabar",
-    //         "num_images_partial_area": 1,
-    //         "class": "Red"
-    //     }
-    //     ]
-    // }
+  //  data ={
+  //     "status": "ok",
+  //     "error": [],
+  //     "method": "count_image_colors",
+  //     "result": [
+  //         {
+  //             "color": [
+  //                 255,
+  //                 112,
+  //                 223
+  //             ],
+  //             "num_images_full_area": 0,
+  //             "name": "Pale Magenta",
+  //             "num_images_partial_area": 0,
+  //             "class": "Violet"
+  //         },
+  //         {
+  //             "color": [
+  //                 95,
+  //                 136,
+  //                 165
+  //             ],
+  //             "num_images_full_area": 0,
+  //             "name": "Air Force Blue",
+  //             "num_ images_partial_area": 0,
+  //             "class": "Blue"
+  //         },
+  //         {
+  //             "color": "df4f23",
+  //             "num_images_full_area": 1,
+  //             "name": "Cinnabar",
+  //             "num_images_partial_area": 1,
+  //             "class": "Red"
+  //         }
+  //     ]
+  // }
 });
 ```
 #### Count Collection Colors 
@@ -725,47 +723,48 @@ multicolorengine.countImageColors(params, function(err, data) {
 //Params for Collection
 var params = {
   count_colors:[
-    '#f1c40f',
-    '#e74c3c'
+      '255,112,223',
+      '95,136,165',
+      '#DF4F23'
   ]
 };
 multicolorengine.countCollectionColors(params, function(err, data) {
-    // data = {
-    //     "status": "ok",
-    //     "error": [],
-    //     "method": "count_collection_colors",
-    //     "result": [
-    //         {
-    //             "color": [
-    //                 255,
-    //                 112,
-    //                 223
-    //             ],
-    //             "num_images_full_area": 1,
-    //             "name": "Pale Magenta",
-    //             "num_images_partial_area": 2,
-    //             "class": "Violet"
-    //         },
-    //         {
-    //             "color": [
-    //                 95,
-    //                 136,
-    //                 165
-    //             ],
-    //             "num_images_full_area": 0,
-    //             "name": "Air Force Blue",
-    //             "num_images_partial_area": 0,
-    //             "class": "Blue"
-    //         },
-    //         {
-    //             "color": "df4f23",
-    //             "num_images_full_area": 0,
-    //             "name": "Cinnabar",
-    //             "num_images_partial_area": 1,
-    //             "class": "Red"
-    //         }
-    //     ]
-    // }
+  //data = {
+  //     "status": "ok",
+  //     "error": [],
+  //     "method": "count_collection_colors",
+  //     "result": [
+  //         {
+  //             "color": [
+  //                 255,
+  //                 112,
+  //                 223
+  //             ],
+  //             "num_images_full_area": 1,
+  //             "name": "Pale Magenta",
+  //             "num_images_partial_area": 2,
+  //             "class": "Violet"
+  //         },
+  //         {
+  //             "color": [
+  //                 95,
+  //                 136,
+  //                 165
+  //             ],
+  //             "num_images_full_area": 0,
+  //             "name": "Air Force Blue",
+  //             "num_images_partial_area": 0,
+  //             "class": "Blue"
+  //         },
+  //         {
+  //             "color": "df4f23",
+  //             "num_images_full_area": 0,
+  //             "name": "Cinnabar",
+  //             "num_images_partial_area": 1,
+  //             "class": "Red"
+  //         }
+  //     ]
+  // }
 });
 ```
 #### Count Metadata
@@ -784,15 +783,20 @@ multicolorengine.countCollectionColors(params, function(err, data) {
  * @param filepaths.count_metadata[] - Required
  * @param callback
  */
-var params = {
-  count_metadata[
-    {
-      "_less_operator_": {
-          "price": "150.0"
-      }
+
+ var params = {
+    count_metadata = {
+       "_or_operator_":[ 
+          {  
+             "keywords":"dog"
+          },
+          {  
+             "keywords":"cheetah"
+          }
+       ]
     }
-  ]
-}
+ }
+
 multicolorengine.countMetadata(params, function(err, data) {
    // data = {
    //      "status": "ok",
@@ -806,21 +810,6 @@ multicolorengine.countMetadata(params, function(err, data) {
    //                          "count": "1",
    //                          "": {
    //                              "keywords": "dog"
-   //                          }
-   //                      }
-   //                  },
-   //                  {
-   //                      "count-metadata": {
-   //                          "count": "4",
-   //                          "": {
-   //                              "_or_operator_": [
-   //                                  {
-   //                                      "keywords": "whale"
-   //                                  },
-   //                                  {
-   //                                      "keywords": "shark"
-   //                                  }
-   //                              ]
    //                          }
    //                      }
    //                  }
@@ -868,8 +857,10 @@ multicolorengine.delete(params, function callback(err, data) {
  */
 //Params for colors
 var params = {
-    colors:['#1abc9c'],
-    weights:[100]
+    colors:['212,123,225','126,135,150'],
+    weights:[70,30,],
+    limit:50,
+    color_format:'hex'
 };
 multicolorengine.extractCollectionColors(params, function(err, data) {
     // data = {
@@ -1143,6 +1134,7 @@ multicolorengine.ping(params, function(err, data) {
  * @param callback
  */
 params = {
+  filepath:'/remote/file/path',
   metadata:{
     "price": {
     "action": "mixed",
@@ -1346,8 +1338,8 @@ wineengine.search(params, function(err, data) {
  * @param params - Common Parameters
  * @param callback
  */
-var params = {}
-wineengine.ping(params, function(err, data) {
+
+wineengine.ping(function(err, data) {
     // data = {
     //   "status": "ok",
     //   "error": [],
