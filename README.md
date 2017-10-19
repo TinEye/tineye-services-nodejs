@@ -1055,17 +1055,17 @@ multicolorengine.getSearchMetadata(params, function(err, data) {
  */
 var params = {}
 multicolorengine.list(params, function(err, data) {
-    data = {
-      "status": "ok",
-      "error": [],
-      "method": "list",
-      "result": [
-        "melonCat",
-        "limeCat.jpg",
-        "meloncat.jpg",
-        "image.jpg"
-      ]
-    }
+    // data = {
+    //   "status": "ok",
+    //   "error": [],
+    //   "method": "list",
+    //   "result": [
+    //     "melonCat",
+    //     "limeCat.jpg",
+    //     "meloncat.jpg",
+    //     "image.jpg"
+    //   ]
+    // }
 });
 ```
 #### Search
