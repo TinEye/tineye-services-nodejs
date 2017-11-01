@@ -71,7 +71,7 @@ var url = 'https://tineye.com/images/meloncat.jpg';
 
 // Add an image to your index
 // Required URL and optional remote file path
-matchengine.add({url: url, filepath: 'image_name'}, function (err, data) {
+matchengine.add({url: url, filepath: 'image_name'}, function callback(err, data) {
     if(!err)
         console.log(data);
     else
@@ -110,7 +110,7 @@ var results = {};
 // Use the async module to ensure images are submitted one at a time
 async.forEachOfSeries(images, function (value, key, callback) {
 
-    multicolorengine.add({image:value.imagePath,filepath:value.filePath},  function(error, data) {
+    multicolorengine.add({image:value.imagePath,filepath:value.filePath},  function (error, data) {
         console.log(error, data);
         
         if(data) {
@@ -210,7 +210,7 @@ var params = {
     filepath2: 'path/to/image/on/server',
     enhanced_score: true
 };
-matchengine.compare(params, function(err, data) {
+matchengine.compare(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -236,7 +236,7 @@ matchengine.compare(params, function(err, data) {
  * @param callback
  */
 var params = {};
-matchengine.count(params, function(err, data) {
+matchengine.count(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -275,7 +275,7 @@ matchengine.delete(params, function callback(err, data) {
  * @param callback
  */
 var params = {};
-matchengine.list(params, function(err, data) {
+matchengine.list(params, function callback(err, data) {
    // data = {
    //     "status": "ok",
    //     "error": [],
@@ -307,7 +307,7 @@ matchengine.list(params, function(err, data) {
 var params = {
     url: 'https://aurltoanimage.com/image.jpg',
 };
-matchengine.search(params, function(err, data) {
+matchengine.search(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -337,7 +337,7 @@ matchengine.search(params, function(err, data) {
  * Pings API
  * @param callback
  */
-matchengine.ping(function(err, data) {
+matchengine.ping(function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -423,7 +423,7 @@ var params = {
     filepath2: 'path/to/image/on/server',
     enhanced_score: true
 };
-mobileengine.compare(params, function(err, data) {
+mobileengine.compare(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -449,7 +449,7 @@ mobileengine.compare(params, function(err, data) {
  * @param callback
  */
 var params = {};
-mobileengine.count(params, function(err, data) {
+mobileengine.count(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -488,7 +488,7 @@ mobileengine.delete(params, function callback(err, data) {
  * @param callback
  */
 var params = {};
-mobileengine.list(params, function(err, data) {
+mobileengine.list(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -520,7 +520,7 @@ mobileengine.list(params, function(err, data) {
 var params = {
   image: '/path/to/local/image.jpg',
 };
-mobileengine.search(params, function(err, data) {
+mobileengine.search(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -551,7 +551,7 @@ mobileengine.search(params, function(err, data) {
  * @param params - Common Parameters
  * @param callback
  */
-mobileengine.ping(function(err, data) {
+mobileengine.ping(function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -587,7 +587,7 @@ var params = {
     url: 'https://aurltoanimage.com/image.jpg',
     filepath: 'path/to/store/image/on/server'
 };
-multicolorengine.add(params, function callback (err, data) {
+multicolorengine.add(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -612,7 +612,7 @@ var params = {
     image: '/path/to/local/image.jpg',
     filepath: 'path/to/store/image/on/server'
 };
-multicolorengine.add(params, function callback (err, data) {
+multicolorengine.add(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -629,7 +629,7 @@ multicolorengine.add(params, function callback (err, data) {
  * @param callback
  */
 var params = {};
-multicolorengine.count(params, function(err, data) {
+multicolorengine.count(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -666,7 +666,7 @@ var params = {
         '#DF4F23'
     ]
 };
-multicolorengine.countImageColors(params, function(err, data) {
+multicolorengine.countImageColors(params, function callback(err, data) {
     // data ={
     //     "status": "ok",
     //     "error": [],
@@ -726,7 +726,7 @@ var params = {
         '#DF4F23'
     ]
 };
-multicolorengine.countCollectionColors(params, function(err, data) {
+multicolorengine.countCollectionColors(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -794,7 +794,7 @@ var params = {
         ]
     }
 };
-multicolorengine.countMetadata(params, function(err, data) {
+multicolorengine.countMetadata(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -858,7 +858,7 @@ var params = {
     limit: 50,
     color_format: 'hex'
 };
-multicolorengine.extractCollectionColors(params, function(err, data) {
+multicolorengine.extractCollectionColors(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -914,7 +914,7 @@ var params = {
         'local/path/to/image2.jpg'
     ]
 };
-multicolorengine.extractImageColors(params, function(err, data) {
+multicolorengine.extractImageColors(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -959,7 +959,7 @@ var params = {
         'remote/path/to/image2.jpg'
     ]
 };
-multicolorengine.getMetadata(params, function(err, data) {
+multicolorengine.getMetadata(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -976,7 +976,7 @@ multicolorengine.getMetadata(params, function(err, data) {
  * @param callback
  */
 var params = {};
-multicolorengine.getReturnMetadata(params, function(err, data) {
+multicolorengine.getReturnMetadata(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1003,7 +1003,7 @@ multicolorengine.getReturnMetadata(params, function(err, data) {
  * @param callback
  */
 var params = {};
-multicolorengine.getSearchMetadata(params, function(err, data) {
+multicolorengine.getSearchMetadata(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1041,7 +1041,7 @@ multicolorengine.getSearchMetadata(params, function(err, data) {
  * @param callback
  */
 var params = {};
-multicolorengine.list(params, function(err, data) {
+multicolorengine.list(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1078,7 +1078,7 @@ var params = {
   image: '/path/to/local/image.jpg',
   colors: ['#1abc9c']
 };
-multicolorengine.search(params, function(err, data) {
+multicolorengine.search(params, function callback(err, data) {
     // data = {
     //     "count": "2",
     //     "status": "ok",
@@ -1139,7 +1139,7 @@ params = {
         }
     }
 };
-multicolorengine.updateMetadata(params, function(err, data) {
+multicolorengine.updateMetadata(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1171,7 +1171,7 @@ var params = {
     url: 'https://aurltoanimage.com/image.jpg',
     filepath: 'path/to/store/image/on/server'
 };
-wineengine.add(params, function callback (err, data) {
+wineengine.add(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1193,7 +1193,7 @@ var params = {
     image: '/path/to/local/image.jpg',
     filepath: 'path/to/store/image/on/server'
 };
-wineengine.add(params, function callback (err, data) {
+wineengine.add(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1249,7 +1249,7 @@ wineengine.delete(params, function callback(err, data) {
  * @param callback
  */
 var params = {};
-wineengine.list(params, function(err, data) {
+wineengine.list(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "method": "list",
@@ -1275,7 +1275,7 @@ wineengine.list(params, function(err, data) {
 var params = {
     filepath: 'path/to/image/on/server'
 };
-wineengine.search(params, function(err, data) {
+wineengine.search(params, function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "method": "search",
@@ -1337,7 +1337,7 @@ wineengine.search(params, function(err, data) {
  * @param callback
  */
 
-wineengine.ping(function(err, data) {
+wineengine.ping(function callback(err, data) {
     // data = {
     //     "status": "ok",
     //     "error": [],
@@ -1360,8 +1360,9 @@ Add test servers to the /test/testConfig.js file.
 module.exports = {
     MatchEngine: {
         url: '<host>/rest/',
-        user: 'username'
-        pass: 'password'
+        user: 'username',
+        pass: 'password',
+        companyName:''
     },
     MobileEngine:{
         //...
