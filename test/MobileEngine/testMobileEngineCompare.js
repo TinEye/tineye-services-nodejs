@@ -1,9 +1,8 @@
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MobileEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
 
 var mobileengine = new MobileEngine(
   config.MobileEngine.user,
@@ -17,7 +16,6 @@ describe("MobileEngine Compare:", function() {
   this.timeout(5000);
 
   var melonCatUrl = "http://tineye.com/images/meloncat.jpg";
-  var melonCatFilePath = __dirname + "/../image2.jpg";
   var birdFilePath = __dirname + "/../image2.jpg";
 
   //post an image to the collection manually
@@ -27,17 +25,19 @@ describe("MobileEngine Compare:", function() {
     form.append("image", fs.createReadStream(birdFilePath));
     form.append("filepath", "mobileEngineCompareTest.jpg");
 
-    got
-      .post(config.MobileEngine.url + "add", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MobileEngine.url + "add", form, {
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
@@ -47,14 +47,16 @@ describe("MobileEngine Compare:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .delete(config.MobileEngine.url + "delete", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        json: true,
-        query: { filepath: "mobileEngineCompareTest.jpg" }
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        params: { filepath: "mobileEngineCompareTest.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));

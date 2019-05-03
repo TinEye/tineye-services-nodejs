@@ -1,9 +1,8 @@
 var config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MobileEngine } = require("../../../tineye-services");
-var mocha = require("mocha");
 
 var mobileengine = new MobileEngine(
   config.MobileEngine.user,
@@ -23,17 +22,19 @@ describe("MobileEngine Delete:", function() {
     form.append("image", fs.createReadStream(__dirname + "/../image.jpg"));
     form.append("filepath", "mobileEngineDeleteTest.jpg");
 
-    got
-      .post(config.MobileEngine.url + "add", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MobileEngine.url + "add", form, {
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
@@ -43,14 +44,16 @@ describe("MobileEngine Delete:", function() {
 
   //post an image to the collection for deletion
   after(function(done) {
-    got
+    axios
       .delete(config.MobileEngine.url + "delete", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        json: true,
-        query: { filepath: "mobileEngineDeleteTest.jpg" }
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        params: { filepath: "mobileEngineDeleteTest.jpg" }
       })
       .then(response => {
-        if (response.body.status === "warn") {
+        if (response.data.status === "warn") {
           done();
         } else {
           done(

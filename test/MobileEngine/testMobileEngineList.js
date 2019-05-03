@@ -1,5 +1,4 @@
-var mocha = require("mocha");
-const got = require("got");
+const axios = require("axios");
 const FormData = require("form-data");
 const { MobileEngine } = require("../../../tineye-services");
 const fs = require("fs");
@@ -23,31 +22,36 @@ describe("MobileEngine List:", function() {
     form.append("image", fs.createReadStream("./test/image.jpg"));
     form.append("filepath", "mobileEngineListTest.jpg");
 
-    got
-      .post(config.MobileEngine.url + "add", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MobileEngine.url + "add", form, {
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
+        console.log(error);
         done(error);
       });
   });
 
   //delete manually
   after(function(done) {
-    got
+    axios
       .delete(config.MobileEngine.url + "delete", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        json: true,
-        query: { filepath: "mobileEngineListTest.jpg" }
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        params: { filepath: "mobileEngineListTest.jpg" }
       })
       .then(response => {
         if (response.body.status === "ok") {

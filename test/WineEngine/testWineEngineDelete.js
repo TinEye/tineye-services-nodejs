@@ -1,9 +1,8 @@
 var config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { WineEngine } = require("../../../tineye-services");
-var mocha = require("mocha");
 
 var wineengine = new WineEngine(
   config.WineEngine.user,
@@ -23,16 +22,18 @@ describe("WineEngine Delete:", function() {
     form.append("image", fs.createReadStream(__dirname + "/../image.jpg"));
     form.append("filepath", "wineEngineDeleteTest.jpg");
 
-    got
-      .post(config.WineEngine.url + "add", {
-        auth: config.WineEngine.user + ":" + config.WineEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.WineEngine.url + "add", form, {
+        auth: {
+          username: config.WineEngine.user,
+          password: config.WineEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status !== "ok") {
+        if (response.data.status !== "ok") {
           done(
-            new Error("Error Adding Image: " + JSON.stringify(response.body))
+            new Error("Error Adding Image: " + JSON.stringify(response.data))
           );
         } else {
           done();
@@ -45,14 +46,16 @@ describe("WineEngine Delete:", function() {
 
   //post an image to the collection for deletion
   after(function(done) {
-    got
+    axios
       .delete(config.WineEngine.url + "delete", {
-        auth: config.WineEngine.user + ":" + config.WineEngine.pass,
-        json: true,
-        query: { filepath: "wineEngineDeleteTest.jpg" }
+        auth: {
+          username: config.WineEngine.user,
+          password: config.WineEngine.pass
+        },
+        params: { filepath: "wineEngineDeleteTest.jpg" }
       })
       .then(response => {
-        if (response.body.status === "warn") {
+        if (response.data.status === "warn") {
           done();
         } else {
           done(

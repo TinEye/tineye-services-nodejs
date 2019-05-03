@@ -1,9 +1,8 @@
 var config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MulticolorEngine } = require("../../../tineye-services");
-var mocha = require("mocha");
 
 var multicolorengine = new MulticolorEngine(
   config.MulticolorEngine.user,
@@ -23,17 +22,19 @@ describe("MulticolorEngine Count:", function() {
     form.append("image", fs.createReadStream(__dirname + "/../image.jpg"));
     form.append("filepath", "multicolorEngineCountTest.jpg");
 
-    got
-      .post(config.MulticolorEngine.url + "add", {
-        auth: config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MulticolorEngine.url + "add", form, {
+        auth: {
+          username: config.MulticolorEngine.user,
+          password: config.MulticolorEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
@@ -43,14 +44,16 @@ describe("MulticolorEngine Count:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .delete(config.MulticolorEngine.url + "delete", {
-        auth: config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-        json: true,
-        query: { filepath: "multicolorEngineCountTest.jpg" }
+        auth: {
+          username: config.MulticolorEngine.user,
+          password: config.MulticolorEngine.pass
+        },
+        params: { filepath: "multicolorEngineCountTest.jpg" }
       })
       .then(response => {
-        if (response.body.status !== "ok") {
+        if (response.data.status !== "ok") {
           done(new Error("After hook failed to delete added image"));
         } else {
           done();

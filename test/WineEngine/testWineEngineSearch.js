@@ -1,11 +1,8 @@
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { WineEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
-const libxmljs = require("libxmljs");
-var expect = require("chai").expect;
 
 var wineengine = new WineEngine(
   config.WineEngine.user,
@@ -28,16 +25,18 @@ describe("WineEngine Search:", function() {
     form.append("image", fs.createReadStream(birdFilePath));
     form.append("filepath", "wineEngineSearchTest1.jpg");
 
-    got
-      .post(config.WineEngine.url + "add", {
-        auth: config.WineEngine.user + ":" + config.WineEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.WineEngine.url + "add", form, {
+        auth: {
+          username: config.WineEngine.user,
+          password: config.WineEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status !== "ok") {
+        if (response.data.status !== "ok") {
           done(
-            new Error("Error Adding Image: " + JSON.stringify(response.body))
+            new Error("Error Adding Image: " + JSON.stringify(response.data))
           );
         } else {
           done();
@@ -50,14 +49,16 @@ describe("WineEngine Search:", function() {
 
   //make call to delete images after tests
   after(function(done) {
-    got
+    axios
       .delete(config.WineEngine.url + "delete", {
-        auth: config.WineEngine.user + ":" + config.WineEngine.pass,
-        json: true,
-        query: { filepath: "wineEngineSearchTest1.jpg" }
+        auth: {
+          username: config.WineEngine.user,
+          password: config.WineEngine.pass
+        },
+        params: { filepath: "wineEngineSearchTest1.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));

@@ -1,9 +1,6 @@
 const config = require("../testConfig.js");
-const FormData = require("form-data");
-const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MulticolorEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
 const libxmljs = require("libxmljs");
 
 var multicolorengine = new MulticolorEngine(
@@ -19,14 +16,16 @@ describe("MulticolorEngine Add:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .delete(config.MulticolorEngine.url + "delete", {
-        auth: config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-        json: true,
-        query: { filepath: "multicolorEngineEngineAdd.jpg" }
+        auth: {
+          username: config.MulticolorEngine.user,
+          password: config.MulticolorEngine.pass
+        },
+        params: { filepath: "multicolorEngineEngineAdd.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));

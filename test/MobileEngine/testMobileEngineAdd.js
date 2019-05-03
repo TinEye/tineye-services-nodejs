@@ -1,10 +1,7 @@
 const chai = require("chai");
 const config = require("../testConfig.js");
-const FormData = require("form-data");
-const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MobileEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
 const libxmljs = require("libxmljs");
 
 var mobileengine = new MobileEngine(
@@ -20,14 +17,16 @@ describe("MobileEngine Add:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .delete(config.MobileEngine.url + "delete", {
-        auth: config.MobileEngine.user + ":" + config.MobileEngine.pass,
-        json: true,
-        query: { filepath: "mobileEngineAdd.jpg" }
+        auth: {
+          username: config.MobileEngine.user,
+          password: config.MobileEngine.pass
+        },
+        params: { filepath: "mobileEngineAdd.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));
@@ -47,10 +46,12 @@ describe("MobileEngine Add:", function() {
         err,
         data
       ) {
-        if (err) {
-          done(err);
-        } else {
+        try {
+          chai.assert.isOk(data, "Error not returned");
+          chai.assert(data.status === "ok", "Error not returned");
           done();
+        } catch (err) {
+          done(err);
         }
       });
     });

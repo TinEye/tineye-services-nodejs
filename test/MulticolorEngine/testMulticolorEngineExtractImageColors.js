@@ -2,10 +2,8 @@ const async = require("async");
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MulticolorEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
-const libxmljs = require("libxmljs");
 
 var multicolorengine = new MulticolorEngine(
   config.MulticolorEngine.user,
@@ -54,19 +52,20 @@ describe("MulticolorEngine ExtractImageColors:", function() {
         form.append("image", fs.createReadStream(value.imagePath));
         form.append("filepath", value.filePath);
 
-        got
-          .post(config.MulticolorEngine.url + "add", {
-            auth:
-              config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-            body: form,
-            json: true
+        axios
+          .post(config.MulticolorEngine.url + "add", form, {
+            auth: {
+              username: config.MulticolorEngine.user,
+              password: config.MulticolorEngine.pass
+            },
+            headers: form.getHeaders()
           })
           .then(response => {
-            if (response.body.status === "ok") {
+            if (response.data.status === "ok") {
               callback();
             } else {
               callback(
-                new Error("Before hook failed to add image: " + response.body)
+                new Error("Before hook failed to add image: " + response.data)
               );
             }
           })
@@ -89,23 +88,20 @@ describe("MulticolorEngine ExtractImageColors:", function() {
     async.forEachOfSeries(
       images,
       function(value, key, callback) {
-        var form = new FormData();
-        form.append("image", fs.createReadStream(value.imagePath));
-        form.append("filepath", value.filePath);
-
-        got
+        axios
           .delete(config.MulticolorEngine.url + "delete", {
-            auth:
-              config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-            json: true,
-            query: { filepath: value.filePath }
+            auth: {
+              username: config.MulticolorEngine.user,
+              password: config.MulticolorEngine.pass
+            },
+            params: { filepath: value.filePath }
           })
           .then(response => {
-            if (response.body.status === "ok") {
+            if (response.data.status === "ok") {
               callback();
             } else {
               callback(
-                new Error("After hook failed to delete image: " + response.body)
+                new Error("After hook failed to delete image: " + response.data)
               );
             }
           })
@@ -176,14 +172,14 @@ describe("MulticolorEngine ExtractImageColors:", function() {
 
   // //serach with file
   describe("Extract colors by urls", function() {
-    it('Should return a call with status "ok" and 18 colors', function(done) {
+    it('Should return a call with status "ok" and 17 colors', function(done) {
       multicolorengine.extractImageColors({ urls: [url, url2] }, function(
         err,
         data
       ) {
         if (err) {
           done(new Error(JSON.stringify(err, null, 4)));
-        } else if (data.result.length === 18) {
+        } else if (data.result.length === 17) {
           done();
         } else {
           done(new Error("Result returned:" + JSON.stringify(data, null, 4)));

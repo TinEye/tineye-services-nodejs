@@ -2,10 +2,8 @@ const async = require("async");
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MulticolorEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
-const libxmljs = require("libxmljs");
 
 var multicolorengine = new MulticolorEngine(
   config.MulticolorEngine.user,
@@ -51,19 +49,20 @@ describe("MulticolorEngine Search and Return Metadata:", function() {
         form.append("image", fs.createReadStream(value.imagePath));
         form.append("filepath", value.filePath);
 
-        got
-          .post(config.MulticolorEngine.url + "add", {
-            auth:
-              config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-            body: form,
-            json: true
+        axios
+          .post(config.MulticolorEngine.url + "add", form, {
+            auth: {
+              username: config.MulticolorEngine.user,
+              password: config.MulticolorEngine.pass
+            },
+            headers: form.getHeaders()
           })
           .then(response => {
-            if (response.body.status === "ok") {
+            if (response.data.status === "ok") {
               callback();
             } else {
               callback(
-                new Error("Before hook failed to add image: " + response.body)
+                new Error("Before hook failed to add image: " + response.data)
               );
             }
           })
@@ -86,19 +85,20 @@ describe("MulticolorEngine Search and Return Metadata:", function() {
     async.forEachOfSeries(
       images,
       function(value, key, callback) {
-        got
+        axios
           .delete(config.MulticolorEngine.url + "delete", {
-            auth:
-              config.MulticolorEngine.user + ":" + config.MulticolorEngine.pass,
-            json: true,
-            query: { filepath: value.filePath }
+            auth: {
+              username: config.MulticolorEngine.user,
+              password: config.MulticolorEngine.pass
+            },
+            params: { filepath: value.filePath }
           })
           .then(response => {
-            if (response.body.status === "ok") {
+            if (response.data.status === "ok") {
               callback();
             } else {
               callback(
-                new Error("Before hook failed to add image: " + response.body)
+                new Error("Before hook failed to add image: " + response.data)
               );
             }
           })

@@ -1,8 +1,4 @@
-var mocha = require("mocha");
-const got = require("got");
-const FormData = require("form-data");
 const { MobileEngine } = require("../../../tineye-services");
-const fs = require("fs");
 var config = require("../testConfig.js");
 
 var mobileengine = new MobileEngine(

@@ -1,7 +1,7 @@
 const chai = require("chai");
 const config = require("../testConfig.js");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MatchEngine } = require("../../../tineye-services");
 const mocha = require("mocha");
 const libxmljs = require("libxmljs");
@@ -19,14 +19,16 @@ describe("MatchEngine Add:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .delete(config.MatchEngine.url + "delete", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        json: true,
-        query: { filepath: "matchEngineAdd.jpg" }
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        params: { filepath: "matchEngineAdd.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));
@@ -47,8 +49,12 @@ describe("MatchEngine Add:", function() {
         data
       ) {
         try {
-          chai.assert.isOk(data, "Data not returned");
-          chai.assert(data.status, "ok", "Status not ok");
+          chai.assert.isOk(data, "Data not returned: " + error);
+          chai.assert.equal(
+            data.status,
+            "ok",
+            "Status not 'ok': " + data.status
+          );
           done();
         } catch (err) {
           done(err);

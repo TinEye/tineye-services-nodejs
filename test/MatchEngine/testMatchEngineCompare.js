@@ -2,7 +2,7 @@ const chai = require("chai");
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MatchEngine } = require("../../../tineye-services");
 const mocha = require("mocha");
 
@@ -28,17 +28,20 @@ describe("MatchEngine Compare:", function() {
     form.append("image", fs.createReadStream(birdFilePath));
     form.append("filepath", "matchEngineCompareTest.jpg");
 
-    got
-      .post(config.MatchEngine.url + "add", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MatchEngine.url + "add", form, {
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        headers: form.getHeaders();
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
@@ -48,14 +51,16 @@ describe("MatchEngine Compare:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .delete(config.MatchEngine.url + "delete", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        json: true,
-        query: { filepath: "matchEngineCompareTest.jpg" }
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        params: { filepath: "matchEngineCompareTest.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));

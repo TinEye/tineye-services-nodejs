@@ -1,7 +1,7 @@
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MatchEngine } = require("../../../tineye-services");
 
 const matchengine = new MatchEngine(
@@ -25,17 +25,19 @@ describe("MatchEngine Search:", function() {
     form.append("image", fs.createReadStream(birdFilePath));
     form.append("filepath", "matchEngineSearchTest1.jpg");
 
-    got
-      .post(config.MatchEngine.url + "add", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MatchEngine.url + "add", form, {
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
@@ -45,14 +47,16 @@ describe("MatchEngine Search:", function() {
 
   //make call to delete images after tests
   after(function(done) {
-    got
+    axios
       .delete(config.MatchEngine.url + "delete", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        json: true,
-        query: { filepath: "matchEngineSearchTest1.jpg" }
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        params: { filepath: "matchEngineSearchTest1.jpg" }
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
           done(new Error("After hook failed to delete added image"));

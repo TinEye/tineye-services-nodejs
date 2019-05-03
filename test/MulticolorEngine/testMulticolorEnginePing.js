@@ -1,9 +1,5 @@
 var config = require("../testConfig.js");
-const FormData = require("form-data");
-const fs = require("fs");
-const got = require("got");
 const { MulticolorEngine } = require("../../../tineye-services");
-var mocha = require("mocha");
 
 var multicolorengine = new MulticolorEngine(
   config.MulticolorEngine.user,

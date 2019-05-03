@@ -1,9 +1,8 @@
 var config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { WineEngine } = require("../../../tineye-services");
-var mocha = require("mocha");
 
 var wineengine = new WineEngine(
   config.WineEngine.user,
@@ -23,16 +22,18 @@ describe("WineEngine Count:", function() {
     form.append("image", fs.createReadStream(__dirname + "/../image.jpg"));
     form.append("filepath", "wineEngineCountTest.jpg");
 
-    got
-      .post(config.WineEngine.url + "add", {
-        auth: config.WineEngine.user + ":" + config.WineEngine.pass,
-        json: true,
-        body: form
+    axios
+      .post(config.WineEngine.url + "add", form, {
+        auth: {
+          username: config.WineEngine.user,
+          password: config.WineEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status !== "ok") {
+        if (response.data.status !== "ok") {
           done(
-            new Error("Error Adding Image: " + JSON.stringify(response.body))
+            new Error("Error Adding Image: " + JSON.stringify(response.data))
           );
         } else {
           done();
@@ -45,16 +46,18 @@ describe("WineEngine Count:", function() {
 
   //make call to delete image after each add
   after(function(done) {
-    got
+    axios
       .get(config.WineEngine.url + "delete", {
-        auth: config.WineEngine.user + ":" + config.WineEngine.pass,
-        json: true,
-        query: { filepath: "wineEngineCountTest.jpg" }
+        auth: {
+          username: config.WineEngine.user,
+          password: config.WineEngine.pass
+        },
+        params: { filepath: "wineEngineCountTest.jpg" }
       })
       .then(response => {
-        if (response.body.status !== "ok") {
+        if (response.data.status !== "ok") {
           done(
-            new Error("Error Deleting Image: " + JSON.stringify(response.body))
+            new Error("Error Deleting Image: " + JSON.stringify(response.data))
           );
         } else {
           done();

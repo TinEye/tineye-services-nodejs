@@ -1,9 +1,8 @@
 const config = require("../testConfig.js");
 const FormData = require("form-data");
 const fs = require("fs");
-const got = require("got");
+const axios = require("axios");
 const { MatchEngine } = require("../../../tineye-services");
-const mocha = require("mocha");
 
 const matchengine = new MatchEngine(
   config.MatchEngine.user,
@@ -23,17 +22,19 @@ describe("MatchEngine Delete:", function() {
     form.append("image", fs.createReadStream(__dirname + "/../image.jpg"));
     form.append("filepath", "matchEngineDeleteTest.jpg");
 
-    got
-      .post(config.MatchEngine.url + "add", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        body: form,
-        json: true
+    axios
+      .post(config.MatchEngine.url + "add", form, {
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        headers: form.getHeaders()
       })
       .then(response => {
-        if (response.body.status === "ok") {
+        if (response.data.status === "ok") {
           done();
         } else {
-          done(new Error("Before hook failed to add image: " + response.body));
+          done(new Error("Before hook failed to add image: " + response.data));
         }
       })
       .catch(error => {
@@ -43,14 +44,16 @@ describe("MatchEngine Delete:", function() {
 
   //post an image to the collection for deletion
   after(function(done) {
-    got
+    axios
       .delete(config.MatchEngine.url + "delete", {
-        auth: config.MatchEngine.user + ":" + config.MatchEngine.pass,
-        json: true,
-        query: { filepath: "matchEngineDeleteTest.jpg" }
+        auth: {
+          username: config.MatchEngine.user,
+          password: config.MatchEngine.pass
+        },
+        params: { filepath: "matchEngineDeleteTest.jpg" }
       })
       .then(response => {
-        if (response.body.status === "warn") {
+        if (response.data.status === "warn") {
           done();
         } else {
           done(
