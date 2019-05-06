@@ -1,6 +1,6 @@
 const chai = require("chai");
 const config = require("../testConfig.js");
-const { MobileEngine } = require("../../../tineye-services");
+const { WineEngine } = require("../../../tineye-services");
 
 describe("MobileEngine URL/CompanyName Constructor:", function() {
   //Set timeout to 5s
@@ -8,14 +8,14 @@ describe("MobileEngine URL/CompanyName Constructor:", function() {
 
   describe("Create a Mobile Engine with URL", function() {
     it("Should return true when the server is pinged", function(done) {
-      var mobileengine = new MobileEngine(
-        config.MatchEngine.user,
-        config.MatchEngine.pass,
+      var wineengine = new WineEngine(
+        config.WineEngine.user,
+        config.WineEngine.pass,
         "",
-        config.MatchEngine.url
+        config.WineEngine.url
       );
 
-      mobileengine.ping(function(err, data) {
+      wineengine.ping(function(err, data) {
         try {
           chai.assert.isOk(data, "Data not returned");
           chai.assert(
@@ -32,13 +32,13 @@ describe("MobileEngine URL/CompanyName Constructor:", function() {
 
   describe("Create a Mobile Engine with Compnay Name", function() {
     it("Should return true when the server is pinged", function(done) {
-      var mobileengine2 = new MobileEngine(
-        config.MatchEngine.user,
-        config.MatchEngine.pass,
-        config.MatchEngine.companyName
+      var wineengine2 = new WineEngine(
+        config.WineEngine.user,
+        config.WineEngine.pass,
+        config.WineEngine.companyName
       );
 
-      mobileengine2.ping(function(err, data) {
+      wineengine2.ping(function(err, data) {
         try {
           chai.assert.isOk(data, "Data not returned");
           chai.assert(
