@@ -1,6 +1,6 @@
 {
   "name": "tineye-services",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "TinEye Services API node.js library for MatchEngine, MobileEngine, MulticolorEngine, and WineEngine",
   "keywords": [
     "Tineye",
@@ -9,7 +9,13 @@
     "MulticolorEngine",
     "WineEngine",
     "Image",
-    "search"
+    "search",
+    "vision",
+    "match",
+    "engine",
+    "wine",
+    "multicolor",
+    "api"
   ],
   "main": "index.js",
   "engines": {
@@ -26,7 +32,8 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
-    "form-data": "^2.3.3"
+    "form-data": "^2.3.3",
+    "package.json": "^2.0.1"
   },
   "devDependencies": {
     "async": "^2.6.2",
