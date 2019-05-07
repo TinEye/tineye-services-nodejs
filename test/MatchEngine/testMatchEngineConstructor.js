@@ -4,7 +4,7 @@ const { MatchEngine } = require("../../../tineye-services");
 const mocha = require("mocha");
 
 describe("MatchEngine URL/CompanyName Constructor:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(15000);
 
   describe("Create a Match Engine with URL", function() {

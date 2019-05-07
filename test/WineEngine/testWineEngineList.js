@@ -12,10 +12,10 @@ var wineengine = new WineEngine(
 );
 
 describe("WineEngine List", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(10000);
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     var form = new FormData();
 
@@ -44,7 +44,7 @@ describe("WineEngine List", function() {
       });
   });
 
-  //delete manually
+  // Delete manually
   after(function(done) {
     axios
       .delete(config.WineEngine.url + "delete", {

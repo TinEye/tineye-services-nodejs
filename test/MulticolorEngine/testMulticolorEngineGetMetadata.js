@@ -13,7 +13,7 @@ var multicolorengine = new MulticolorEngine(
 );
 
 describe("MulticolorEngine Search and Return Metadata:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(15000);
 
   var colorsPath = __dirname + "/../colors.png";
@@ -40,7 +40,7 @@ describe("MulticolorEngine Search and Return Metadata:", function() {
     }
   };
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     async.forEachOfSeries(
       images,
@@ -80,7 +80,7 @@ describe("MulticolorEngine Search and Return Metadata:", function() {
     );
   });
 
-  //make call to delete images after tests
+  // Make call to delete images after tests
   after(function(done) {
     async.forEachOfSeries(
       images,

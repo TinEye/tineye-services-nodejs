@@ -12,13 +12,13 @@ var mobileengine = new MobileEngine(
 );
 
 describe("MobileEngine Compare:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(5000);
 
   var melonCatUrl = "http://tineye.com/images/meloncat.jpg";
   var birdFilePath = __dirname + "/../image2.jpg";
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     var form = new FormData();
 
@@ -45,7 +45,7 @@ describe("MobileEngine Compare:", function() {
       });
   });
 
-  //make call to delete image after each add
+  // Make call to delete image after each add
   after(function(done) {
     axios
       .delete(config.MobileEngine.url + "delete", {

@@ -14,10 +14,10 @@ var matchengine = new MatchEngine(
 );
 
 describe("MatchEngine Add:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(15000);
 
-  //make call to delete image after each add
+  // Make call to delete image after each add
   after(function(done) {
     axios
       .delete(config.MatchEngine.url + "delete", {

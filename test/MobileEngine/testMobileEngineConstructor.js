@@ -3,7 +3,7 @@ const config = require("../testConfig.js");
 const { MobileEngine } = require("../../../tineye-services");
 
 describe("MobileEngine URL/CompanyName Constructor:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(15000);
 
   describe("Create a Mobile Engine with URL", function() {

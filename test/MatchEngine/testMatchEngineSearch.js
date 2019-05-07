@@ -12,13 +12,13 @@ const matchengine = new MatchEngine(
 );
 
 describe("MatchEngine Search:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(5000);
 
   var birdFilePath = __dirname + "/../image2.jpg";
   var melonCatFilePath = __dirname + "/../image3.jpg";
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     var form = new FormData();
 
@@ -45,7 +45,7 @@ describe("MatchEngine Search:", function() {
       });
   });
 
-  //make call to delete images after tests
+  // Make call to delete images after tests
   after(function(done) {
     axios
       .delete(config.MatchEngine.url + "delete", {

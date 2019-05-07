@@ -9,7 +9,7 @@ var wineengine = new WineEngine(
 );
 
 describe("WineEngine Ping:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(10000);
 
   describe("Check Server Ping", function() {

@@ -13,7 +13,7 @@ var multicolorengine = new MulticolorEngine(
 );
 
 describe("MulticolorEngine CountImageColors:", function() {
-  //Set timeout to 15s
+  // Set timeout to 15s
   this.timeout(15000);
 
   var colorsPath = __dirname + "/../colors.png";
@@ -43,7 +43,7 @@ describe("MulticolorEngine CountImageColors:", function() {
     }
   };
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     async.forEachOfSeries(
       images,
@@ -83,7 +83,7 @@ describe("MulticolorEngine CountImageColors:", function() {
     );
   });
 
-  //make call to delete images after tests
+  // Make call to delete images after tests
   after(function(done) {
     async.forEachOfSeries(
       images,
@@ -119,7 +119,7 @@ describe("MulticolorEngine CountImageColors:", function() {
     );
   });
 
-  // //serach with file
+  // Search with file
   describe("Count colors by image file", function() {
     it('Should return a call with status "ok" and 2 results', function(done) {
       var params = {
@@ -141,7 +141,7 @@ describe("MulticolorEngine CountImageColors:", function() {
     });
   });
 
-  // //serach with url
+  // Search with url
   describe("Count colors by image url", function() {
     it('Should return a call with status "ok" and 2 results', function(done) {
       var params = {
@@ -163,7 +163,7 @@ describe("MulticolorEngine CountImageColors:", function() {
     });
   });
 
-  // //serach with url
+  // Search with urls
   describe("Count colors by image urls", function() {
     it('Should return a call with status "ok" and 2 results', function(done) {
       var params = {

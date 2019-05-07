@@ -14,7 +14,7 @@ var multicolorengine = new MulticolorEngine(
 );
 
 describe("MulticolorEngine ExtractCollectionColors:", function() {
-  //Set timeout to 15s
+  // Set timeout to 15s
   this.timeout(15000);
 
   var colorsPath = __dirname + "/../colors.png";
@@ -41,7 +41,7 @@ describe("MulticolorEngine ExtractCollectionColors:", function() {
     }
   };
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     async.forEachOfSeries(
       images,
@@ -81,7 +81,7 @@ describe("MulticolorEngine ExtractCollectionColors:", function() {
     );
   });
 
-  //make call to delete images after tests
+  // Make call to delete images after tests
   after(function(done) {
     async.forEachOfSeries(
       images,

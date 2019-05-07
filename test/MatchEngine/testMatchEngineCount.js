@@ -12,10 +12,10 @@ const matchengine = new MatchEngine(
 );
 
 describe("MatchEngine Count:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(5000);
 
-  //post an image to the collection manually
+  // Post an image to the collection manually
   before(function(done) {
     var form = new FormData();
 
@@ -42,7 +42,7 @@ describe("MatchEngine Count:", function() {
       });
   });
 
-  //make call to delete image after each add
+  // Make call to delete image after each add
   after(function(done) {
     axios
       .delete(config.MatchEngine.url + "delete", {

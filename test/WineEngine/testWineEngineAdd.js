@@ -11,10 +11,10 @@ var wineengine = new WineEngine(
 );
 
 describe("WineEngine Add:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(10000);
 
-  //make call to delete image after each add
+  // Make call to delete image after each add
   after(function(done) {
     axios
       .delete(config.WineEngine.url + "delete", {

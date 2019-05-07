@@ -9,7 +9,7 @@ const matchengine = new MatchEngine(
 );
 
 describe("MatchEngine Ping:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(15000);
 
   describe("Check Server Ping", function() {

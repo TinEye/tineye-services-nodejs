@@ -12,10 +12,10 @@ var multicolorengine = new MulticolorEngine(
 );
 
 describe("MulticolorEngine Delete:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(10000);
 
-  //post an image to the collection for testing
+  // Post an image to the collection for testing
   before(function(done) {
     var form = new FormData();
 
@@ -42,7 +42,7 @@ describe("MulticolorEngine Delete:", function() {
       });
   });
 
-  //Delete files added to the collection
+  // Delete files added to the collection
   after(function(done) {
     axios
       .delete(config.MulticolorEngine.url + "delete", {

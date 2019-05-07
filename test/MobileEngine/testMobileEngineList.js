@@ -12,10 +12,10 @@ var mobileengine = new MobileEngine(
 );
 
 describe("MobileEngine List:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(5000);
 
-  //post an image to the collection
+  // Post an image to the collection
   before(function(done) {
     var form = new FormData();
 
@@ -43,7 +43,7 @@ describe("MobileEngine List:", function() {
       });
   });
 
-  //delete manually
+  // Delete manually
   after(function(done) {
     axios
       .delete(config.MobileEngine.url + "delete", {

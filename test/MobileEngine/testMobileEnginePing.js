@@ -9,7 +9,7 @@ var mobileengine = new MobileEngine(
 );
 
 describe("MobileEngine Ping:", function() {
-  //Set timeout to 5s
+  // Set timeout to 5s
   this.timeout(5000);
 
   describe("Check Server Ping", function() {
