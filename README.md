@@ -74,8 +74,7 @@ const { MatchEngine } = require('tineye-services');
 Now that you've required the library, you can use it to create an instance of the relevant API object.
 For example, if you're using MatchEngine and you want to add an image:
 ```node
-// URL is optional, if none is specified then default is https://matchengine.tineye.com/<company_name>/rest/
-var matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
+var matchengine = new MatchEngine('user_name', 'password', 'company_name');
 
 // Sample image URL
 var url = 'https://tineye.com/images/meloncat.jpg';
@@ -153,12 +152,12 @@ async.forEachOfSeries(images, function (value, key, callback) {
 
 ## MatchEngine
 To use MatchEngine, include `tineye-services` and then create a `MatchEngine` object using your
-own `user_name`, `password`, `company_name` and `url`:
+own `user_name`, `password` and `company_name`:
 ```node
 const { MatchEngine } = require('tineye-services');
 
-// URL is optional, if none is specified then default is https://matchengine.tineye.com/<company_name>/rest/
-matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
+// URL is optional, if none is specified then default is https://multicolorengine.tineye.com/<company_name>/rest/
+matchengine = new MatchEngine('user_name', 'password', 'company_name');
 ```
 ### Methods
 Please refer to the full [MatchEngine documentation](https://services.tineye.com/developers/matchengine/) for
@@ -374,12 +373,12 @@ matchengine.ping(function callback(err, data) {
 ```
 ## MobileEngine
 To use MobileEngine, include `tineye-services` and then create a `MobileEngine` object using your
-own `user_name`, `password`, `company_name` and `url`:
+own `user_name`, `password` and `company_name`:
 ```node
 const { MobileEngine } = require('tineye-services')
 
 // URL is optional, if none is specified then default is https://mobileengine.tineye.com/<company_name>/rest/
-mobileengine = new MobileEngine('user_name', 'password', 'company_name', 'url');
+mobileengine = new MobileEngine('user_name', 'password', 'company_name');
 ```
 ### Methods
 Please refer to the full [MobileEngine documentation](https://services.tineye.com/developers/mobileengine/)
@@ -595,12 +594,12 @@ mobileengine.ping(function callback(err, data) {
 ```
 ## MulticolorEngine
 To use MulticolorEngine, include `tineye-services` and then create a `MulticolorEngine` object using your
-own `user_name`, `password`, `company_name` and `url`:
+own `user_name`, `password` and `company_name`:
 ```node
 const { MulticolorEngine } = require('tineye-services');
 
 // URL is optional, if none is specified then default is https://multicolorengine.tineye.com/<company_name>/rest/
-multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name', 'url');
+multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name');
 ```
 ### Methods
 Please refer to the full [MulticolorEngine documentation](https://services.tineye.com/developers/multicolorengine/)
@@ -1186,12 +1185,12 @@ multicolorengine.updateMetadata(params, function callback(err, data) {
 ```
 ## WineEngine
 To use WineEngine, include `tineye-services` and then create a `WineEngine` object using your
-own `user_name`, `password`, `company_name` and `url`:
+own `user_name`, `password` and `company_name`:
 ```node
 const { WineEngine } = require('tineye-services');
 
 // URL is optional, if none is specified then default is https://wineengine.tineye.com/<company_name>/rest/
-wineengine = new WineEngine('user_name', 'password', 'company_name', 'url');
+wineengine = new WineEngine('user_name', 'password', 'company_name');
 ```
 ### Methods
 Please refer to the full [WineEngine documentation](https://services.tineye.com/developers/wineengine/) for more information.
