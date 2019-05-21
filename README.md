@@ -1,18 +1,22 @@
 # TinEye Services
-TinEye services is a module that is designed to work with TinEye products: MatchEngine, MobileEngine, MulticolorEngine and WineEngine. 
+**tineye-services** is the official Node.js library for [TinEye Services APIs](https://services.tineye.com/),
+ which includes [MatchEngine](https://services.tineye.com/MatchEngine),
+ [MobileEngine](https://services.tineye.com/MobileEngine), [MulticolorEngine](https://services.tineye.com/MulticolorEngine)
+ and [WineEngine](https://services.tineye.com/WineEngine). The Node library for the [TinEye API](https://services.tineye.com/TinEyeAPI)
+can be found [here](https://github.com/TinEye/tineye_api_node).
 
 Learn more at https://tineye.com
 
-Official API documentation available at https://services.tineye.com/docs
+Official API documentation is available at https://services.tineye.com/docs
 # Contents
 - [ Installation ](#installation)
-- [ Basic Usage ](#basic-usage)
+- [ Getting started ](#getting-started)
 - [ Services ](#services)
-    - [ Common Parameters ](#common-parameters)
-    - [ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)
+    - [ Common parameters ](#common-parameters)
+    - [ Adding, deleting or updating images ](#adding-deleting-and-updating-images)
     - [ MatchEngine ](#matchengine)
         - [ Add URL ](#add-url)
-        - [ Add Image File ](#add-image-file)
+        - [ Add image file ](#add-image-file)
         - [ Compare ](#compare)
         - [ Count ](#count)
         - [ Delete ](#delete)
@@ -21,7 +25,7 @@ Official API documentation available at https://services.tineye.com/docs
         - [ Ping ](#ping)
     - [ MobileEngine ](#mobileengine)
         - [ Add URL ](#add-url-1)
-        - [ Add Image File ](#add-image-file-1)
+        - [ Add image file ](#add-image-file-1)
         - [ Compare ](#compare-1)
         - [ Count ](#count-1)
         - [ Delete ](#delete-1)
@@ -30,24 +34,24 @@ Official API documentation available at https://services.tineye.com/docs
         - [ Ping ](#ping-1)
     - [ MulticolorEngine ](#multicolorengine)
         - [ Add URL ](#add-url-2)
-        - [ Add Image File ](#add-image-file-2)
+        - [ Add image file ](#add-image-file-2)
         - [ Count ](#count-2)
-        - [ Count Image Colors ](#count-image-colors)
-        - [ Count Collection Colors ](#count-collection-colors)
-        - [ Count Metadata](#count-metadata)
+        - [ Count image colors ](#count-image-colors)
+        - [ Count collection colors ](#count-collection-colors)
+        - [ Count metadata](#count-metadata)
         - [ Delete ](#delete-2)
-        - [ Extract Collection Colors ](#extract-collection-colors)
-        - [ Extract Image Colors ](#extract-image-colors)
-        - [ Get Metadata](#get-metadata)
-        - [ Get Return Metadata](#get-return-metadata)
-        - [ Get Search Metadata](#get-search-metadata)
+        - [ Extract collection colors ](#extract-collection-colors)
+        - [ Extract image colors ](#extract-image-colors)
+        - [ Get metadata](#get-metadata)
+        - [ Get return metadata](#get-return-metadata)
+        - [ Get search metadata](#get-search-metadata)
         - [ List ](#list-2)
         - [ Search ](#search-2)
         - [ Ping ](#ping-2)
-        - [ Update Metadata ](#update-metadata)
+        - [ Update metadata ](#update-metadata)
     - [ WineEngine ](#wineengine)
         - [ Add URL ](#add-url-3)
-        - [ Add Image File ](#add-image-file-3)
+        - [ Add image file ](#add-image-file-3)
         - [ Count ](#count-3)
         - [ Delete ](#delete-3)
         - [ List ](#list-3)
@@ -56,17 +60,24 @@ Official API documentation available at https://services.tineye.com/docs
 - [ Testing ](#testing)
 
 # Installation
+Install the latest version of the library using npm:
+
 ```shell
 npm install tineye-services
 ```
-# Basic Usage
+# Getting started
+After installing, `require` the library to start using it:
 ```node
 const { MatchEngine } = require('tineye-services');
+```
 
+Now that you've required the library, you can use it to create an instance of the relevant API object.
+For example, if you're using MatchEngine and you want to add an image:
+```node
 // URL is optional, if none is specified then default is https://matchengine.tineye.com/<company_name>/rest/
 var matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
 
-// Sample Image URL
+// Sample image URL
 var url = 'https://tineye.com/images/meloncat.jpg';
 
 // Add an image to your index
@@ -78,26 +89,33 @@ matchengine.add({url: url, filepath: 'image_name'}, function callback(err, data)
         console.log(err.message);
 });
 ```
+Be sure to populate the `user_name`, `password`, `company_name` and `url` parameters with the appropriate
+values for your API installation.
+
 # Services
-## Common Parameters
-All of the below services accept the following optional common parameters in addition to the listed parameters in the params object
+## Common parameters
+All TinEye Services accept these optional common parameters in addition to the parameters listed in the params object:
 ```javascript
 var params = {
     format: 'xml', // Return will be in xml format, default is json
     timeout: 100,  // The call will timeout after timeout seconds. Set to 0 for no timeout.
 };
 ```
-## Adding, Deleting, or Updating an Image
-The following APIs can perform one add, delete, or update operation at a time. For this reason it is important that images are **added or deleted one at a time**. One approach would to be use the [async](https://caolan.github.io/async/docs.html#eachOfSeries) module to ensure that images are submitted in series.
+## Adding, deleting and updating an image
+TinEye Services APIs can only perform one add, delete or update operation at a time.
+Attempting to do multiple add, delete or update operations simultaneously will cause your
+performance to degrade. To achieve the best possible performance, we recommend using the
+[async](https://caolan.github.io/async/docs.html#eachOfSeries) module to ensure that these
+operations are submitted in series.
 
-For example
+For example:
 ```node
-// Array of Images
+// Array of images
 var images = {
     image1: {
         imagePath: pathToImage1,
         filePath: 'Image1'
-    }, 
+    },
     image2: {
         imagePath: pathToImage2,
         filePath: 'Image2'
@@ -112,13 +130,13 @@ async.forEachOfSeries(images, function (value, key, callback) {
 
     multicolorengine.add({image:value.imagePath,filepath:value.filePath},  function (error, data) {
         console.log(error, data);
-        
+
         if(data) {
             results[key] = data;
             callback();
         }
         else {
-            results[key] = error;                
+            results[key] = error;
             callback(err);
         }
 
@@ -132,8 +150,10 @@ async.forEachOfSeries(images, function (value, key, callback) {
         console.log(results);
 });
 ```
+
 ## MatchEngine
-Once TinEye Services is installed you can include and configure MatchEngine.
+To use MatchEngine, include `tineye-services` and then create a `MatchEngine` object using your
+own `user_name`, `password`, `company_name` and `url`:
 ```node
 const { MatchEngine } = require('tineye-services');
 
@@ -141,9 +161,10 @@ const { MatchEngine } = require('tineye-services');
 matchengine = new MatchEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
-Below are methods available for MatchEngine, for more information on parameters and responses go to https://services.tineye.com/developers/matchengine/.
+Please refer to the full [MatchEngine documentation](https://services.tineye.com/developers/matchengine/) for
+more details.
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -164,8 +185,8 @@ matchengine.add(params, function callback (err, data) {
     // };
 });
 ```
-#### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+#### Add image file
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -187,7 +208,11 @@ matchengine.add(params, function callback (err, data) {
 });
 ```
 #### Compare
-When comparing images you must have at least one url, image or filepath for each image being compared.
+The compare operation requires that you submit two images.
+Each image can be submitted as a URL, image data or a filepath.
+The two images do not need to be submitted in the same method
+(for example, you can upload one image and use a filepath
+for the second).
 ```node
 /**
  * Compare two images in collection
@@ -231,7 +256,7 @@ matchengine.compare(params, function callback(err, data) {
 #### Count
 ```node
 /**
- * Counts Images in collection
+ * Counts images in collection
  * @param params - Common Parameters
  * @param callback
  */
@@ -247,7 +272,8 @@ matchengine.count(params, function callback(err, data) {
     // }
 });
 ```
-#### Delete 
+#### Delete
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Delete an image from the collection
@@ -269,7 +295,7 @@ matchengine.delete(params, function callback(err, data) {
 #### List
 ```node
 /**
- * List Images in collection
+ * List images in collection
  * @param params.offset - Optional
  * @param params.limit - Optional
  * @param callback
@@ -347,7 +373,8 @@ matchengine.ping(function callback(err, data) {
 });
 ```
 ## MobileEngine
-Once TinEye Services is installed you can include and configure MobileEngine.
+To use MobileEngine, include `tineye-services` and then create a `MobileEngine` object using your
+own `user_name`, `password`, `company_name` and `url`:
 ```node
 const { MobileEngine } = require('tineye-services')
 
@@ -355,9 +382,10 @@ const { MobileEngine } = require('tineye-services')
 mobileengine = new MobileEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
-Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/mobileengine/.
+Please refer to the full [MobileEngine documentation](https://services.tineye.com/developers/mobileengine/)
+for more details.
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -378,8 +406,8 @@ mobileengine.add(params, function callback (err, data) {
     // }
 });
 ```
-#### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+#### Add image file
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -401,7 +429,11 @@ mobileengine.add(params, function callback (err, data) {
 });
 ```
 #### Compare
-When comparing images you must have at least one URL, image or filepath for each image being compared.
+The compare operation requires that you submit two images.
+Each image can be submitted as a URL, image data or a filepath.
+The two images do not need to be submitted in the same method
+(for example, you can upload one image and use a filepath
+for the second).
 ```node
 /**
  * Compare two images in collection
@@ -460,7 +492,8 @@ mobileengine.count(params, function callback(err, data) {
     // }
 });
 ```
-#### Delete 
+#### Delete
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Delete an image from the collection
@@ -561,7 +594,8 @@ mobileengine.ping(function callback(err, data) {
 });
 ```
 ## MulticolorEngine
-Once TinEye Services is installed you can include and configure MulticolorEngine.
+To use MulticolorEngine, include `tineye-services` and then create a `MulticolorEngine` object using your
+own `user_name`, `password`, `company_name` and `url`:
 ```node
 const { MulticolorEngine } = require('tineye-services');
 
@@ -569,16 +603,17 @@ const { MulticolorEngine } = require('tineye-services');
 multicolorengine = new MulticolorEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
-Below are methods available for MobileEngine, for more information on parameters and responses go to https://services.tineye.com/developers/multicolorengine/.
+Please refer to the full [MulticolorEngine documentation](https://services.tineye.com/developers/multicolorengine/)
+for more information.
 
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
  * @param params.url - Required
- * @param params.filepath - Required 
- * @param params.ignore_background - Optional 
+ * @param params.filepath - Required
+ * @param params.ignore_background - Optional
  * @param params.ignore_interior_background - Optional
  * @param params.metadata - Optional
  * @param callback
@@ -596,14 +631,14 @@ multicolorengine.add(params, function callback(err, data) {
     // }
 });
 ```
-#### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+#### Add image file
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
  * @param params.image - Required (path to local image)
  * @param params.filepath - Optional
- * @param params.ignore_background - Optional 
+ * @param params.ignore_background - Optional
  * @param params.ignore_interior_background - Optional
  * @param params.metadata - Optional
  * @param callback
@@ -640,10 +675,10 @@ multicolorengine.count(params, function callback(err, data) {
     // }
 });
 ```
-#### Count Image Colors 
+#### Count image colors
 ```node
 /**
- * Count colors from an Image
+ * Count colors from an image
  *There are two ways to count image colors: images and urls
  * @param images.images[] - Required (array of image paths)
  * @param images.count_colors[] - Required
@@ -705,7 +740,7 @@ multicolorengine.countImageColors(params, function callback(err, data) {
     // }
 });
 ```
-#### Count Collection Colors 
+#### Count collection colors
 ```node
 /**
  * There are 4 ways to count collection colors: collection, metadata, colors and filepaths
@@ -765,7 +800,7 @@ multicolorengine.countCollectionColors(params, function callback(err, data) {
     // }
 });
 ```
-#### Count Metadata
+#### Count metadata
 ```node
 /**
  * There are 4 ways to count collection colors: collection, metadata, colors and filepaths. See official documentation for more information on metadata queries.
@@ -784,11 +819,11 @@ multicolorengine.countCollectionColors(params, function callback(err, data) {
 
 var params = {
     count_metadata = {
-        "_or_operator_": [ 
-            {  
+        "_or_operator_": [
+            {
                 "keywords":"dog"
             },
-            {  
+            {
                 "keywords":"cheetah"
             }
         ]
@@ -816,7 +851,8 @@ multicolorengine.countMetadata(params, function callback(err, data) {
     // }
 });
 ```
-#### Delete 
+#### Delete
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Delete an image from the collection
@@ -836,7 +872,7 @@ multicolorengine.delete(params, function callback(err, data) {
     // }
 })
 ```
-#### Extract Collection Colors 
+#### Extract collection colors
 ```node
 /**
  * There are 4 ways to extract collection colors: collection, metadata, colors and filepaths
@@ -890,7 +926,7 @@ multicolorengine.extractCollectionColors(params, function callback(err, data) {
     // }
 });
 ```
-#### Extract Image Colors 
+#### Extract image colors
 ```node
 /**
  * There are two ways to extract colors from an image: images and urls
@@ -946,7 +982,7 @@ multicolorengine.extractImageColors(params, function callback(err, data) {
     // }
 });
 ```
-#### Get Metadata
+#### Get metadata
 ```node
 /**
  * Get Metadata for collection images
@@ -968,7 +1004,7 @@ multicolorengine.getMetadata(params, function callback(err, data) {
     // }
 });
 ```
-#### Get Return Metadata
+#### Get return metadata
 ```node
 /**
  * Get Return Metadata for collection images
@@ -995,7 +1031,7 @@ multicolorengine.getReturnMetadata(params, function callback(err, data) {
     // }
 });
 ```
-#### Get Search Metadata
+#### Get search metadata
 ```node
 /**
  * Get Search Metadata for collection images
@@ -1120,7 +1156,7 @@ multicolorengine.ping(params, function(err, data) {
     // }
 });
 ```
-#### Update Metadata
+#### Update metadata
 ```node
 /**
  * Update Metadata for collection image
@@ -1149,7 +1185,8 @@ multicolorengine.updateMetadata(params, function callback(err, data) {
 });
 ```
 ## WineEngine
-Once TinEye Services is installed you can include and configure WineEngine.
+To use WineEngine, include `tineye-services` and then create a `WineEngine` object using your
+own `user_name`, `password`, `company_name` and `url`:
 ```node
 const { WineEngine } = require('tineye-services');
 
@@ -1157,9 +1194,9 @@ const { WineEngine } = require('tineye-services');
 wineengine = new WineEngine('user_name', 'password', 'company_name', 'url');
 ```
 ### Methods
-Below are methods available for WineEngine, for more information on parameters and responses go to https://services.tineye.com/developers/wineengine/.
+Please refer to the full [WineEngine documentation](https://services.tineye.com/developers/wineengine/) for more information.
 #### Add URL
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image))
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -1180,8 +1217,8 @@ wineengine.add(params, function callback(err, data) {
     // }
 });
 ```
-#### Add Image File
-Note. Only one image can be added at a time (see[ Adding, Deleting or Updating Images ](#adding-deleting-or-updating-an-image)).
+#### Add image file
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
 ```node
 /**
  * Add an image to an image collection
@@ -1221,7 +1258,9 @@ wineengine.count(params, function(err, data) {
     // }
 });
 ```
-#### Delete 
+#### Delete
+**Note**: Only one image operation can be performed at a time (see [ Adding, deleting or updating images ](#adding-deleting-or-updating-an-image)).
+
 ```node
 /**
  * Delete an image from the collection
