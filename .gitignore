@@ -42,3 +42,4 @@ jspm_packages
 .vscode
 
 test/testConfig.js
+test.js
