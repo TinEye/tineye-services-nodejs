@@ -1,3 +1,12 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+# DEPRECATED
+The [TinEye Services](https://services.tineye.com/) libraries will not be maintained in the future.
+The current recommended best practice is to use an HTTP
+library such as [Request](https://github.com/request/request).
+The [TinEye Developer Documentation](https://services.tineye.com/developers/) 
+includes interactive Node.js code examples for all API calls to help you get started.
+
 # TinEye Services
 **tineye-services** is the official Node.js library for [TinEye Services APIs](https://services.tineye.com/),
  which includes [MatchEngine](https://services.tineye.com/MatchEngine),
